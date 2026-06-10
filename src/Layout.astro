@@ -1,9 +1,13 @@
 ---
-import '@fontsource/geist-sans/index.css';
+import '@fontsource-variable/outfit/index.css';
+import '@fontsource-variable/unbounded/index.css';
+import '@fontsource/special-elite/index.css';
 import { ClientRouter } from 'astro:transitions';
 
 import '@/global.css';
 import '@/styles.css';
+import Footer from '@sections/Footer.astro';
+import Navbar from '@sections/Navbar.astro';
 
 interface Props {
     description: string;
@@ -22,7 +26,7 @@ const { description, title } = Astro.props;
         <title>{title}</title>
         <meta content={description} name="description" />
         <meta content="Kevin Huang" name="author" />
-        <meta content="#09090b" name="theme-color" />
+        <meta content="#0e0816" name="theme-color" />
         <link href={canonicalUrl} rel="canonical" />
         <link href="/apple-touch-icon.png" rel="apple-touch-icon" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
@@ -30,7 +34,7 @@ const { description, title } = Astro.props;
         <meta content={description} property="og:description" />
         <meta content={`${Astro.site}og.png`} property="og:image" />
         <meta content={canonicalUrl} property="og:url" />
-        <meta content="EmpowHER ATX" property="og:site_name" />
+        <meta content="EmpowHER Festival" property="og:site_name" />
         <meta content="website" property="og:type" />
         <meta content="summary_large_image" name="twitter:card" />
         <meta content={title} name="twitter:title" />
@@ -45,16 +49,24 @@ const { description, title } = Astro.props;
                     '@type': 'Person',
                     'name': 'Anna Madewell',
                 },
-                'name': 'EmpowHER ATX',
+                'name': 'EmpowHER Festival',
                 'url': Astro.site,
             })}
             type="application/ld+json"
         />
         <ClientRouter />
     </head>
-    <body class="flex flex-col min-h-screen font-sans bg-zinc-950 text-white">
+    <body class="flex flex-col overflow-x-clip min-h-screen font-sans text-body bg-ink text-paper">
+        <Navbar />
         <main class="flex flex-1 flex-col">
             <slot />
         </main>
+        <Footer />
     </body>
 </html>
+
+<script>
+    import { initMotion } from '@lib/motion';
+
+    document.addEventListener('astro:page-load', initMotion);
+</script>

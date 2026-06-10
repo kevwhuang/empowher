@@ -1,0 +1,246 @@
+---
+import { CONTACT } from '@lib/utils';
+
+const CARDS = [
+    { href: `mailto:${CONTACT.email}`, icon: '\u2709', title: 'Email', value: CONTACT.email },
+    { external: true, href: CONTACT.instagram, icon: '\u2726', title: 'Instagram', value: CONTACT.instagramHandle },
+    { href: CONTACT.phoneHref, icon: '\u260E', title: 'Phone', value: CONTACT.phone },
+    { external: true, href: CONTACT.website, icon: '\u2665', title: 'Website', value: CONTACT.websiteLabel },
+];
+---
+
+<section
+    class="section"
+    aria-labelledby="reach-title"
+>
+    <div class="container">
+        <h2
+            id="reach-title"
+            class="sr-only"
+        >
+            Ways to reach us
+        </h2>
+        <div class="contact-grid">
+            <div class="grid gap-4">
+                {CARDS.map((card, index) => (
+                    <a
+                        class="card contact-card"
+                        data-reveal
+                        href={card.href}
+                        rel={card.external ? 'noopener' : undefined}
+                        style={index ? `--reveal-i: ${index};` : undefined}
+                        target={card.external ? '_blank' : undefined}
+                    >
+                        <span
+                            class="contact-card__icon"
+                            aria-hidden="true"
+                        >
+                            {card.icon}
+                        </span>
+                        <div class="contact-card__body">
+                            <h3>{card.title}</h3>
+                            <p>{card.value}</p>
+                        </div>
+                    </a>
+                ))}
+            </div>
+            <div
+                class="card"
+                data-reveal
+                style="--reveal-i: 2;"
+            >
+                <h2 class="text-h3">Send a message</h2>
+                <form
+                    id="contact-form"
+                    class="contact-form grid gap-[1.1rem]"
+                    novalidate
+                >
+                    <div class="contact-form__row">
+                        <label class="field">
+                            <span>Name</span>
+                            <input autocomplete="name" name="name" required type="text" />
+                        </label>
+                        <label class="field">
+                            <span>Email</span>
+                            <input autocomplete="email" name="email" required type="email" />
+                        </label>
+                    </div>
+                    <label class="field">
+                        <span>I'm reaching out about</span>
+                        <select
+                            name="topic"
+                            required
+                        >
+                            <option
+                                disabled
+                                selected
+                                value=""
+                            >
+                                Choose a topic&hellip;
+                            </option>
+                            <option value="sponsorship">Sponsorship</option>
+                            <option value="vending">Vending</option>
+                            <option value="performing">Performing</option>
+                            <option value="volunteering">Volunteering</option>
+                            <option value="press">Press &amp; media</option>
+                            <option value="tickets">Tickets</option>
+                            <option value="other">Something else</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Message</span>
+                        <textarea name="message" required></textarea>
+                    </label>
+                    <button
+                        class="btn btn--lg btn--primary"
+                        type="submit"
+                    >
+                        Send it &#x2726;
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .contact-card {
+        align-items: center;
+        display: flex;
+        gap: 1.1rem;
+        text-decoration: none;
+    }
+
+    .contact-card__body h3 {
+        color: var(--color-muted);
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        margin-bottom: 0.15rem;
+        text-transform: uppercase;
+    }
+
+    .contact-card__body p {
+        color: var(--color-paper);
+        font-weight: 600;
+        word-break: break-word;
+    }
+
+    .contact-card__icon {
+        background: #a24dff29;
+        border-radius: 999px;
+        color: var(--color-purple);
+        display: grid;
+        flex-shrink: 0;
+        font-size: 1.2rem;
+        height: 3rem;
+        place-items: center;
+        width: 3rem;
+    }
+
+    .contact-grid {
+        align-items: start;
+        display: grid;
+        gap: clamp(2rem, 5vw, 4rem);
+        grid-template-columns: 1fr 1.3fr;
+    }
+
+    .field {
+        display: grid;
+        gap: 0.4rem;
+    }
+
+    .field > span {
+        color: var(--color-muted);
+        font-family: var(--font-ransom);
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+        background: var(--color-ink-2);
+        border: 1px solid #faf7ff59;
+        border-radius: var(--radius-card-sm);
+        color: var(--color-paper);
+        padding: 0.85rem 1rem;
+        transition: border-color 0.2s;
+        width: 100%;
+    }
+
+    .field input:focus-visible,
+    .field select:focus-visible,
+    .field textarea:focus-visible {
+        border-color: var(--color-purple);
+        box-shadow: 0 0 0 3px #a24dff40;
+        outline: none;
+    }
+
+    .field input:hover,
+    .field select:hover,
+    .field textarea:hover {
+        border-color: var(--color-paper-faint);
+    }
+
+    .field select {
+        cursor: pointer;
+    }
+
+    .field textarea {
+        min-height: 8rem;
+        resize: vertical;
+    }
+
+    .contact-form__row {
+        display: grid;
+        gap: 1.1rem;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    :global(.contact-form__success) {
+        background: #3dd9ff1f;
+        border: 1px solid #3dd9ff66;
+        border-radius: var(--radius-card-sm);
+        color: var(--color-cyan);
+        font-weight: 600;
+        padding: 1rem 1.3rem;
+    }
+
+    @media (max-width: 52rem) {
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 40rem) {
+        .contact-form__row {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<script>
+    function handleSubmit(event: SubmitEvent) {
+        event.preventDefault();
+
+        const form = event.currentTarget;
+
+        if (!(form instanceof HTMLFormElement) || !form.reportValidity()) return;
+
+        const success = document.createElement('p');
+
+        success.className = 'contact-form__success';
+        success.setAttribute('role', 'status');
+        success.textContent = 'Got it! We\'ll get back to you soon. \u{1F49C}';
+        form.replaceWith(success);
+    }
+
+    function initForm() {
+        const form = document.querySelector<HTMLFormElement>('#contact-form');
+
+        form?.addEventListener('submit', handleSubmit);
+    }
+
+    document.addEventListener('astro:page-load', initForm);
+</script>

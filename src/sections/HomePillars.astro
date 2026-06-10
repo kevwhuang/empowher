@@ -1,0 +1,55 @@
+---
+import SectionHead from '@components/SectionHead.astro';
+---
+
+<section
+    class="section section--tint"
+    aria-labelledby="what-title"
+>
+    <div class="container">
+        <SectionHead
+            eyebrow="The experience"
+            headingId="what-title"
+        >
+            What is Empow<span class="text-her">HER</span>?
+            <p slot="text">One day. Three stages. A festival built to empower, elevate, and expand impact.</p>
+        </SectionHead>
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] gap-[1.2rem]">
+            <article
+                class="card"
+                data-reveal
+            >
+                <span class="card__tag">Music</span>
+                <h3>A Storytelling Music Production</h3>
+                <p>Immersed in diverse realities of <em>what it means to be a woman</em> &mdash; popular DJs, live instrumentalists, choreographed flash mobs, LED + fire flow shows, comedians, ecstatic dance workshops, and spoken word poetry. Genres range from Pop to EDM.</p>
+            </article>
+            <article
+                class="card"
+                data-reveal
+                style="--reveal-i: 1;"
+            >
+                <span class="card__tag card__tag--pink">Community</span>
+                <h3>A Growing Movement</h3>
+                <p>In cross-collaboration with collectives like EDM Prosperity Network, Warrior Women, Amplify EDM, Baked Up, and The Dance Academy &mdash; building space for Austin's community of leading creative organizations.</p>
+            </article>
+            <article
+                class="card"
+                data-reveal
+                style="--reveal-i: 2;"
+            >
+                <span class="card__tag card__tag--cyan">Stories</span>
+                <h3>A Live Podcast Session</h3>
+                <p>To kickstart EmpowHER, inspiring panelists share their journeys on authenticity and resilience while being challenged with surrounding topics of ageism + sexism.</p>
+            </article>
+            <article
+                class="card"
+                data-reveal
+                style="--reveal-i: 3;"
+            >
+                <span class="card__tag card__tag--yellow">Platform</span>
+                <h3>A Platform for Authentic Awareness</h3>
+                <p>Inviting sponsors and vendors who align with the mission to empower creatives and amplify genuine self-expression.</p>
+            </article>
+        </div>
+    </div>
+</section>

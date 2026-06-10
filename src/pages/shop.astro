@@ -1,0 +1,43 @@
+---
+import CtaBanner from '@sections/CtaBanner.astro';
+import Layout from '@/Layout.astro';
+import PageHero from '@sections/PageHero.astro';
+import ShopGrid from '@sections/ShopGrid.astro';
+import { CONTACT } from '@lib/utils';
+---
+
+<Layout
+    description="Official EmpowHER Festival merch &mdash; wear the movement and rep empowering voices ahead of November 8 at Austin Garden."
+    title="Shop &mdash; EmpowHER Festival"
+>
+    <PageHero
+        eyebrow="Merch"
+        text="Official EmpowHER Festival merch."
+    >
+        Wear the <span class="text-holo">movement</span>
+    </PageHero>
+    <ShopGrid />
+    <CtaBanner
+        eyebrow="Questions?"
+        text="Questions about merch, sizing, or orders &mdash; reach out anytime."
+        tint
+    >
+        We're happy to help
+        <Fragment slot="actions">
+            <a
+                class="btn btn--lg btn--primary"
+                href="/contact"
+            >
+                Contact us
+            </a>
+            <a
+                class="btn btn--ghost btn--lg"
+                href={CONTACT.instagram}
+                rel="noopener"
+                target="_blank"
+            >
+                DM on Instagram
+            </a>
+        </Fragment>
+    </CtaBanner>
+</Layout>

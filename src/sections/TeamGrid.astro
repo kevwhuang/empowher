@@ -1,0 +1,75 @@
+---
+import SectionHead from '@components/SectionHead.astro';
+
+const REVEAL_CYCLE = 4;
+const ROLES = [
+    'Production',
+    'Stage Management',
+    'Talent & Booking',
+    'Sponsorships & Vendors',
+    'Marketing & Socials',
+    'Hospitality',
+    'Safety',
+    'Volunteers',
+];
+---
+
+<section
+    class="section"
+    aria-labelledby="team-title"
+>
+    <div class="container">
+        <SectionHead
+            eyebrow="Operational team"
+            headingId="team-title"
+        >
+            The hands and hearts behind it
+            <p slot="text">Meet the leads &mdash; with dozens more across stages, production, hospitality, and safety.</p>
+        </SectionHead>
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-[1.2rem]">
+            {ROLES.map((role, index) => (
+                <article
+                    class="card team-card"
+                    data-reveal
+                    style={index % REVEAL_CYCLE ? `--reveal-i: ${index % REVEAL_CYCLE};` : undefined}
+                >
+                    <div class="ph">
+                        <span>photo</span>
+                    </div>
+                    <div class="team-card__body">
+                        <h3>Name Placeholder</h3>
+                        <p>{role}</p>
+                    </div>
+                </article>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    .team-card {
+        overflow: clip;
+        padding: 0;
+        text-align: center;
+    }
+
+    .team-card .ph {
+        aspect-ratio: 1;
+        border: 0;
+        border-bottom: var(--border-soft);
+        border-radius: 0;
+    }
+
+    .team-card__body {
+        padding: 1.1rem 1rem 1.3rem;
+    }
+
+    .team-card__body h3 {
+        font-size: 0.98rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .team-card__body p {
+        font-size: 0.85rem;
+    }
+</style>

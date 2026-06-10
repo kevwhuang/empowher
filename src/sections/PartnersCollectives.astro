@@ -1,0 +1,53 @@
+---
+import SectionHead from '@components/SectionHead.astro';
+
+const COLLECTIVES = [
+    'EDM Prosperity Network',
+    'Warrior Women',
+    'Amplify EDM',
+    'Baked Up',
+    'The Dance Academy',
+];
+---
+
+<section
+    class="section"
+    aria-labelledby="collectives-title"
+>
+    <div class="container">
+        <SectionHead
+            eyebrow="A growing movement"
+            headingId="collectives-title"
+        >
+            In cahoots with Austin's collectives
+            <p slot="text">Madewell Productions builds space for Austin's community of leading creative organizations.</p>
+        </SectionHead>
+        <ul
+            class="flex flex-wrap gap-[0.8rem]"
+            data-reveal
+        >
+            {COLLECTIVES.map(name => (
+                <li class="collective">{name}</li>
+            ))}
+        </ul>
+    </div>
+</section>
+
+<style>
+    .collective {
+        background: var(--color-ink-2);
+        border: var(--border-soft);
+        border-radius: 999px;
+        font-family: var(--font-display);
+        font-size: 0.88rem;
+        font-weight: 500;
+        padding: 0.7em 1.4em;
+        transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+
+    .collective:hover {
+        border-color: var(--color-pink);
+        color: var(--color-pink);
+        transform: translateY(-0.2rem) rotate(-1.5deg);
+    }
+</style>

@@ -1,0 +1,68 @@
+---
+import SectionHead from '@components/SectionHead.astro';
+
+const STATS = [
+    { countTo: '10', label: 'Cash sponsorships + ticket revenue generated', prefix: '$', suffix: 'K+' },
+    { countTo: '40', label: 'Operational team members', suffix: '+' },
+    { countTo: '3', label: 'Stages, one immersive experience' },
+    { countTo: '10', label: 'Hours of nonstop programming' },
+];
+---
+
+<section
+    class="section section--tint"
+    aria-labelledby="stats-title"
+>
+    <div class="container">
+        <SectionHead
+            center
+            eyebrow="Receipts"
+            headingId="stats-title"
+        >
+            Built different. <span class="text-holo">Proven loud.</span>
+        </SectionHead>
+        <ul class="grid grid-cols-[repeat(auto-fit,minmax(13rem,1fr))] gap-4">
+            {STATS.map((stat, index) => (
+                <li
+                    class="stat"
+                    data-reveal
+                    style={index ? `--reveal-i: ${index};` : undefined}
+                >
+                    <div
+                        class="stat__num"
+                        data-count-to={stat.countTo}
+                        data-prefix={stat.prefix}
+                        data-suffix={stat.suffix}
+                    >
+                        {stat.prefix}0
+                    </div>
+                    <p class="stat__label">{stat.label}</p>
+                </li>
+            ))}
+        </ul>
+    </div>
+</section>
+
+<style>
+    .stat {
+        background: var(--color-ink-2);
+        border: var(--border-soft);
+        border-radius: var(--radius-card);
+        padding: clamp(1.6rem, 3vw, 2.4rem) 1.2rem;
+        text-align: center;
+    }
+
+    .stat__label {
+        color: var(--color-muted);
+        font-size: 0.95rem;
+        margin-top: 0.4rem;
+    }
+
+    .stat__num {
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 4.5vw, 3.2rem);
+        font-variant-numeric: tabular-nums;
+        font-weight: 900;
+        line-height: 1.1;
+    }
+</style>

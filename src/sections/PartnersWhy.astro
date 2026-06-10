@@ -1,0 +1,60 @@
+---
+import SectionHead from '@components/SectionHead.astro';
+
+interface Pillar {
+    description: string;
+    tag: string;
+    tagModifier?: string;
+    title: string;
+}
+
+const PILLARS: Pillar[] = [
+    {
+        description:
+            'A full-day audience of creatives, organizers, and music lovers across three distinct stages \u2014 from open-air headliners to intimate podcast sessions.',
+        tag: 'Reach',
+        title: 'An engaged, values-driven crowd',
+    },
+    {
+        description:
+            'EmpowHER 2025 generated $10,000+ in cash sponsorships and ticket revenue, executed by a 40+ person operational team.',
+        tag: 'Proof',
+        tagModifier: 'card__tag--pink',
+        title: 'A track record that converts',
+    },
+    {
+        description:
+            'We invite sponsors and vendors who align with the mission to empower creatives and amplify genuine self-expression.',
+        tag: 'Alignment',
+        tagModifier: 'card__tag--cyan',
+        title: 'A mission worth attaching to',
+    },
+];
+---
+
+<section
+    class="section section--tint"
+    aria-labelledby="why-title"
+>
+    <div class="container">
+        <SectionHead
+            eyebrow="Why EmpowHER"
+            headingId="why-title"
+        >
+            Your brand, in the moment that matters
+        </SectionHead>
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] gap-[1.2rem]">
+            {PILLARS.map((pillar, index) => (
+                <article
+                    class="card"
+                    data-reveal
+                    style={index ? `--reveal-i: ${index};` : undefined}
+                >
+                    <span class:list={['card__tag', pillar.tagModifier]}>{pillar.tag}</span>
+                    <h3>{pillar.title}</h3>
+                    <p>{pillar.description}</p>
+                </article>
+            ))}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,41 @@
+---
+const ASPECTS = [
+    'aspect-[3/4]', 'aspect-square', 'aspect-[4/3]', 'aspect-video', 'aspect-square',
+    'aspect-[3/4]', 'aspect-[4/3]', 'aspect-square', 'aspect-[3/4]', 'aspect-[4/3]',
+    'aspect-square', 'aspect-video', 'aspect-square', 'aspect-[3/4]', 'aspect-[4/3]',
+];
+---
+
+<section
+    class="section"
+    aria-labelledby="masonry-title"
+>
+    <div class="container">
+        <h2
+            id="masonry-title"
+            class="sr-only"
+        >
+            Photo gallery
+        </h2>
+        <div
+            class="masonry"
+            data-reveal
+        >
+            {ASPECTS.map(aspect => (
+                <div class:list={['ph', aspect]}><span>photo</span></div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    .masonry {
+        column-gap: 1.1rem;
+        columns: 3 16rem;
+    }
+
+    .masonry .ph {
+        break-inside: avoid;
+        margin-bottom: 1.1rem;
+    }
+</style>

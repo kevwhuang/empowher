@@ -1,0 +1,156 @@
+---
+import SectionHead from '@components/SectionHead.astro';
+
+const EVENT_DATE = '2026-11-08T12:00:00-06:00';
+
+const UNITS = [
+    { label: 'Days', unit: 'days' },
+    { label: 'Hours', unit: 'hours' },
+    { label: 'Minutes', unit: 'minutes' },
+    { label: 'Seconds', unit: 'seconds' },
+];
+---
+
+<section
+    id="countdown"
+    class="section text-center"
+    aria-labelledby="countdown-title"
+>
+    <div class="container">
+        <SectionHead
+            center
+            eyebrow="The clock is ticking"
+            headingId="countdown-title"
+        >
+            EmpowHER goes live in
+        </SectionHead>
+        <div
+            class="countdown"
+            aria-live="off"
+            data-countdown={EVENT_DATE}
+            data-reveal
+            role="timer"
+            style="--reveal-i: 1;"
+        >
+            {UNITS.map(({ label, unit }) => (
+                <div class="countdown__unit">
+                    <span
+                        class="countdown__num"
+                        data-unit={unit}
+                    >
+                        --
+                    </span>
+                    <span class="countdown__label">{label}</span>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    .countdown {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(0.7rem, 2.5vw, 1.6rem);
+        justify-content: center;
+    }
+
+    .countdown__label {
+        color: var(--color-muted);
+        font-family: var(--font-ransom);
+        font-size: 0.85rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+    }
+
+    .countdown__num {
+        background: var(--color-ink-2);
+        border: var(--border-soft);
+        border-radius: var(--radius-card-sm);
+        box-shadow: var(--shadow-pop-purple);
+        font-family: var(--font-display);
+        font-size: clamp(2.2rem, 7vw, 4.5rem);
+        font-variant-numeric: tabular-nums;
+        font-weight: 900;
+        line-height: 1;
+        min-width: 2ch;
+        padding: 0.45em 0.6em;
+    }
+
+    .countdown__num.is-tick {
+        animation: countdown__tick 0.45s var(--ease-pop);
+    }
+
+    .countdown__unit {
+        display: grid;
+        gap: 0.4rem;
+        justify-items: center;
+    }
+
+    @keyframes countdown__tick {
+        0% {
+            opacity: 0.2;
+            transform: translateY(-0.35em);
+        }
+
+        100% {
+            opacity: 1;
+            transform: none;
+        }
+    }
+</style>
+
+<script>
+    const MS_PER_SECOND = 1_000;
+    const PAD_WIDTH = 2;
+    const SECONDS_PER_DAY = 86_400;
+    const SECONDS_PER_HOUR = 3_600;
+    const SECONDS_PER_MINUTE = 60;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let timer: ReturnType<typeof setInterval> | undefined;
+
+    function initCountdown() {
+        clearInterval(timer);
+
+        const root = document.querySelector<HTMLElement>('[data-countdown]');
+
+        if (!root) return;
+
+        const days = root.querySelector<HTMLElement>('[data-unit="days"]');
+        const hours = root.querySelector<HTMLElement>('[data-unit="hours"]');
+        const minutes = root.querySelector<HTMLElement>('[data-unit="minutes"]');
+        const seconds = root.querySelector<HTMLElement>('[data-unit="seconds"]');
+        const target = new Date(root.dataset.countdown ?? '').getTime();
+
+        function update() {
+            const remaining = Math.max(0, target - Date.now());
+            const total = Math.floor(remaining / MS_PER_SECOND);
+
+            setValue(days, Math.floor(total / SECONDS_PER_DAY));
+            setValue(hours, Math.floor((total % SECONDS_PER_DAY) / SECONDS_PER_HOUR));
+            setValue(minutes, Math.floor((total % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE));
+            setValue(seconds, total % SECONDS_PER_MINUTE);
+        }
+
+        update();
+        timer = setInterval(update, MS_PER_SECOND);
+    }
+
+    function setValue(element: HTMLElement | null, value: number) {
+        const text = String(value).padStart(PAD_WIDTH, '0');
+
+        if (!element || element.textContent === text) return;
+
+        element.textContent = text;
+
+        if (element.dataset.unit === 'seconds' || prefersReducedMotion) return;
+
+        element.classList.remove('is-tick');
+        void element.offsetWidth;
+        element.classList.add('is-tick');
+    }
+
+    document.addEventListener('astro:page-load', initCountdown);
+</script>

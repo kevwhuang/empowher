@@ -1,0 +1,89 @@
+---
+interface Props {
+    eyebrow: string;
+    text?: string;
+}
+
+const { eyebrow, text } = Astro.props;
+---
+
+<section
+    class="page-hero"
+    aria-labelledby="page-title"
+>
+    <div class="container">
+        <p
+            class="eyebrow"
+            data-reveal
+        >
+            {eyebrow}
+        </p>
+        <h1
+            id="page-title"
+            data-reveal
+            style="--reveal-i: 1;"
+        >
+            <slot />
+        </h1>
+        {text && (
+            <p
+                class="page-hero__text"
+                data-reveal
+                style="--reveal-i: 2;"
+            >
+                {text}
+            </p>
+        )}
+        {Astro.slots.has('actions') && (
+            <div
+                class="page-hero__actions"
+                data-reveal
+            >
+                <slot name="actions" />
+            </div>
+        )}
+    </div>
+</section>
+
+<style>
+    .page-hero {
+        overflow: clip;
+        padding: clamp(4rem, 8.125vw, 6.5rem) 0 clamp(2.5rem, 5vw, 4rem);
+        position: relative;
+    }
+
+    .page-hero::before {
+        background:
+            radial-gradient(40% 55% at 18% 30%, #a24dff38, transparent 70%),
+            radial-gradient(35% 50% at 82% 20%, #ff3dae21, transparent 70%),
+            radial-gradient(30% 45% at 55% 80%, #3dd9ff1a, transparent 70%);
+        content: '';
+        height: 130%;
+        inset: -30% -10% auto;
+        pointer-events: none;
+        position: absolute;
+    }
+
+    .page-hero > .container {
+        position: relative;
+    }
+
+    .page-hero h1 {
+        font-size: var(--text-hero);
+        font-weight: 900;
+        max-width: 16ch;
+    }
+
+    .page-hero__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2.4rem;
+    }
+
+    .page-hero__text {
+        color: var(--color-muted);
+        font-size: 1.15em;
+        max-width: 52ch;
+    }
+</style>

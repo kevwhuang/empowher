@@ -1,0 +1,80 @@
+---
+interface Props {
+    items: string[];
+    loud?: boolean;
+}
+
+const TRACKS = [0, 1];
+
+const { items, loud = false } = Astro.props;
+---
+
+<div
+    class:list={['marquee', { 'marquee--loud': loud }]}
+    aria-hidden="true"
+>
+    {TRACKS.map(() => (
+        <div class="marquee__track">
+            {items.map(item => (
+                <>
+                    <span>{item}</span>
+                    <span class="marquee__spark">&#x2726;</span>
+                </>
+            ))}
+        </div>
+    ))}
+</div>
+
+<style>
+    .marquee {
+        background: var(--color-ink-2);
+        border-block: var(--border-soft);
+        display: flex;
+        overflow: hidden;
+        padding-block: 0.9rem;
+    }
+
+    .marquee--loud {
+        background: var(--color-purple);
+        border-block: 2px solid var(--color-ink);
+    }
+
+    .marquee--loud .marquee__spark {
+        color: var(--color-paper);
+    }
+
+    .marquee--loud .marquee__track {
+        color: var(--color-ink);
+    }
+
+    .marquee__spark {
+        color: var(--color-pink);
+    }
+
+    .marquee__track {
+        align-items: center;
+        animation: marquee__scroll 28s linear infinite;
+        display: flex;
+        flex-shrink: 0;
+        font-family: var(--font-display);
+        font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+        font-weight: 700;
+        gap: 2.5rem;
+        letter-spacing: 0.06em;
+        padding-right: 2.5rem;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .marquee__track {
+            animation: none;
+        }
+    }
+
+    @keyframes marquee__scroll {
+        to {
+            transform: translateX(-100%);
+        }
+    }
+</style>

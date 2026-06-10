@@ -1,22 +1,86 @@
 @import 'tailwindcss';
 
 @theme {
-    --color-pink-80: #ec4899cc;
-    --font-sans: 'Geist', system-ui, sans-serif;
+    --border-soft: 1px solid #faf7ff24;
+    --color-cyan: #3dd9ff;
+    --color-ink: #0e0816;
+    --color-ink-2: #171024;
+    --color-ink-3: #221836;
+    --color-muted: #b9aed1;
+    --color-paper: #faf7ff;
+    --color-paper-faint: #faf7ff66;
+    --color-pink: #ff3dae;
+    --color-purple: #a24dff;
+    --color-purple-bright: #b271ff;
+    --color-purple-glow: #a24dff8c;
+    --color-yellow: #ffd23d;
+    --ease-pop: cubic-bezier(0.22, 1, 0.36, 1);
+    --font-display: 'Unbounded Variable', system-ui, sans-serif;
+    --font-ransom: 'Special Elite', 'Courier New', monospace;
+    --font-sans: 'Outfit Variable', system-ui, sans-serif;
+    --gradient-holo: linear-gradient(115deg, var(--color-cyan), var(--color-purple), var(--color-pink), var(--color-yellow));
+    --gutter: clamp(1.25rem, 4vw, 2.5rem);
+    --radius-card: 1.25rem;
+    --radius-card-sm: 0.65rem;
+    --shadow-glow-purple: 0 0 2.5rem #a24dff59;
+    --shadow-pop: 0.4rem 0.4rem 0 #000000d9;
+    --shadow-pop-purple: 0.4rem 0.4rem 0 #7a1fe0;
+    --spacing-header: 4.75rem;
+    --text-body: clamp(1rem, 1.41vw, 1.125rem);
+    --text-body--line-height: 1.6;
+    --text-h2: clamp(1.7rem, 3.625vw, 2.9rem);
+    --text-h3: clamp(1.15rem, 2vw, 1.5rem);
+    --text-hero: clamp(2.1rem, 5.75vw, 4.6rem);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: underline;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.12;
+    margin-bottom: 0.6em;
+    text-wrap: balance;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+p {
+    margin-bottom: 1em;
+    text-wrap: pretty;
 }
 
 :focus {
     outline: none;
 }
 
-:focus-visible:not(input) {
+:focus-visible {
     border-radius: 2px;
-    outline: 2px solid var(--color-pink-80);
-    outline-offset: 2px;
+    outline: 3px solid var(--color-cyan);
+    outline-offset: 3px;
 }
 
-::placeholder {
-    user-select: none;
+::selection {
+    background: var(--color-purple);
+    color: var(--color-ink);
+}
+
+[id] {
+    scroll-margin-top: calc(var(--spacing-header) + 1rem);
 }
 
 @media (prefers-reduced-motion: reduce) {

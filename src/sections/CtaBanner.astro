@@ -1,0 +1,82 @@
+---
+interface Props {
+    eyebrow: string;
+    text?: string;
+    tint?: boolean;
+}
+
+const { eyebrow, text, tint = false } = Astro.props;
+---
+
+<section
+    class:list={['section', { 'section--tint': tint }]}
+    aria-labelledby="cta-title"
+>
+    <div class="container">
+        <div
+            class="cta-banner"
+            data-reveal
+        >
+            <p class="eyebrow">{eyebrow}</p>
+            <h2 id="cta-title">
+                <slot />
+            </h2>
+            {text && <p>{text}</p>}
+            <div class="cta-banner__actions">
+                <slot name="actions" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .cta-banner {
+        background: var(--color-ink-2);
+        border: var(--border-soft);
+        border-radius: calc(var(--radius-card) * 1.4);
+        overflow: clip;
+        padding: clamp(3.5rem, 8vw, 6rem) var(--gutter);
+        position: relative;
+        text-align: center;
+    }
+
+    .cta-banner::before {
+        animation: cta-banner__rotate 14s linear infinite;
+        background: var(--gradient-holo);
+        content: '';
+        filter: blur(60px);
+        inset: -40%;
+        opacity: 0.16;
+        position: absolute;
+    }
+
+    .cta-banner > * {
+        position: relative;
+    }
+
+    .cta-banner h2 {
+        font-size: var(--text-h2);
+        margin-inline: auto;
+        max-width: 22ch;
+    }
+
+    .cta-banner p {
+        color: var(--color-muted);
+        margin-inline: auto;
+        max-width: 46ch;
+    }
+
+    .cta-banner__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    @keyframes cta-banner__rotate {
+        to {
+            transform: rotate(1turn);
+        }
+    }
+</style>

@@ -1,0 +1,20 @@
+---
+interface Props {
+    center?: boolean;
+    eyebrow: string;
+    headingId: string;
+}
+
+const { center = false, eyebrow, headingId } = Astro.props;
+---
+
+<div
+    class:list={['section-head', { 'section-head--center': center }]}
+    data-reveal
+>
+    <p class="eyebrow">{eyebrow}</p>
+    <h2 id={headingId}>
+        <slot />
+    </h2>
+    <slot name="text" />
+</div>

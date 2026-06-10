@@ -1,0 +1,19 @@
+---
+import LogoWall from '@components/LogoWall.astro';
+import SectionHead from '@components/SectionHead.astro';
+---
+
+<section
+    class="section section--tint"
+    aria-labelledby="wall-title"
+>
+    <div class="container">
+        <SectionHead
+            eyebrow="2026 brand partnerships"
+            headingId="wall-title"
+        >
+            The partners behind the magic
+        </SectionHead>
+        <LogoWall placeholders={[]} sponsors />
+    </div>
+</section>

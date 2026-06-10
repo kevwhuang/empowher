@@ -1,0 +1,138 @@
+---
+import SectionHead from '@components/SectionHead.astro';
+import { CONTACT } from '@lib/utils';
+---
+
+<section
+    class="section"
+    aria-labelledby="faq-title"
+>
+    <div class="container">
+        <SectionHead
+            eyebrow="Good to know"
+            headingId="faq-title"
+        >
+            Frequently asked questions
+        </SectionHead>
+        <div
+            class="faq"
+            data-reveal
+        >
+            <details>
+                <summary>What are the hours?</summary>
+                <div>
+                    <p>Doors at 12PM, music until 10PM on November 8. Come for the live podcast kickoff, stay for the headliners.</p>
+                </div>
+            </details>
+            <details>
+                <summary>Where do I get tickets?</summary>
+                <div>
+                    <p>Ticketing details are coming soon. Reach out via the <a href="/contact">contact page</a> or DM {CONTACT.instagramHandle} and we'll let you know the moment they're live.</p>
+                </div>
+            </details>
+            <details>
+                <summary>Is the festival 18+ or all ages?</summary>
+                <div>
+                    <p>Age policy will be confirmed with ticketing details.</p>
+                </div>
+            </details>
+            <details>
+                <summary>Is the venue accessible?</summary>
+                <div>
+                    <p>We're committed to an accessible festival &mdash; ground-level entry at the gardens, and our team can assist with rooftop access. Email <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> ahead of time and we'll make it work.</p>
+                </div>
+            </details>
+            <details>
+                <summary>What should I bring?</summary>
+                <div>
+                    <p>Comfortable shoes, sun protection for the open-air stages, a layer for the evening, and your most authentic self. Outside food and drink aren't permitted &mdash; food trucks and bars are on site.</p>
+                </div>
+            </details>
+            <details>
+                <summary>Can I perform, vend, or volunteer?</summary>
+                <div>
+                    <p>Yes! We book performers, vendors, and volunteers every year. Head to the <a href="/contact">contact page</a> and tell us what you do.</p>
+                </div>
+            </details>
+            <details>
+                <summary>What happens if it rains?</summary>
+                <div>
+                    <p>EmpowHER is rain or shine &mdash; The Studio is covered, and programming shifts indoors if the weather turns. Updates will be posted to {CONTACT.instagramHandle}.</p>
+                </div>
+            </details>
+        </div>
+    </div>
+</section>
+
+<style>
+    .faq {
+        display: grid;
+        gap: 0.8rem;
+        max-width: 50rem;
+    }
+
+    .faq a {
+        transition: color 0.15s;
+    }
+
+    .faq a:hover {
+        color: var(--color-purple-bright);
+    }
+
+    .faq details {
+        background: var(--color-ink-2);
+        border: var(--border-soft);
+        border-radius: var(--radius-card-sm);
+        overflow: clip;
+        transition: border-color 0.2s;
+    }
+
+    .faq details:hover {
+        border-color: #a24dff59;
+    }
+
+    .faq details[open] {
+        border-color: var(--color-purple-glow);
+    }
+
+    .faq details > div {
+        color: var(--color-muted);
+        padding: 0 1.4rem 1.3rem;
+    }
+
+    .faq details > div p:last-child {
+        margin-bottom: 0;
+    }
+
+    .faq summary {
+        align-items: center;
+        cursor: pointer;
+        display: flex;
+        font-family: var(--font-display);
+        font-size: 0.95rem;
+        font-weight: 500;
+        gap: 1rem;
+        justify-content: space-between;
+        list-style: none;
+        padding: 1.1rem 1.4rem;
+    }
+
+    .faq summary::after {
+        color: var(--color-purple);
+        content: '+';
+        content: '+' / '';
+        flex-shrink: 0;
+        font-family: var(--font-sans);
+        font-size: 1.4rem;
+        font-weight: 600;
+        transition: rotate 0.25s;
+    }
+
+    .faq details[open] summary::after {
+        rotate: 45deg;
+    }
+
+    .faq summary::-webkit-details-marker {
+        display: none;
+    }
+</style>
