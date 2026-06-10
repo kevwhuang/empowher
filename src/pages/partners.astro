@@ -1,0 +1,57 @@
+---
+import CtaBanner from '@sections/CtaBanner.astro';
+import Layout from '@/Layout.astro';
+import PageHero from '@sections/PageHero.astro';
+import PartnersCollectives from '@sections/PartnersCollectives.astro';
+import PartnersTiers from '@sections/PartnersTiers.astro';
+import PartnersWall from '@sections/PartnersWall.astro';
+import PartnersWhy from '@sections/PartnersWhy.astro';
+import PressWall from '@sections/PressWall.astro';
+import { PITCH_DECK_PATH } from '@lib/utils';
+---
+
+<Layout
+    description="Put your brand at the heart of EmpowHER Festival &mdash; sponsorship tiers, brand activations, and a proven 2025 track record of $10,000+ raised with a 40+ person team."
+    title="Partners & Sponsors &mdash; EmpowHER Festival"
+>
+    <PageHero
+        eyebrow="Brand partnerships"
+        text="EmpowHER is a sponsorship opportunity to reach Austin's most engaged creative community &mdash; and to stand for something while doing it."
+    >
+        Empower. Elevate. <span class="text-holo">Expand impact.</span>
+        <Fragment slot="actions">
+            <a
+                class="btn btn--primary"
+                href="/contact"
+            >
+                Start a partnership
+            </a>
+            <a
+                class="btn btn--ghost"
+                download
+                href={PITCH_DECK_PATH}
+            >
+                Download pitch deck (PDF)
+            </a>
+        </Fragment>
+    </PageHero>
+    <PartnersWhy />
+    <PartnersTiers />
+    <PartnersWall />
+    <PartnersCollectives />
+    <PressWall />
+    <CtaBanner
+        eyebrow="Ready when you are"
+        text="Tell us about your brand and we'll shape a package that fits &mdash; booths, stage moments, podcast integrations, and more."
+    >
+        Let's build something <span class="text-holo">unforgettable</span>
+        <Fragment slot="actions">
+            <a
+                class="btn btn--lg btn--primary"
+                href="/contact"
+            >
+                Become a sponsor
+            </a>
+        </Fragment>
+    </CtaBanner>
+</Layout>

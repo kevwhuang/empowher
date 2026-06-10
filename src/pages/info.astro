@@ -1,0 +1,40 @@
+---
+import CtaBanner from '@sections/CtaBanner.astro';
+import InfoFaq from '@sections/InfoFaq.astro';
+import InfoSchedule from '@sections/InfoSchedule.astro';
+import InfoVenue from '@sections/InfoVenue.astro';
+import Layout from '@/Layout.astro';
+import PageHero from '@sections/PageHero.astro';
+import Stages from '@sections/Stages.astro';
+---
+
+<Layout
+    description="Know before you glow &mdash; stages, day-of schedule, getting to Austin Garden at Inn Cahoots, FAQ, and accessibility for EmpowHER Festival on November 8, 2026."
+    title="Festival Info &mdash; EmpowHER Festival"
+>
+    <PageHero
+        eyebrow="Festival info"
+        text="November 8 &middot; 12PM&ndash;10PM &middot; Austin Garden at Inn Cahoots. Three stages, one immersive experience."
+    >
+        Know before <span class="text-holo">you glow</span>
+    </PageHero>
+    <Stages variant="info" />
+    <InfoSchedule />
+    <InfoVenue />
+    <InfoFaq />
+    <CtaBanner
+        eyebrow="Still curious?"
+        text="Questions about tickets, accessibility, vending, or press &mdash; we answer fast."
+        tint
+    >
+        Ask us anything
+        <Fragment slot="actions">
+            <a
+                class="btn btn--lg btn--primary"
+                href="/contact"
+            >
+                Contact us
+            </a>
+        </Fragment>
+    </CtaBanner>
+</Layout>

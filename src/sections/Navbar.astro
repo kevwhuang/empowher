@@ -1,0 +1,215 @@
+---
+import { Image } from 'astro:assets';
+
+import logoEmpowher from '@images/logos/empowher.webp';
+import { ROUTES } from '@lib/utils';
+
+const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+---
+
+<header class="site-header">
+    <div class="container site-header__inner">
+        <a
+            class="site-header__brand"
+            aria-label="EmpowHER Festival &mdash; home"
+            href="/"
+        >
+            <Image
+                class="site-header__logo"
+                alt="EmpowHER"
+                densities={[1, 2]}
+                src={logoEmpowher}
+                width={77}
+            />
+        </a>
+        <nav
+            id="site-nav"
+            class="site-nav"
+            aria-label="Main"
+        >
+            {ROUTES.map(route => (
+                <a
+                    aria-current={pathname === route.href ? 'page' : undefined}
+                    href={route.href}
+                >
+                    {route.label}
+                </a>
+            ))}
+        </nav>
+        <button
+            id="nav-toggle"
+            class="nav-toggle"
+            aria-controls="site-nav"
+            aria-expanded="false"
+            aria-label="Toggle menu"
+            type="button"
+        >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+    <span class="holo-bar -bottom-[3px] inset-x-0" aria-hidden="true"></span>
+</header>
+
+<style>
+    .nav-toggle {
+        background: transparent;
+        border: var(--border-soft);
+        border-radius: var(--radius-card-sm);
+        cursor: pointer;
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        height: 2.75rem;
+        justify-content: center;
+        padding: 0.6rem;
+        transition: background-color 0.15s, border-color 0.15s;
+        width: 2.75rem;
+    }
+
+    .nav-toggle:active {
+        background: #faf7ff1f;
+    }
+
+    .nav-toggle:hover {
+        border-color: var(--color-paper-faint);
+    }
+
+    .nav-toggle span {
+        background: var(--color-paper);
+        border-radius: 2px;
+        height: 2px;
+        transition: opacity 0.2s, transform 0.25s;
+    }
+
+    .nav-toggle[aria-expanded='true'] span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav-toggle[aria-expanded='true'] span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle[aria-expanded='true'] span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .site-header {
+        backdrop-filter: blur(14px);
+        background: #0e0816d1;
+        border-bottom: var(--border-soft);
+        height: var(--spacing-header);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        -webkit-backdrop-filter: blur(14px);
+    }
+
+    .site-header__brand {
+        align-items: center;
+        display: flex;
+        flex-shrink: 0;
+        margin-right: auto;
+        text-decoration: none;
+    }
+
+    .site-header__inner {
+        align-items: center;
+        display: flex;
+        gap: 1.5rem;
+        height: 100%;
+    }
+
+    .site-header__logo {
+        height: 2.4rem;
+        width: auto;
+    }
+
+    .site-nav {
+        align-items: center;
+        display: flex;
+        gap: clamp(0.2rem, 1vw, 0.8rem);
+    }
+
+    .site-nav a {
+        border-radius: 999px;
+        color: var(--color-muted);
+        font-family: var(--font-display);
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        padding: 0.5rem 0.7rem;
+        text-decoration: none;
+        transition: background-color 0.15s, color 0.15s;
+    }
+
+    .site-nav a:hover {
+        color: var(--color-paper);
+    }
+
+    .site-nav a[aria-current='page'] {
+        background: var(--color-purple);
+        color: var(--color-ink);
+        font-weight: 700;
+    }
+
+    @media (max-width: 68rem) {
+        .nav-toggle {
+            display: flex;
+        }
+
+        .site-nav {
+            align-items: stretch;
+            backdrop-filter: blur(14px);
+            background: #0e0816f7;
+            border-bottom: var(--border-soft);
+            flex-direction: column;
+            gap: 0.25rem;
+            inset: var(--spacing-header) 0 auto;
+            padding: 1rem var(--gutter) 1.5rem;
+            position: fixed;
+            transform: translateY(-115%);
+            transition: transform 0.3s ease, visibility 0.3s;
+            visibility: hidden;
+        }
+
+        .site-nav.is-open {
+            transform: translateY(0);
+            visibility: visible;
+        }
+
+        .site-nav a {
+            font-size: 1rem;
+            padding: 0.85rem 1rem;
+        }
+    }
+</style>
+
+<script>
+    function handleKeydown(event: KeyboardEvent) {
+        if (event.key === 'Escape') setOpen(false);
+    }
+
+    function handleNavClick(event: Event) {
+        if (event.target instanceof Element && event.target.closest('a')) setOpen(false);
+    }
+
+    function initNav() {
+        const nav = document.getElementById('site-nav');
+        const toggle = document.getElementById('nav-toggle');
+
+        if (!nav || !toggle) return;
+
+        nav.addEventListener('click', handleNavClick);
+        toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+    }
+
+    function setOpen(open: boolean) {
+        document.getElementById('site-nav')?.classList.toggle('is-open', open);
+        document.getElementById('nav-toggle')?.setAttribute('aria-expanded', String(open));
+    }
+
+    document.addEventListener('astro:page-load', initNav);
+    document.addEventListener('keydown', handleKeydown);
+</script>

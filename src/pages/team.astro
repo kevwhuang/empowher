@@ -1,0 +1,36 @@
+---
+import CtaBanner from '@sections/CtaBanner.astro';
+import Layout from '@/Layout.astro';
+import PageHero from '@sections/PageHero.astro';
+import TeamFounder from '@sections/TeamFounder.astro';
+import TeamGrid from '@sections/TeamGrid.astro';
+---
+
+<Layout
+    description="The 40+ humans behind EmpowHER Festival &mdash; founder Anna Madewell and the producers, stage managers, and volunteers building Austin's most empowering festival."
+    title="Team &mdash; EmpowHER Festival"
+>
+    <PageHero
+        eyebrow="The crew"
+        text="EmpowHER is built by an operational team of producers, stage managers, artists, and volunteers who believe in reminding you who TF you are."
+    >
+        40+ humans. <span class="text-holo">One mission.</span>
+    </PageHero>
+    <TeamFounder />
+    <TeamGrid />
+    <CtaBanner
+        eyebrow="Join the crew"
+        text="Volunteers, stagehands, content creators, flow artists &mdash; reach out and tell us how you want to contribute."
+        tint
+    >
+        Want in? We're always growing.
+        <Fragment slot="actions">
+            <a
+                class="btn btn--lg btn--primary"
+                href="/contact"
+            >
+                Join the team
+            </a>
+        </Fragment>
+    </CtaBanner>
+</Layout>

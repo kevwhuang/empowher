@@ -1,0 +1,59 @@
+---
+import SectionHead from '@components/SectionHead.astro';
+
+interface TravelOption {
+    description: string;
+    tagModifier: string;
+    tag: string;
+    title: string;
+}
+
+const OPTIONS: TravelOption[] = [
+    {
+        description: 'Rideshare drop-off is the easiest way in and out \u2014 pin "Inn Cahoots, East 6th Street."',
+        tagModifier: 'card__tag--cyan',
+        tag: 'Rideshare',
+        title: 'Best move: get dropped off',
+    },
+    {
+        description: 'Limited street parking and paid lots around East 6th. Arrive early \u2014 east side fills up fast.',
+        tagModifier: 'card__tag--pink',
+        tag: 'Parking',
+        title: 'Street + nearby lots',
+    },
+    {
+        description: 'CapMetro routes serve East 6th, and bike/scooter parking is steps from the entrance.',
+        tagModifier: 'card__tag--yellow',
+        tag: 'Transit + bike',
+        title: 'Bus, bike, or scoot',
+    },
+];
+---
+
+<section
+    class="section section--tint"
+    aria-labelledby="venue-title"
+>
+    <div class="container">
+        <SectionHead
+            eyebrow="Getting there"
+            headingId="venue-title"
+        >
+            Austin Garden at Inn Cahoots
+            <p slot="text">East 6th Street, Austin, TX</p>
+        </SectionHead>
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] gap-[1.2rem]">
+            {OPTIONS.map((option, index) => (
+                <article
+                    class="card"
+                    data-reveal
+                    style={index ? `--reveal-i: ${index};` : undefined}
+                >
+                    <span class:list={['card__tag', option.tagModifier]}>{option.tag}</span>
+                    <h3>{option.title}</h3>
+                    <p>{option.description}</p>
+                </article>
+            ))}
+        </div>
+    </div>
+</section>

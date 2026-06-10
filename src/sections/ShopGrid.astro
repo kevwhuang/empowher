@@ -1,0 +1,75 @@
+---
+const PRODUCT_COUNT = 8;
+const STAGGER_COLUMNS = 4;
+
+const staggers = Array.from({ length: PRODUCT_COUNT }, (_, index) => index % STAGGER_COLUMNS);
+---
+
+<section
+    class="section"
+    aria-labelledby="products-title"
+>
+    <div class="container">
+        <h2
+            id="products-title"
+            class="sr-only"
+        >
+            Products
+        </h2>
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-[1.2rem]">
+            {staggers.map(stagger => (
+                <article
+                    class="card product"
+                    data-reveal
+                    style={stagger ? `--reveal-i: ${stagger};` : undefined}
+                >
+                    <div class="ph">
+                        <span>photo</span>
+                    </div>
+                    <div class="product__body">
+                        <h3>Product Name</h3>
+                        <p>Product description</p>
+                        <p class="product__price">$ &mdash;</p>
+                    </div>
+                </article>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    .product {
+        display: flex;
+        flex-direction: column;
+        overflow: clip;
+        padding: 0;
+    }
+
+    .product .ph {
+        aspect-ratio: 1;
+        border: 0;
+        border-bottom: var(--border-soft);
+        border-radius: 0;
+    }
+
+    .product__body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 0.3rem;
+        padding: 1.2rem 1.3rem 1.4rem;
+    }
+
+    .product__body .product__price {
+        color: var(--color-purple-bright);
+        font-family: var(--font-display);
+        font-weight: 700;
+        margin-top: auto;
+        padding-top: 0.6rem;
+    }
+
+    .product__body h3 {
+        font-size: 1.02rem;
+        margin-bottom: 0;
+    }
+</style>

@@ -1,0 +1,43 @@
+---
+import CtaBanner from '@sections/CtaBanner.astro';
+import GalleryMasonry from '@sections/GalleryMasonry.astro';
+import Layout from '@/Layout.astro';
+import PageHero from '@sections/PageHero.astro';
+import { CONTACT } from '@lib/utils';
+---
+
+<Layout
+    description="EmpowHER Festival 2025 in photos &mdash; three stages, ten hours, and a whole lot of glitter from Austin's most empowering music production."
+    title="Gallery &mdash; EmpowHER Festival"
+>
+    <PageHero
+        eyebrow="2025 in pictures"
+        text="A look back at EmpowHER 2025 &mdash; three stages, ten hours, and a whole lot of glitter."
+    >
+        The moments that <span class="text-holo">made it</span>
+    </PageHero>
+    <GalleryMasonry />
+    <CtaBanner
+        eyebrow="Be in the next batch"
+        text="November 8 &middot; 12PM&ndash;10PM &middot; Austin Garden. See you in the photos."
+        tint
+    >
+        2026 will be even louder
+        <Fragment slot="actions">
+            <a
+                class="btn btn--lg btn--primary"
+                href="/info"
+            >
+                Festival info
+            </a>
+            <a
+                class="btn btn--ghost btn--lg"
+                href={CONTACT.instagram}
+                rel="noopener"
+                target="_blank"
+            >
+                More on Instagram
+            </a>
+        </Fragment>
+    </CtaBanner>
+</Layout>

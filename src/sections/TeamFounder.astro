@@ -1,0 +1,74 @@
+---
+import { CONTACT } from '@lib/utils';
+---
+
+<section
+    class="section section--tint"
+    aria-labelledby="founder-title"
+>
+    <div class="container">
+        <div class="founder">
+            <div
+                class="ph"
+                data-reveal
+            >
+                <span>photo</span>
+            </div>
+            <div
+                data-reveal
+                style="--reveal-i: 1;"
+            >
+                <p class="eyebrow">Founder spotlight</p>
+                <h2 id="founder-title">Anna Madewell</h2>
+                <p class="founder__role">Founder &amp; Executive Director &middot; Madewell Productions</p>
+                <p>The director behind EmpowHER Festival, Anna leads Madewell Productions in cross-collaboration with Austin's creative collectives &mdash; turning one venue, three stages, and a 40+ person team into a storytelling immersive music production.</p>
+                <p>Under her direction, EmpowHER 2025 generated $10,000+ in cash sponsorships and ticket revenue while building a growing movement around authenticity and self-expression.</p>
+                <div class="flex flex-wrap gap-4 mt-[1.6rem]">
+                    <a
+                        class="btn btn--primary"
+                        href={CONTACT.website}
+                        rel="noopener"
+                        target="_blank"
+                    >
+                        {CONTACT.websiteLabel}
+                    </a>
+                    <a
+                        class="btn btn--ghost"
+                        href="/contact"
+                    >
+                        Work with us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .founder {
+        align-items: center;
+        display: grid;
+        gap: clamp(2rem, 5vw, 4rem);
+        grid-template-columns: minmax(15rem, 24rem) 1fr;
+    }
+
+    .founder .ph {
+        aspect-ratio: 4 / 5;
+        box-shadow: var(--shadow-pop-purple);
+        rotate: -2deg;
+    }
+
+    .founder__role {
+        color: var(--color-pink);
+        font-family: var(--font-ransom);
+        font-size: 0.9rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+
+    @media (max-width: 48rem) {
+        .founder {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

@@ -1,11 +1,61 @@
 ---
-import Slides from '@sections/Slides.astro';
+import CtaBanner from '@sections/CtaBanner.astro';
+import HomeCountdown from '@sections/HomeCountdown.astro';
+import HomeHero from '@sections/HomeHero.astro';
+import HomePillars from '@sections/HomePillars.astro';
+import HomeStats from '@sections/HomeStats.astro';
 import Layout from '@/Layout.astro';
+import Marquee from '@sections/Marquee.astro';
+import Stages from '@sections/Stages.astro';
+import { CONTACT, PITCH_DECK_PATH } from '@lib/utils';
 ---
 
 <Layout
-    description="EmpowHER ATX — November 8th at The Austin Garden, Austin TX. Three stages, live music, podcasts, and immersive experiences. Produced by Madewell Productions."
-    title="EmpowHER ATX"
+    description="A storytelling immersive music production that reminds you who TF you are. November 8, 2026 &middot; 12PM&ndash;10PM &middot; Austin Garden, Austin TX &mdash; three stages, one immersive experience."
+    title="EmpowHER Festival &mdash; November 8 &middot; Austin Garden"
 >
-    <Slides />
+    <HomeHero />
+    <Marquee
+        items={[
+            'Remind you who TF you are',
+            'Awaken your authenticity',
+            'Empowering voices',
+            'November 8 \u2014 Austin Garden',
+        ]}
+        loud
+    />
+    <HomeCountdown />
+    <HomePillars />
+    <Stages />
+    <HomeStats />
+    <Marquee
+        items={[
+            CONTACT.instagramHandle,
+            'Secret Garden',
+            'The Studio',
+            'Austin Garden Stage',
+            'Pop to EDM',
+        ]}
+    />
+    <CtaBanner
+        eyebrow="Join the movement"
+        text="Sponsor, vend, perform, or volunteer &mdash; if you align with the mission to empower creatives and amplify genuine self-expression, we want you."
+    >
+        Inspire change. Become part of <span class="text-holo">HERstory</span>.
+        <Fragment slot="actions">
+            <a
+                class="btn btn--lg btn--primary"
+                href="/contact"
+            >
+                Get in touch
+            </a>
+            <a
+                class="btn btn--ghost btn--lg"
+                download
+                href={PITCH_DECK_PATH}
+            >
+                Download pitch deck
+            </a>
+        </Fragment>
+    </CtaBanner>
 </Layout>

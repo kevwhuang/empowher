@@ -1,0 +1,116 @@
+---
+import { Image } from 'astro:assets';
+
+import logoAustinGarden from '@images/logos/austin_garden.webp';
+import logoIykyk from '@images/logos/iykyk.webp';
+import logoLeftway from '@images/logos/leftway_studios.webp';
+import logoMadewell from '@images/logos/madewell.webp';
+import logoStudio from '@images/logos/the_studio.webp';
+
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+    placeholders: string[];
+    sponsors?: boolean;
+}
+
+interface Sponsor {
+    alt: string;
+    densities?: number[];
+    image: ImageMetadata;
+    invert?: boolean;
+    photo?: boolean;
+    width: number;
+    zoom?: boolean;
+}
+
+const SPONSORS: Sponsor[] = [
+    { alt: 'Austin Garden', image: logoAustinGarden, photo: true, width: 225 },
+    { alt: 'IYKYK \u2014 Inn Cahoots', densities: [1, 2], image: logoIykyk, invert: true, width: 320, zoom: true },
+    { alt: 'The Studio \u2014 Inn Cahoots', densities: [1, 2], image: logoStudio, invert: true, width: 320, zoom: true },
+    { alt: 'Leftway Studios', densities: [1, 2], image: logoLeftway, invert: true, width: 320 },
+    { alt: 'Madewell Productions', densities: [1, 2], image: logoMadewell, invert: true, width: 320 },
+];
+
+const { placeholders, sponsors = false } = Astro.props;
+---
+
+<div
+    class="logo-wall"
+    data-reveal
+>
+    {sponsors && SPONSORS.map(sponsor => (
+        <div class:list={['logo-tile', { 'logo-tile--photo': sponsor.photo }]}>
+            <Image
+                class:list={[
+                    'logo-tile__img',
+                    {
+                        'logo-tile__img--invert': sponsor.invert,
+                        'logo-tile__img--zoom': sponsor.zoom,
+                    },
+                ]}
+                alt={sponsor.alt}
+                densities={sponsor.densities}
+                loading="lazy"
+                src={sponsor.image}
+                width={sponsor.width}
+            />
+        </div>
+    ))}
+    {placeholders.map(label => (
+        <div class="logo-tile ph">
+            <span>{label}</span>
+        </div>
+    ))}
+</div>
+
+<style>
+    .logo-tile {
+        aspect-ratio: 16 / 9;
+        background: var(--color-ink-2);
+        border: var(--border-soft);
+        border-radius: var(--radius-card-sm);
+        overflow: hidden;
+        position: relative;
+        transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .logo-tile:hover {
+        border-color: var(--color-purple-glow);
+        transform: translateY(-0.3rem) rotate(-1deg);
+    }
+
+    .logo-tile--photo .logo-tile__img {
+        height: 100%;
+        inset: 0;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .logo-tile.ph {
+        min-height: 0;
+    }
+
+    .logo-tile__img {
+        height: calc(100% - 2.6rem);
+        inset: 1.3rem;
+        object-fit: contain;
+        position: absolute;
+        width: calc(100% - 2.6rem);
+    }
+
+    .logo-tile__img--invert {
+        filter: invert(1);
+        opacity: 0.92;
+    }
+
+    .logo-tile__img--zoom {
+        transform: scale(1.35);
+    }
+
+    .logo-wall {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    }
+</style>
