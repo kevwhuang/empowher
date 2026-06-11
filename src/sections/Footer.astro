@@ -1,19 +1,19 @@
 ---
 import { Image } from 'astro:assets';
 
-import logoEmpowher from '@images/logos/empowher.webp';
-import logoMadewell from '@images/logos/madewell.webp';
-import { CONTACT, PITCH_DECK_PATH, ROUTES } from '@lib/utils';
+import logoEmpowher from '@images/logos/empowher_festival.webp';
+import logoMadewell from '@images/logos/madewell_productions.webp';
+import { LINKS, ROUTES } from '@lib/utils';
 ---
 
 <footer class="site-footer">
-    <span class="holo-bar -top-[3px] inset-x-0" aria-hidden="true"></span>
+    <span class="holo-bar -top-[3px] inset-x-0" aria-hidden="true" />
     <div class="container">
         <div class="site-footer__grid">
             <div>
                 <Image
                     class="site-footer__logo"
-                    alt="EmpowHER"
+                    alt="EmpowHER Festival"
                     densities={[1, 2]}
                     src={logoEmpowher}
                     width={102}
@@ -31,24 +31,23 @@ import { CONTACT, PITCH_DECK_PATH, ROUTES } from '@lib/utils';
             <div>
                 <h2 class="site-footer__heading">Connect</h2>
                 <ul>
-                    <li><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li>
+                    <li><a href={`mailto:${LINKS.email}`}>{LINKS.email}</a></li>
                     <li>
                         <a
-                            href={CONTACT.instagram}
-                            rel="noopener"
+                            href={LINKS.instagram}
+                            rel="noopener noreferrer"
                             target="_blank"
                         >
-                            Instagram &mdash; {CONTACT.instagramHandle}
+                            Instagram &mdash; {LINKS.instagramHandle}
                         </a>
                     </li>
-                    <li><a href={CONTACT.phoneHref}>{CONTACT.phone}</a></li>
                     <li>
                         <a
-                            href={CONTACT.website}
-                            rel="noopener"
+                            href={LINKS.website}
+                            rel="noopener noreferrer"
                             target="_blank"
                         >
-                            {CONTACT.websiteLabel}
+                            {LINKS.websiteLabel}
                         </a>
                     </li>
                 </ul>
@@ -59,9 +58,9 @@ import { CONTACT, PITCH_DECK_PATH, ROUTES } from '@lib/utils';
                     <li>
                         <a
                             download
-                            href={PITCH_DECK_PATH}
+                            href={LINKS.pitchDeck}
                         >
-                            Pitch deck (PDF)
+                            Pitch deck
                         </a>
                     </li>
                 </ul>
@@ -70,11 +69,11 @@ import { CONTACT, PITCH_DECK_PATH, ROUTES } from '@lib/utils';
         <div class="site-footer__legal">
             <span>&copy; {new Date().getFullYear()} EmpowHER Festival. All rights reserved.</span>
             <nav
-                class="site-footer__legal-links"
+                class="inline-flex gap-[1.2rem]"
                 aria-label="Legal"
             >
-                <a href="/terms">Terms</a>
                 <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
             </nav>
             <span class="site-footer__madewell">
                 Directed by Anna Madewell
@@ -98,9 +97,9 @@ import { CONTACT, PITCH_DECK_PATH, ROUTES } from '@lib/utils';
     }
 
     .site-footer a {
-        color: var(--color-muted);
+        color: var(--color-lavender);
         text-decoration: none;
-        transition: color 0.15s;
+        transition: color var(--duration-fast);
     }
 
     .site-footer a:hover {
@@ -113,7 +112,7 @@ import { CONTACT, PITCH_DECK_PATH, ROUTES } from '@lib/utils';
     }
 
     .site-footer__blurb {
-        color: var(--color-muted);
+        color: var(--color-lavender);
         font-size: 0.95rem;
         max-width: 30ch;
     }
@@ -136,7 +135,7 @@ import { CONTACT, PITCH_DECK_PATH, ROUTES } from '@lib/utils';
     .site-footer__legal {
         align-items: center;
         border-top: var(--border-soft);
-        color: var(--color-muted);
+        color: var(--color-lavender);
         display: flex;
         flex-wrap: wrap;
         font-size: 0.85rem;
@@ -145,14 +144,10 @@ import { CONTACT, PITCH_DECK_PATH, ROUTES } from '@lib/utils';
         padding-top: 1.6rem;
     }
 
-    .site-footer__legal-links {
-        display: inline-flex;
-        gap: 1.2rem;
-    }
-
     .site-footer__logo {
         height: 3.2rem;
         margin-bottom: 1rem;
+        user-select: none;
         width: auto;
     }
 
@@ -160,6 +155,7 @@ import { CONTACT, PITCH_DECK_PATH, ROUTES } from '@lib/utils';
         align-items: center;
         display: inline-flex;
         gap: 0.6rem;
+        user-select: none;
     }
 
     .site-footer__madewell img {
@@ -175,7 +171,7 @@ import { CONTACT, PITCH_DECK_PATH, ROUTES } from '@lib/utils';
         }
     }
 
-    @media (max-width: 40rem) {
+    @media (max-width: 48rem) {
         .site-footer__grid {
             grid-template-columns: 1fr;
         }

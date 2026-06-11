@@ -43,18 +43,18 @@ const PILLARS: Pillar[] = [
         >
             Your brand, in the moment that matters
         </SectionHead>
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] gap-[1.2rem]">
+        <ul class="grid grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] gap-[1.2rem] list-none">
             {PILLARS.map((pillar, index) => (
-                <article
+                <li
                     class="card"
                     data-reveal
-                    style={index ? `--reveal-i: ${index};` : undefined}
+                    style={index ? `--reveal-index: ${index};` : undefined}
                 >
                     <span class:list={['card__tag', pillar.tagModifier]}>{pillar.tag}</span>
                     <h3>{pillar.title}</h3>
                     <p>{pillar.description}</p>
-                </article>
+                </li>
             ))}
-        </div>
+        </ul>
     </div>
 </section>

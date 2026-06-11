@@ -58,12 +58,12 @@ const TIERS: Tier[] = [
             Pick your level of loud
             <p slot="text">Custom packages available &mdash; these are starting points, not boxes.</p>
         </SectionHead>
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] items-stretch gap-[1.2rem]">
+        <ul class="grid grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] items-stretch gap-[1.2rem] list-none">
             {TIERS.map((tier, index) => (
-                <article
+                <li
                     class:list={['card', 'tier', { 'tier--featured': tier.featured }]}
                     data-reveal
-                    style={index ? `--reveal-i: ${index};` : undefined}
+                    style={index ? `--reveal-index: ${index};` : undefined}
                 >
                     <span class:list={['card__tag', tier.tagModifier]}>{tier.tag}</span>
                     <h3>{tier.name}</h3>
@@ -79,9 +79,9 @@ const TIERS: Tier[] = [
                     >
                         Inquire
                     </a>
-                </article>
+                </li>
             ))}
-        </div>
+        </ul>
     </div>
 </section>
 
@@ -92,15 +92,12 @@ const TIERS: Tier[] = [
         gap: 0.4rem;
     }
 
-    .tier .btn {
-        margin-top: auto;
-    }
-
     .tier .tier__price {
         color: var(--color-purple);
         font-family: var(--font-display);
         font-size: 1.6rem;
         font-weight: 900;
+        margin-bottom: 0.6rem;
     }
 
     .tier li {
@@ -117,15 +114,17 @@ const TIERS: Tier[] = [
     }
 
     .tier ul {
-        color: var(--color-muted);
+        align-content: start;
+        color: var(--color-lavender);
         display: grid;
+        flex: 1;
         font-size: 0.95rem;
         gap: 0.55rem;
-        margin: 0.6rem 0 1.4rem;
+        margin-bottom: 1.4rem;
     }
 
     .tier--featured {
-        border-color: #a24dffa6;
+        border-color: var(--color-purple-65);
         box-shadow: var(--shadow-glow-purple);
     }
 </style>

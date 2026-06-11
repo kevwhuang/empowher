@@ -1,3 +1,3 @@
-# EmpowHER ATX
+# EmpowHER Festival
 
 - [empowheratx.com](https://empowheratx.com)

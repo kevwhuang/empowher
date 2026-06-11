@@ -18,3 +18,28 @@ const { center = false, eyebrow, headingId } = Astro.props;
     </h2>
     <slot name="text" />
 </div>
+
+<style>
+    .section-head {
+        margin-bottom: clamp(2rem, 5vw, 3.5rem);
+        max-width: 44rem;
+    }
+
+    .section-head h2 {
+        font-size: var(--text-h2);
+    }
+
+    :global(.section-head p) {
+        color: var(--color-lavender);
+        font-size: 1.06em;
+    }
+
+    .section-head--center {
+        margin-inline: auto;
+        text-align: center;
+    }
+
+    .section-head--center .eyebrow::before {
+        display: none;
+    }
+</style>

@@ -19,19 +19,19 @@ const SCHEDULE: ScheduleRow[] = [
         description: 'Ecstatic dance, spoken word, tattoos, and immersive experiences.',
         time: 'Afternoon',
         title: 'Acoustic Sets, Tarot + Workshops',
-        where: 'Secret Garden',
+        where: 'IYKYK Rooftop',
     },
     {
         description: 'Skyline views and sundown DJs before the headliners take over.',
         time: 'Sunset',
         title: 'Golden Hour Sets',
-        where: 'Secret Garden',
+        where: 'IYKYK Rooftop',
     },
     {
         description: 'Flash mobs, LED + fire flow shows, and the night\'s biggest sets until 10PM.',
         time: 'Evening',
         title: 'Main Acts + DJ Headliners',
-        where: 'Austin Garden Stage',
+        where: 'Garden Stage',
     },
 ];
 ---
@@ -48,12 +48,12 @@ const SCHEDULE: ScheduleRow[] = [
             The shape of the day
             <p slot="text">Lineup and set times drop soon &mdash; here's how the day flows.</p>
         </SectionHead>
-        <ol class="schedule grid gap-[0.8rem]">
+        <ol class="grid gap-[0.8rem]">
             {SCHEDULE.map((row, index) => (
                 <li
                     class="card schedule__row"
                     data-reveal
-                    style={index ? `--reveal-i: ${index};` : undefined}
+                    style={index ? `--reveal-index: ${index};` : undefined}
                 >
                     <span class="schedule__time">{row.time}</span>
                     <div class="schedule__what">
@@ -94,13 +94,13 @@ const SCHEDULE: ScheduleRow[] = [
 
     .schedule__where {
         color: var(--color-cyan);
-        font-family: var(--font-ransom);
+        font-family: var(--font-mono);
         font-size: 0.78rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
     }
 
-    @media (max-width: 40rem) {
+    @media (max-width: 48rem) {
         .schedule__row {
             gap: 0.3rem;
             grid-template-columns: 1fr;

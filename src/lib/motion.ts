@@ -4,6 +4,7 @@ const PARALLAX_RATE = 0.28;
 const REVEAL_ROOT_MARGIN = '0px 0px -6% 0px';
 const REVEAL_THRESHOLD = 0.1;
 
+const observers: IntersectionObserver[] = [];
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 let parallaxMedia: HTMLElement | null = null;
@@ -37,15 +38,7 @@ function animateCount(element: HTMLElement) {
     requestAnimationFrame(frame);
 }
 
-export function initMotion() {
-    parallaxMedia = prefersReducedMotion ? null : document.querySelector('.hero__media');
-
-    watchViewport(document.querySelectorAll('[data-reveal]'), element => element.classList.add('is-in'));
-    watchViewport(document.querySelectorAll('[data-count-to]'), animateCount);
-    updateParallax();
-}
-
-function queueParallax() {
+function handleScroll() {
     if (!parallaxMedia || parallaxQueued) return;
 
     parallaxQueued = true;
@@ -82,7 +75,19 @@ function watchViewport(elements: NodeListOf<HTMLElement>, callback: (element: HT
 
     const observer = new IntersectionObserver(handleEntries, { rootMargin: REVEAL_ROOT_MARGIN, threshold: REVEAL_THRESHOLD });
 
+    observers.push(observer);
     elements.forEach(element => observer.observe(element));
 }
 
-window.addEventListener('scroll', queueParallax, { passive: true });
+window.addEventListener('scroll', handleScroll, { passive: true });
+
+export function initMotion(): void {
+    observers.forEach(observer => observer.disconnect());
+    observers.length = 0;
+
+    watchViewport(document.querySelectorAll('[data-reveal]'), element => element.classList.add('is-in'));
+    watchViewport(document.querySelectorAll('[data-count-to]'), animateCount);
+
+    parallaxMedia = prefersReducedMotion ? null : document.querySelector('.hero__media');
+    updateParallax();
+}

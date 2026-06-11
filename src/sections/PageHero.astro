@@ -21,7 +21,6 @@ const { eyebrow, text } = Astro.props;
         <h1
             id="page-title"
             data-reveal
-            style="--reveal-i: 1;"
         >
             <slot />
         </h1>
@@ -29,7 +28,6 @@ const { eyebrow, text } = Astro.props;
             <p
                 class="page-hero__text"
                 data-reveal
-                style="--reveal-i: 2;"
             >
                 {text}
             </p>
@@ -54,9 +52,9 @@ const { eyebrow, text } = Astro.props;
 
     .page-hero::before {
         background:
-            radial-gradient(40% 55% at 18% 30%, #a24dff38, transparent 70%),
-            radial-gradient(35% 50% at 82% 20%, #ff3dae21, transparent 70%),
-            radial-gradient(30% 45% at 55% 80%, #3dd9ff1a, transparent 70%);
+            radial-gradient(40% 55% at 18% 30%, var(--color-purple-20), transparent 70%),
+            radial-gradient(35% 50% at 82% 20%, var(--color-pink-15), transparent 70%),
+            radial-gradient(30% 45% at 55% 80%, var(--color-cyan-10), transparent 70%);
         content: '';
         height: 130%;
         inset: -30% -10% auto;
@@ -69,21 +67,30 @@ const { eyebrow, text } = Astro.props;
     }
 
     .page-hero h1 {
+        --reveal-index: 1;
         font-size: var(--text-hero);
         font-weight: 900;
         max-width: 16ch;
+    }
+
+    .page-hero h1:has(+ .page-hero__actions) {
+        margin-bottom: max(0.6em, 2.4rem);
     }
 
     .page-hero__actions {
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
-        margin-top: 2.4rem;
     }
 
     .page-hero__text {
-        color: var(--color-muted);
+        --reveal-index: 2;
+        color: var(--color-lavender);
         font-size: 1.15em;
         max-width: 52ch;
+    }
+
+    .page-hero__text:has(+ .page-hero__actions) {
+        margin-bottom: 2.4rem;
     }
 </style>

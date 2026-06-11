@@ -1,11 +1,10 @@
 ---
 import { Image } from 'astro:assets';
 
-import logoAustinGarden from '@images/logos/austin_garden.webp';
-import logoIykyk from '@images/logos/iykyk.webp';
+import logoAustinGarden from '@images/logos/inn_cahoots_garden.webp';
+import logoIykyk from '@images/logos/inn_cahoots_iykyk_rooftop.webp';
 import logoLeftway from '@images/logos/leftway_studios.webp';
-import logoMadewell from '@images/logos/madewell.webp';
-import logoStudio from '@images/logos/the_studio.webp';
+import logoStudio from '@images/logos/inn_cahoots_studio.webp';
 
 import type { ImageMetadata } from 'astro';
 
@@ -25,28 +24,27 @@ interface Sponsor {
 }
 
 const SPONSORS: Sponsor[] = [
-    { alt: 'Austin Garden', image: logoAustinGarden, photo: true, width: 225 },
-    { alt: 'IYKYK \u2014 Inn Cahoots', densities: [1, 2], image: logoIykyk, invert: true, width: 320, zoom: true },
+    { alt: 'Austin Garden \u2014 Inn Cahoots', image: logoAustinGarden, photo: true, width: 225 },
+    { alt: 'IYKYK Rooftop \u2014 Inn Cahoots', densities: [1, 2], image: logoIykyk, invert: true, width: 320, zoom: true },
     { alt: 'The Studio \u2014 Inn Cahoots', densities: [1, 2], image: logoStudio, invert: true, width: 320, zoom: true },
     { alt: 'Leftway Studios', densities: [1, 2], image: logoLeftway, invert: true, width: 320 },
-    { alt: 'Madewell Productions', densities: [1, 2], image: logoMadewell, invert: true, width: 320 },
 ];
 
 const { placeholders, sponsors = false } = Astro.props;
 ---
 
-<div
-    class="logo-wall"
+<ul
+    class="logo-wall list-none"
     data-reveal
 >
     {sponsors && SPONSORS.map(sponsor => (
-        <div class:list={['logo-tile', { 'logo-tile--photo': sponsor.photo }]}>
+        <li class:list={['logo-tile', { 'logo-tile--photo': sponsor.photo }]}>
             <Image
                 class:list={[
-                    'logo-tile__img',
+                    'logo-tile__image',
                     {
-                        'logo-tile__img--invert': sponsor.invert,
-                        'logo-tile__img--zoom': sponsor.zoom,
+                        'logo-tile__image--invert': sponsor.invert,
+                        'logo-tile__image--zoom': sponsor.zoom,
                     },
                 ]}
                 alt={sponsor.alt}
@@ -55,14 +53,14 @@ const { placeholders, sponsors = false } = Astro.props;
                 src={sponsor.image}
                 width={sponsor.width}
             />
-        </div>
+        </li>
     ))}
     {placeholders.map(label => (
-        <div class="logo-tile ph">
+        <li class="logo-tile placeholder">
             <span>{label}</span>
-        </div>
+        </li>
     ))}
-</div>
+</ul>
 
 <style>
     .logo-tile {
@@ -72,26 +70,26 @@ const { placeholders, sponsors = false } = Astro.props;
         border-radius: var(--radius-card-sm);
         overflow: hidden;
         position: relative;
-        transition: border-color 0.25s, transform 0.25s;
+        transition: border-color var(--duration-base), transform var(--duration-base);
     }
 
     .logo-tile:hover {
-        border-color: var(--color-purple-glow);
+        border-color: var(--color-purple-55);
         transform: translateY(-0.3rem) rotate(-1deg);
     }
 
-    .logo-tile--photo .logo-tile__img {
+    .logo-tile--photo .logo-tile__image {
         height: 100%;
         inset: 0;
         object-fit: cover;
         width: 100%;
     }
 
-    .logo-tile.ph {
+    .logo-tile.placeholder {
         min-height: 0;
     }
 
-    .logo-tile__img {
+    .logo-tile__image {
         height: calc(100% - 2.6rem);
         inset: 1.3rem;
         object-fit: contain;
@@ -99,12 +97,12 @@ const { placeholders, sponsors = false } = Astro.props;
         width: calc(100% - 2.6rem);
     }
 
-    .logo-tile__img--invert {
+    .logo-tile__image--invert {
         filter: invert(1);
         opacity: 0.92;
     }
 
-    .logo-tile__img--zoom {
+    .logo-tile__image--zoom {
         transform: scale(1.35);
     }
 

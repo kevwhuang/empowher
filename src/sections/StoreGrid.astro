@@ -16,24 +16,24 @@ const staggers = Array.from({ length: PRODUCT_COUNT }, (_, index) => index % STA
         >
             Products
         </h2>
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-[1.2rem]">
+        <ul class="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-[1.2rem] list-none">
             {staggers.map(stagger => (
-                <article
+                <li
                     class="card product"
                     data-reveal
-                    style={stagger ? `--reveal-i: ${stagger};` : undefined}
+                    style={stagger ? `--reveal-index: ${stagger};` : undefined}
                 >
-                    <div class="ph">
+                    <div class="placeholder">
                         <span>photo</span>
                     </div>
                     <div class="product__body">
                         <h3>Product Name</h3>
-                        <p>Product description</p>
+                        <p class="product__description">Product description</p>
                         <p class="product__price">$ &mdash;</p>
                     </div>
-                </article>
+                </li>
             ))}
-        </div>
+        </ul>
     </div>
 </section>
 
@@ -45,7 +45,7 @@ const staggers = Array.from({ length: PRODUCT_COUNT }, (_, index) => index % STA
         padding: 0;
     }
 
-    .product .ph {
+    .product .placeholder {
         aspect-ratio: 1;
         border: 0;
         border-bottom: var(--border-soft);
@@ -60,11 +60,14 @@ const staggers = Array.from({ length: PRODUCT_COUNT }, (_, index) => index % STA
         padding: 1.2rem 1.3rem 1.4rem;
     }
 
+    .product__body .product__description {
+        flex: 1;
+    }
+
     .product__body .product__price {
         color: var(--color-purple-bright);
         font-family: var(--font-display);
         font-weight: 700;
-        margin-top: auto;
         padding-top: 0.6rem;
     }
 
