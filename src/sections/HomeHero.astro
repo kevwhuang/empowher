@@ -1,7 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 
-import logoEmpowher from '@images/logos/empowher.webp';
+import logoEmpowher from '@images/logos/empowher_festival.webp';
+import poster from '@images/poster.webp';
 ---
 
 <section
@@ -17,6 +18,7 @@ import logoEmpowher from '@images/logos/empowher.webp';
             loop
             muted
             playsinline
+            poster={poster.src}
         >
             <source src="/videos/hero.webm" type="video/webm" />
         </video>
@@ -42,9 +44,8 @@ import logoEmpowher from '@images/logos/empowher.webp';
         <p
             class="hero__meta"
             data-reveal
-            style="--reveal-i: 1;"
         >
-            <span>November 8</span>
+            <span><time datetime="2026-11-08">November 8</time></span>
             <span
                 class="hero__meta-dot"
                 aria-hidden="true"
@@ -63,23 +64,21 @@ import logoEmpowher from '@images/logos/empowher.webp';
         <p
             class="hero__spaces"
             data-reveal
-            style="--reveal-i: 2;"
         >
-            Austin Garden Stage &bull; The Studio &bull; Secret Garden
+            Garden Stage &bull; IYKYK Rooftop &bull; The Studio
         </p>
         <div
             class="hero__actions"
             data-reveal
-            style="--reveal-i: 3;"
         >
             <a
-                class="btn btn--lg btn--primary"
+                class="btn btn--large btn--primary"
                 href="/contact"
             >
                 Become a Sponsor
             </a>
             <a
-                class="btn btn--ghost btn--lg"
+                class="btn btn--ghost btn--large"
                 href="/info"
             >
                 Explore the Festival
@@ -90,7 +89,7 @@ import logoEmpowher from '@images/logos/empowher.webp';
         class="hero__scroll"
         href="#countdown"
     >
-        Scroll &#x2193;
+        Scroll &darr;
     </a>
 </section>
 
@@ -105,25 +104,30 @@ import logoEmpowher from '@images/logos/empowher.webp';
         text-align: center;
     }
 
+    .hero h1 {
+        margin-bottom: 1.4rem;
+        user-select: none;
+    }
+
     .hero__actions {
+        --reveal-index: 3;
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
         justify-content: center;
-        margin-top: 2.4rem;
     }
 
     .hero__logo {
-        filter: drop-shadow(0 0.8rem 2.5rem #a24dff73);
+        filter: drop-shadow(0 0.8rem 2.5rem var(--color-purple-45));
         margin-inline: auto;
         width: min(34rem, 84vw);
     }
 
     .hero__media {
         background:
-            radial-gradient(60% 80% at 25% 25%, #a24dff66, transparent 65%),
-            radial-gradient(55% 70% at 78% 30%, #ff3dae42, transparent 65%),
-            radial-gradient(50% 65% at 50% 90%, #3dd9ff38, transparent 65%),
+            radial-gradient(60% 80% at 25% 25%, var(--color-purple-40), transparent 65%),
+            radial-gradient(55% 70% at 78% 30%, var(--color-pink-25), transparent 65%),
+            radial-gradient(50% 65% at 50% 90%, var(--color-cyan-20), transparent 65%),
             var(--color-ink);
         inset: 0;
         position: absolute;
@@ -131,7 +135,7 @@ import logoEmpowher from '@images/logos/empowher.webp';
     }
 
     .hero__media::after {
-        background: linear-gradient(180deg, #0e08168c, #0e0816c7 80%, var(--color-ink));
+        background: linear-gradient(180deg, var(--color-ink-55), var(--color-ink-80) 80%, var(--color-ink));
         content: '';
         inset: 0;
         position: absolute;
@@ -144,6 +148,7 @@ import logoEmpowher from '@images/logos/empowher.webp';
     }
 
     .hero__meta {
+        --reveal-index: 1;
         align-items: center;
         display: flex;
         flex-wrap: wrap;
@@ -153,7 +158,6 @@ import logoEmpowher from '@images/logos/empowher.webp';
         gap: 0.5rem 1rem;
         justify-content: center;
         letter-spacing: 0.05em;
-        margin-top: 1.6rem;
         text-transform: uppercase;
     }
 
@@ -164,15 +168,15 @@ import logoEmpowher from '@images/logos/empowher.webp';
     .hero__scroll {
         animation: hero__scroll-hint 2.4s ease-in-out infinite;
         bottom: 1.4rem;
-        color: var(--color-muted);
-        font-family: var(--font-ransom);
+        color: var(--color-lavender);
+        font-family: var(--font-mono);
         font-size: 0.75rem;
         left: 50%;
         letter-spacing: 0.25em;
         position: absolute;
         text-decoration: none;
         text-transform: uppercase;
-        transition: color 0.15s;
+        transition: color var(--duration-fast);
         translate: -50%;
         z-index: 1;
     }
@@ -182,18 +186,20 @@ import logoEmpowher from '@images/logos/empowher.webp';
     }
 
     .hero__spaces {
+        --reveal-index: 2;
         color: var(--color-cyan);
-        font-family: var(--font-ransom);
+        font-family: var(--font-mono);
         font-size: clamp(0.8rem, 1.4vw, 0.95rem);
         letter-spacing: 0.14em;
-        margin-top: 0.7rem;
+        margin-bottom: 2.4rem;
         text-transform: uppercase;
     }
 
     .hero__tagline {
         font-size: clamp(1.05rem, 2vw, 1.4rem);
         font-weight: 500;
-        margin: 1.4rem auto 0;
+        margin-bottom: 1.6rem;
+        margin-inline: auto;
         max-width: 44ch;
     }
 

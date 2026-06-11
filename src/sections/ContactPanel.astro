@@ -1,11 +1,10 @@
 ---
-import { CONTACT } from '@lib/utils';
+import { LINKS } from '@lib/utils';
 
 const CARDS = [
-    { href: `mailto:${CONTACT.email}`, icon: '\u2709', title: 'Email', value: CONTACT.email },
-    { external: true, href: CONTACT.instagram, icon: '\u2726', title: 'Instagram', value: CONTACT.instagramHandle },
-    { href: CONTACT.phoneHref, icon: '\u260E', title: 'Phone', value: CONTACT.phone },
-    { external: true, href: CONTACT.website, icon: '\u2665', title: 'Website', value: CONTACT.websiteLabel },
+    { href: `mailto:${LINKS.email}`, icon: '\u2709', title: 'Email', value: LINKS.email },
+    { external: true, href: LINKS.instagram, icon: '\u2726', title: 'Instagram', value: LINKS.instagramHandle },
+    { external: true, href: LINKS.website, icon: '\u2665', title: 'Website', value: LINKS.websiteLabel },
 ];
 ---
 
@@ -21,37 +20,37 @@ const CARDS = [
             Ways to reach us
         </h2>
         <div class="contact-grid">
-            <div class="grid gap-4">
+            <ul class="grid gap-4 list-none">
                 {CARDS.map((card, index) => (
-                    <a
-                        class="card contact-card"
-                        data-reveal
-                        href={card.href}
-                        rel={card.external ? 'noopener' : undefined}
-                        style={index ? `--reveal-i: ${index};` : undefined}
-                        target={card.external ? '_blank' : undefined}
-                    >
-                        <span
-                            class="contact-card__icon"
-                            aria-hidden="true"
+                    <li>
+                        <a
+                            class="card contact-card"
+                            data-reveal
+                            href={card.href}
+                            rel={card.external ? 'noopener noreferrer' : undefined}
+                            style={index ? `--reveal-index: ${index};` : undefined}
+                            target={card.external ? '_blank' : undefined}
                         >
-                            {card.icon}
-                        </span>
-                        <div class="contact-card__body">
-                            <h3>{card.title}</h3>
-                            <p>{card.value}</p>
-                        </div>
-                    </a>
+                            <span
+                                class="contact-card__icon"
+                                aria-hidden="true"
+                            >
+                                {card.icon}
+                            </span>
+                            <div class="contact-card__body">
+                                <h3>{card.title}</h3>
+                                <p>{card.value}</p>
+                            </div>
+                        </a>
+                    </li>
                 ))}
-            </div>
+            </ul>
             <div
                 class="card"
                 data-reveal
-                style="--reveal-i: 2;"
             >
                 <h2 class="text-h3">Send a message</h2>
                 <form
-                    id="contact-form"
                     class="contact-form grid gap-[1.1rem]"
                     novalidate
                 >
@@ -78,21 +77,21 @@ const CARDS = [
                             >
                                 Choose a topic&hellip;
                             </option>
-                            <option value="sponsorship">Sponsorship</option>
-                            <option value="vending">Vending</option>
                             <option value="performing">Performing</option>
-                            <option value="volunteering">Volunteering</option>
                             <option value="press">Press &amp; media</option>
-                            <option value="tickets">Tickets</option>
                             <option value="other">Something else</option>
+                            <option value="sponsorship">Sponsorship</option>
+                            <option value="tickets">Tickets</option>
+                            <option value="vending">Vending</option>
+                            <option value="volunteering">Volunteering</option>
                         </select>
                     </label>
                     <label class="field">
                         <span>Message</span>
-                        <textarea name="message" required></textarea>
+                        <textarea name="message" required />
                     </label>
                     <button
-                        class="btn btn--lg btn--primary"
+                        class="btn btn--large btn--primary"
                         type="submit"
                     >
                         Send it &#x2726;
@@ -104,6 +103,10 @@ const CARDS = [
 </section>
 
 <style>
+    .card {
+        --reveal-index: 2;
+    }
+
     .contact-card {
         align-items: center;
         display: flex;
@@ -112,7 +115,7 @@ const CARDS = [
     }
 
     .contact-card__body h3 {
-        color: var(--color-muted);
+        color: var(--color-lavender);
         font-size: 0.82rem;
         letter-spacing: 0.08em;
         margin-bottom: 0.15rem;
@@ -126,7 +129,7 @@ const CARDS = [
     }
 
     .contact-card__icon {
-        background: #a24dff29;
+        background: var(--color-purple-15);
         border-radius: 999px;
         color: var(--color-purple);
         display: grid;
@@ -135,6 +138,21 @@ const CARDS = [
         height: 3rem;
         place-items: center;
         width: 3rem;
+    }
+
+    .contact-form__row {
+        display: grid;
+        gap: 1.1rem;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    :global(.contact-form__success) {
+        background: var(--color-cyan-15);
+        border: 1px solid var(--color-cyan-40);
+        border-radius: var(--radius-card-sm);
+        color: var(--color-cyan);
+        font-weight: 600;
+        padding: 1rem 1.3rem;
     }
 
     .contact-grid {
@@ -150,8 +168,8 @@ const CARDS = [
     }
 
     .field > span {
-        color: var(--color-muted);
-        font-family: var(--font-ransom);
+        color: var(--color-lavender);
+        font-family: var(--font-mono);
         font-size: 0.8rem;
         letter-spacing: 0.15em;
         text-transform: uppercase;
@@ -161,11 +179,11 @@ const CARDS = [
     .field select,
     .field textarea {
         background: var(--color-ink-2);
-        border: 1px solid #faf7ff59;
+        border: 1px solid var(--color-paper-35);
         border-radius: var(--radius-card-sm);
         color: var(--color-paper);
         padding: 0.85rem 1rem;
-        transition: border-color 0.2s;
+        transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
         width: 100%;
     }
 
@@ -173,14 +191,14 @@ const CARDS = [
     .field select:focus-visible,
     .field textarea:focus-visible {
         border-color: var(--color-purple);
-        box-shadow: 0 0 0 3px #a24dff40;
+        box-shadow: 0 0 0 3px var(--color-purple-25);
         outline: none;
     }
 
     .field input:hover,
     .field select:hover,
     .field textarea:hover {
-        border-color: var(--color-paper-faint);
+        border-color: var(--color-paper-40);
     }
 
     .field select {
@@ -192,29 +210,12 @@ const CARDS = [
         resize: vertical;
     }
 
-    .contact-form__row {
-        display: grid;
-        gap: 1.1rem;
-        grid-template-columns: 1fr 1fr;
-    }
-
-    :global(.contact-form__success) {
-        background: #3dd9ff1f;
-        border: 1px solid #3dd9ff66;
-        border-radius: var(--radius-card-sm);
-        color: var(--color-cyan);
-        font-weight: 600;
-        padding: 1rem 1.3rem;
-    }
-
-    @media (max-width: 52rem) {
-        .contact-grid {
+    @media (max-width: 48rem) {
+        .contact-form__row {
             grid-template-columns: 1fr;
         }
-    }
 
-    @media (max-width: 40rem) {
-        .contact-form__row {
+        .contact-grid {
             grid-template-columns: 1fr;
         }
     }
@@ -236,11 +237,11 @@ const CARDS = [
         form.replaceWith(success);
     }
 
-    function initForm() {
-        const form = document.querySelector<HTMLFormElement>('#contact-form');
+    function initContactForm() {
+        const form = document.querySelector<HTMLFormElement>('.contact-form');
 
         form?.addEventListener('submit', handleSubmit);
     }
 
-    document.addEventListener('astro:page-load', initForm);
+    document.addEventListener('astro:page-load', initContactForm);
 </script>

@@ -1,5 +1,5 @@
 ---
-import { CONTACT } from '@lib/utils';
+import { LINKS } from '@lib/utils';
 ---
 
 <section
@@ -7,7 +7,7 @@ import { CONTACT } from '@lib/utils';
     aria-label="Terms of use"
 >
     <div class="container prose">
-        <p class="prose__updated">Last updated: June 9, 2026</p>
+        <p class="prose__updated">Last updated: <time datetime="2026-06-09">June 9, 2026</time></p>
         <h2>1. Acceptance of terms</h2>
         <p>By accessing empowheratx.com (the "Site") or attending the EmpowHER Festival (the "Event"), you agree to these Terms of Use. Your use of the Site is also subject to our <a href="/privacy">Privacy Policy</a>. If you do not agree, please do not use the Site or attend the Event.</p>
         <h2>2. The Event</h2>
@@ -21,7 +21,7 @@ import { CONTACT } from '@lib/utils';
         <h2>4. Photography &amp; recording</h2>
         <p>The Event is photographed and filmed. By attending, you consent to appearing in photos and recordings that may be used for promotional purposes.</p>
         <h2>5. Intellectual property</h2>
-        <p>All Site content &mdash; including the EmpowHER name, logo, and artwork &mdash; is owned by Madewell Productions or its licensors and may not be reproduced without prior written permission.</p>
+        <p>All Site content &mdash; including the EmpowHER Festival name, logo, and artwork &mdash; is owned by Madewell Productions or its licensors and may not be reproduced without prior written permission.</p>
         <h2>6. Disclaimer &amp; limitation of liability</h2>
         <p>The Site and the Event are provided "as is" and "as available." To the fullest extent permitted by law, we disclaim all warranties, express or implied, and are not liable for indirect, incidental, or consequential damages arising from use of the Site or attendance at the Event.</p>
         <h2>7. Governing law</h2>
@@ -29,6 +29,6 @@ import { CONTACT } from '@lib/utils';
         <h2>8. Changes</h2>
         <p>We may update these terms from time to time; the "Last updated" date above reflects the current version. Material changes will be announced on the Site.</p>
         <h2>9. Contact</h2>
-        <p>Questions about these terms: <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> or <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>.</p>
+        <p>Questions about these terms: <a href={`mailto:${LINKS.email}`}>{LINKS.email}</a>.</p>
     </div>
 </section>

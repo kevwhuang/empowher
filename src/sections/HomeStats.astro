@@ -26,10 +26,10 @@ const STATS = [
                 <li
                     class="stat"
                     data-reveal
-                    style={index ? `--reveal-i: ${index};` : undefined}
+                    style={index ? `--reveal-index: ${index};` : undefined}
                 >
                     <div
-                        class="stat__num"
+                        class="stat__number"
                         data-count-to={stat.countTo}
                         data-prefix={stat.prefix}
                         data-suffix={stat.suffix}
@@ -48,17 +48,18 @@ const STATS = [
         background: var(--color-ink-2);
         border: var(--border-soft);
         border-radius: var(--radius-card);
+        display: grid;
+        gap: 0.4rem;
         padding: clamp(1.6rem, 3vw, 2.4rem) 1.2rem;
         text-align: center;
     }
 
     .stat__label {
-        color: var(--color-muted);
+        color: var(--color-lavender);
         font-size: 0.95rem;
-        margin-top: 0.4rem;
     }
 
-    .stat__num {
+    .stat__number {
         font-family: var(--font-display);
         font-size: clamp(2rem, 4.5vw, 3.2rem);
         font-variant-numeric: tabular-nums;

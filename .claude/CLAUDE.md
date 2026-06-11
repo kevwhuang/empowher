@@ -1,1 +1,1 @@
-# EmpowHER ATX
+# EmpowHER Festival

@@ -17,14 +17,14 @@ const ASPECTS = [
         >
             Photo gallery
         </h2>
-        <div
-            class="masonry"
+        <ul
+            class="masonry list-none"
             data-reveal
         >
             {ASPECTS.map(aspect => (
-                <div class:list={['ph', aspect]}><span>photo</span></div>
+                <li class:list={['placeholder', aspect]}><span>photo</span></li>
             ))}
-        </div>
+        </ul>
     </div>
 </section>
 
@@ -34,7 +34,7 @@ const ASPECTS = [
         columns: 3 16rem;
     }
 
-    .masonry .ph {
+    .masonry .placeholder {
         break-inside: avoid;
         margin-bottom: 1.1rem;
     }

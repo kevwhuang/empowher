@@ -1,6 +1,6 @@
 ---
 import SectionHead from '@components/SectionHead.astro';
-import { CONTACT } from '@lib/utils';
+import { LINKS } from '@lib/utils';
 ---
 
 <section
@@ -27,7 +27,7 @@ import { CONTACT } from '@lib/utils';
             <details>
                 <summary>Where do I get tickets?</summary>
                 <div>
-                    <p>Ticketing details are coming soon. Reach out via the <a href="/contact">contact page</a> or DM {CONTACT.instagramHandle} and we'll let you know the moment they're live.</p>
+                    <p>Ticketing details are coming soon. Reach out via the <a href="/contact">contact page</a> or DM <a href={LINKS.instagram} rel="noopener noreferrer" target="_blank">{LINKS.instagramHandle}</a> and we'll let you know the moment they're live.</p>
                 </div>
             </details>
             <details>
@@ -39,7 +39,7 @@ import { CONTACT } from '@lib/utils';
             <details>
                 <summary>Is the venue accessible?</summary>
                 <div>
-                    <p>We're committed to an accessible festival &mdash; ground-level entry at the gardens, and our team can assist with rooftop access. Email <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> ahead of time and we'll make it work.</p>
+                    <p>We're committed to an accessible festival &mdash; ground-level entry at the gardens, and our team can assist with rooftop access. Email <a href={`mailto:${LINKS.email}`}>{LINKS.email}</a> ahead of time and we'll make it work.</p>
                 </div>
             </details>
             <details>
@@ -57,7 +57,7 @@ import { CONTACT } from '@lib/utils';
             <details>
                 <summary>What happens if it rains?</summary>
                 <div>
-                    <p>EmpowHER is rain or shine &mdash; The Studio is covered, and programming shifts indoors if the weather turns. Updates will be posted to {CONTACT.instagramHandle}.</p>
+                    <p>EmpowHER is rain or shine &mdash; The Studio is covered, and programming shifts indoors if the weather turns. Updates will be posted to <a href={LINKS.instagram} rel="noopener noreferrer" target="_blank">{LINKS.instagramHandle}</a>.</p>
                 </div>
             </details>
         </div>
@@ -72,7 +72,7 @@ import { CONTACT } from '@lib/utils';
     }
 
     .faq a {
-        transition: color 0.15s;
+        transition: color var(--duration-fast);
     }
 
     .faq a:hover {
@@ -84,19 +84,23 @@ import { CONTACT } from '@lib/utils';
         border: var(--border-soft);
         border-radius: var(--radius-card-sm);
         overflow: clip;
-        transition: border-color 0.2s;
+        transition: border-color var(--duration-fast);
     }
 
     .faq details:hover {
-        border-color: #a24dff59;
+        border-color: var(--color-purple-35);
     }
 
     .faq details[open] {
-        border-color: var(--color-purple-glow);
+        border-color: var(--color-purple-55);
+    }
+
+    .faq details[open] summary::after {
+        rotate: 45deg;
     }
 
     .faq details > div {
-        color: var(--color-muted);
+        color: var(--color-lavender);
         padding: 0 1.4rem 1.3rem;
     }
 
@@ -115,6 +119,11 @@ import { CONTACT } from '@lib/utils';
         justify-content: space-between;
         list-style: none;
         padding: 1.1rem 1.4rem;
+        user-select: none;
+    }
+
+    .faq summary::-webkit-details-marker {
+        display: none;
     }
 
     .faq summary::after {
@@ -125,14 +134,6 @@ import { CONTACT } from '@lib/utils';
         font-family: var(--font-sans);
         font-size: 1.4rem;
         font-weight: 600;
-        transition: rotate 0.25s;
-    }
-
-    .faq details[open] summary::after {
-        rotate: 45deg;
-    }
-
-    .faq summary::-webkit-details-marker {
-        display: none;
+        transition: rotate var(--duration-base);
     }
 </style>

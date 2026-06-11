@@ -1,5 +1,5 @@
 ---
-import { CONTACT } from '@lib/utils';
+import { LINKS } from '@lib/utils';
 ---
 
 <section
@@ -7,12 +7,12 @@ import { CONTACT } from '@lib/utils';
     aria-label="Privacy policy"
 >
     <div class="container prose">
-        <p class="prose__updated">Last updated: June 9, 2026</p>
+        <p class="prose__updated">Last updated: <time datetime="2026-06-09">June 9, 2026</time></p>
         <h2>1. Who we are</h2>
         <p>EmpowHER Festival is produced by Madewell Productions. This policy describes how we handle personal information in connection with empowheratx.com (the "Site") and our events.</p>
         <h2>2. Information we collect</h2>
         <ul>
-            <li><strong>You provide it:</strong> information you choose to send us when you contact us by email, phone, or social media &mdash; such as your name, contact details, and the contents of your message. The Site itself does not collect or store form submissions.</li>
+            <li><strong>You provide it:</strong> information you choose to send us when you contact us by email or social media &mdash; such as your name, contact details, and the contents of your message. The Site itself does not collect or store form submissions.</li>
             <li><strong>Hosting logs:</strong> our hosting provider, Netlify, keeps standard server access logs (such as IP address, request time, and pages requested) as part of operating its service. The Site runs no analytics or tracking scripts of its own.</li>
             <li><strong>At events:</strong> photos and recordings taken at the festival, which may include attendees. By attending, you consent to appearing in promotional photos and recordings.</li>
         </ul>
@@ -29,6 +29,6 @@ import { CONTACT } from '@lib/utils';
         <h2>8. Changes</h2>
         <p>We may update this policy from time to time; the "Last updated" date above reflects the current version. Material changes will be announced on the Site.</p>
         <h2>9. Contact</h2>
-        <p>Privacy questions: <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> or <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>.</p>
+        <p>Privacy questions: <a href={`mailto:${LINKS.email}`}>{LINKS.email}</a>. See also our <a href="/terms">Terms of Use</a>.</p>
     </div>
 </section>

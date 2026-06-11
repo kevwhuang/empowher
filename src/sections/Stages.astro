@@ -2,9 +2,9 @@
 import { Image } from 'astro:assets';
 
 import SectionHead from '@components/SectionHead.astro';
-import logoAustinGarden from '@images/logos/austin_garden.webp';
-import logoIykyk from '@images/logos/iykyk.webp';
-import logoStudio from '@images/logos/the_studio.webp';
+import logoAustinGarden from '@images/logos/inn_cahoots_garden.webp';
+import logoIykyk from '@images/logos/inn_cahoots_iykyk_rooftop.webp';
+import logoStudio from '@images/logos/inn_cahoots_studio.webp';
 
 import type { ImageMetadata } from 'astro';
 
@@ -25,26 +25,26 @@ interface Stage {
 const STAGES: Stage[] = [
     {
         descriptions: {
-            home: 'Rooftop home of acoustic acts \u00B7 tattoos \u00B7 tarot \u00B7 immersive experiences \u2014 AKA the IYKYK Rooftop',
-            info: 'AKA the IYKYK Rooftop \u2014 Acoustic acts \u00B7 Tattoos \u00B7 Tarot \u00B7 Sunset sets \u00B7 Skyline views \u00B7 Immersive experiences',
-        },
-        invert: true,
-        logo: logoIykyk,
-        logoAlt: 'IYKYK \u2014 Inn Cahoots',
-        name: 'Secret Garden',
-        vibe: 'Vibe: Mystical \u00B7 Intimate \u00B7 Golden hour',
-        width: 74,
-    },
-    {
-        descriptions: {
             home: 'Main acts + DJ headliners',
             info: 'Main acts + DJ headliners',
         },
         logo: logoAustinGarden,
-        logoAlt: 'Austin Garden',
-        name: 'Austin Garden Stage',
+        logoAlt: 'Austin Garden \u2014 Inn Cahoots',
+        name: 'Garden Stage',
         vibe: 'Vibe: High-energy \u00B7 Open-air \u00B7 Peak visibility',
         width: 42,
+    },
+    {
+        descriptions: {
+            home: 'Rooftop home of acoustic acts \u00B7 tattoos \u00B7 tarot \u00B7 immersive experiences',
+            info: 'Acoustic acts \u00B7 Tattoos \u00B7 Tarot \u00B7 Sunset sets \u00B7 Skyline views \u00B7 Immersive experiences',
+        },
+        invert: true,
+        logo: logoIykyk,
+        logoAlt: 'IYKYK Rooftop \u2014 Inn Cahoots',
+        name: 'IYKYK Rooftop',
+        vibe: 'Vibe: Mystical \u00B7 Intimate \u00B7 Golden hour',
+        width: 74,
     },
     {
         descriptions: {
@@ -75,19 +75,19 @@ const isInfo = variant === 'info';
         >
             Three stages. One immersive experience.
         </SectionHead>
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] gap-[1.2rem]">
+        <ul class:list={['grid grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] gap-[1.2rem] list-none', { 'mb-8': !isInfo }]}>
             {STAGES.map((stage, index) => (
-                <article
+                <li
                     class="card stage-card"
                     data-reveal
-                    style={index ? `--reveal-i: ${index};` : undefined}
+                    style={index ? `--reveal-index: ${index};` : undefined}
                 >
-                    <div class="ph">
+                    <div class="placeholder">
                         <span>photo</span>
                     </div>
                     <div class="stage-card__body">
                         <h3>{stage.name}</h3>
-                        <p>{stage.descriptions[variant]}</p>
+                        <p class="stage-card__description">{stage.descriptions[variant]}</p>
                         <p class="stage-card__vibe">{stage.vibe}</p>
                         {isInfo && (
                             <Image
@@ -100,14 +100,11 @@ const isInfo = variant === 'info';
                             />
                         )}
                     </div>
-                </article>
+                </li>
             ))}
-        </div>
+        </ul>
         {!isInfo && (
-            <p
-                class="mt-8"
-                data-reveal
-            >
+            <p data-reveal>
                 <a
                     class="btn btn--ghost"
                     href="/info"
@@ -127,7 +124,7 @@ const isInfo = variant === 'info';
         padding: 0;
     }
 
-    .stage-card .ph {
+    .stage-card .placeholder {
         aspect-ratio: 16 / 10;
         border: 0;
         border-bottom: var(--border-soft);
@@ -135,18 +132,22 @@ const isInfo = variant === 'info';
     }
 
     .stage-card__body {
-        display: grid;
+        display: flex;
         flex: 1;
+        flex-direction: column;
         gap: 0.5rem;
         padding: clamp(1.3rem, 2.5vw, 1.8rem);
     }
 
+    .stage-card__body .stage-card__description {
+        flex: 1;
+    }
+
     .stage-card__body .stage-card__vibe {
         color: var(--color-yellow);
-        font-family: var(--font-ransom);
+        font-family: var(--font-mono);
         font-size: 0.82rem;
         letter-spacing: 0.12em;
-        margin-top: auto;
         text-transform: uppercase;
     }
 

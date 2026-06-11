@@ -3,28 +3,28 @@ import SectionHead from '@components/SectionHead.astro';
 
 interface TravelOption {
     description: string;
-    tagModifier: string;
     tag: string;
+    tagModifier: string;
     title: string;
 }
 
 const OPTIONS: TravelOption[] = [
     {
         description: 'Rideshare drop-off is the easiest way in and out \u2014 pin "Inn Cahoots, East 6th Street."',
-        tagModifier: 'card__tag--cyan',
         tag: 'Rideshare',
+        tagModifier: 'card__tag--cyan',
         title: 'Best move: get dropped off',
     },
     {
         description: 'Limited street parking and paid lots around East 6th. Arrive early \u2014 east side fills up fast.',
-        tagModifier: 'card__tag--pink',
         tag: 'Parking',
+        tagModifier: 'card__tag--pink',
         title: 'Street + nearby lots',
     },
     {
         description: 'CapMetro routes serve East 6th, and bike/scooter parking is steps from the entrance.',
-        tagModifier: 'card__tag--yellow',
         tag: 'Transit + bike',
+        tagModifier: 'card__tag--yellow',
         title: 'Bus, bike, or scoot',
     },
 ];
@@ -40,20 +40,30 @@ const OPTIONS: TravelOption[] = [
             headingId="venue-title"
         >
             Austin Garden at Inn Cahoots
-            <p slot="text">East 6th Street, Austin, TX</p>
+            <address slot="text">East 6th Street, Austin, TX</address>
         </SectionHead>
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] gap-[1.2rem]">
+        <ul class="grid grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] gap-[1.2rem] list-none">
             {OPTIONS.map((option, index) => (
-                <article
+                <li
                     class="card"
                     data-reveal
-                    style={index ? `--reveal-i: ${index};` : undefined}
+                    style={index ? `--reveal-index: ${index};` : undefined}
                 >
                     <span class:list={['card__tag', option.tagModifier]}>{option.tag}</span>
                     <h3>{option.title}</h3>
                     <p>{option.description}</p>
-                </article>
+                </li>
             ))}
-        </div>
+        </ul>
     </div>
 </section>
+
+<style>
+    address {
+        color: var(--color-lavender);
+        font-size: 1.06em;
+        font-style: normal;
+        margin-bottom: 1em;
+        text-wrap: pretty;
+    }
+</style>

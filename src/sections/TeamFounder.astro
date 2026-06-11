@@ -1,5 +1,6 @@
 ---
-import { CONTACT } from '@lib/utils';
+import SectionHead from '@components/SectionHead.astro';
+import { LINKS } from '@lib/utils';
 ---
 
 <section
@@ -9,28 +10,37 @@ import { CONTACT } from '@lib/utils';
     <div class="container">
         <div class="founder">
             <div
-                class="ph"
+                class="placeholder"
                 data-reveal
             >
                 <span>photo</span>
             </div>
             <div
+                class="founder__content"
                 data-reveal
-                style="--reveal-i: 1;"
             >
-                <p class="eyebrow">Founder spotlight</p>
-                <h2 id="founder-title">Anna Madewell</h2>
-                <p class="founder__role">Founder &amp; Executive Director &middot; Madewell Productions</p>
+                <SectionHead
+                    eyebrow="Founder spotlight"
+                    headingId="founder-title"
+                >
+                    Anna Madewell
+                    <p
+                        class="founder__role"
+                        slot="text"
+                    >
+                        Founder &amp; Executive Director &middot; Madewell Productions
+                    </p>
+                </SectionHead>
                 <p>The director behind EmpowHER Festival, Anna leads Madewell Productions in cross-collaboration with Austin's creative collectives &mdash; turning one venue, three stages, and a 40+ person team into a storytelling immersive music production.</p>
-                <p>Under her direction, EmpowHER 2025 generated $10,000+ in cash sponsorships and ticket revenue while building a growing movement around authenticity and self-expression.</p>
-                <div class="flex flex-wrap gap-4 mt-[1.6rem]">
+                <p class="founder__impact">Under her direction, EmpowHER 2025 generated $10,000+ in cash sponsorships and ticket revenue while building a growing movement around authenticity and self-expression.</p>
+                <div class="flex flex-wrap gap-4">
                     <a
                         class="btn btn--primary"
-                        href={CONTACT.website}
-                        rel="noopener"
+                        href={LINKS.website}
+                        rel="noopener noreferrer"
                         target="_blank"
                     >
-                        {CONTACT.websiteLabel}
+                        {LINKS.websiteLabel}
                     </a>
                     <a
                         class="btn btn--ghost"
@@ -52,15 +62,23 @@ import { CONTACT } from '@lib/utils';
         grid-template-columns: minmax(15rem, 24rem) 1fr;
     }
 
-    .founder .ph {
+    .founder .placeholder {
         aspect-ratio: 4 / 5;
         box-shadow: var(--shadow-pop-purple);
         rotate: -2deg;
     }
 
+    .founder__content {
+        --reveal-index: 1;
+    }
+
+    .founder__impact {
+        margin-bottom: 1.6rem;
+    }
+
     .founder__role {
         color: var(--color-pink);
-        font-family: var(--font-ransom);
+        font-family: var(--font-mono);
         font-size: 0.9rem;
         letter-spacing: 0.18em;
         text-transform: uppercase;

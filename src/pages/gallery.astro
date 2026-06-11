@@ -3,11 +3,11 @@ import CtaBanner from '@sections/CtaBanner.astro';
 import GalleryMasonry from '@sections/GalleryMasonry.astro';
 import Layout from '@/Layout.astro';
 import PageHero from '@sections/PageHero.astro';
-import { CONTACT } from '@lib/utils';
+import { LINKS } from '@lib/utils';
 ---
 
 <Layout
-    description="EmpowHER Festival 2025 in photos &mdash; three stages, ten hours, and a whole lot of glitter from Austin's most empowering music production."
+    description="Gallery from EmpowHER Festival &mdash; photos from the 2025 celebration coming soon: Garden Stage, IYKYK Rooftop, The Studio, and a whole lot of glitter."
     title="Gallery &mdash; EmpowHER Festival"
 >
     <PageHero
@@ -25,15 +25,15 @@ import { CONTACT } from '@lib/utils';
         2026 will be even louder
         <Fragment slot="actions">
             <a
-                class="btn btn--lg btn--primary"
+                class="btn btn--large btn--primary"
                 href="/info"
             >
                 Festival info
             </a>
             <a
-                class="btn btn--ghost btn--lg"
-                href={CONTACT.instagram}
-                rel="noopener"
+                class="btn btn--ghost btn--large"
+                href={LINKS.instagram}
+                rel="noopener noreferrer"
                 target="_blank"
             >
                 More on Instagram

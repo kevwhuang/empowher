@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 
-import logoEmpowher from '@images/logos/empowher.webp';
+import logoEmpowher from '@images/logos/empowher_festival.webp';
 import { ROUTES } from '@lib/utils';
 
 const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
@@ -16,7 +16,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
         >
             <Image
                 class="site-header__logo"
-                alt="EmpowHER"
+                alt=""
                 densities={[1, 2]}
                 src={logoEmpowher}
                 width={77}
@@ -37,19 +37,18 @@ const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
             ))}
         </nav>
         <button
-            id="nav-toggle"
             class="nav-toggle"
             aria-controls="site-nav"
             aria-expanded="false"
             aria-label="Toggle menu"
             type="button"
         >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
         </button>
     </div>
-    <span class="holo-bar -bottom-[3px] inset-x-0" aria-hidden="true"></span>
+    <span class="holo-bar -bottom-[3px] inset-x-0" aria-hidden="true" />
 </header>
 
 <style>
@@ -64,23 +63,30 @@ const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
         height: 2.75rem;
         justify-content: center;
         padding: 0.6rem;
-        transition: background-color 0.15s, border-color 0.15s;
+        position: relative;
+        transition: background-color var(--duration-fast), border-color var(--duration-fast);
         width: 2.75rem;
     }
 
     .nav-toggle:active {
-        background: #faf7ff1f;
+        background: var(--color-paper-10);
     }
 
     .nav-toggle:hover {
-        border-color: var(--color-paper-faint);
+        border-color: var(--color-paper-40);
+    }
+
+    .nav-toggle::after {
+        content: '';
+        inset: -0.125rem;
+        position: absolute;
     }
 
     .nav-toggle span {
         background: var(--color-paper);
         border-radius: 2px;
         height: 2px;
-        transition: opacity 0.2s, transform 0.25s;
+        transition: opacity var(--duration-fast), transform var(--duration-base);
     }
 
     .nav-toggle[aria-expanded='true'] span:nth-child(1) {
@@ -97,7 +103,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
 
     .site-header {
         backdrop-filter: blur(14px);
-        background: #0e0816d1;
+        background: var(--color-ink-80);
         border-bottom: var(--border-soft);
         height: var(--spacing-header);
         position: sticky;
@@ -112,6 +118,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
         flex-shrink: 0;
         margin-right: auto;
         text-decoration: none;
+        user-select: none;
     }
 
     .site-header__inner {
@@ -134,14 +141,14 @@ const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
 
     .site-nav a {
         border-radius: 999px;
-        color: var(--color-muted);
+        color: var(--color-lavender);
         font-family: var(--font-display);
         font-size: 0.78rem;
         font-weight: 500;
         letter-spacing: 0.04em;
         padding: 0.5rem 0.7rem;
         text-decoration: none;
-        transition: background-color 0.15s, color 0.15s;
+        transition: background-color var(--duration-fast), color var(--duration-fast);
     }
 
     .site-nav a:hover {
@@ -154,7 +161,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
         font-weight: 700;
     }
 
-    @media (max-width: 68rem) {
+    @media (max-width: 64rem) {
         .nav-toggle {
             display: flex;
         }
@@ -162,7 +169,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
         .site-nav {
             align-items: stretch;
             backdrop-filter: blur(14px);
-            background: #0e0816f7;
+            background: var(--color-ink-95);
             border-bottom: var(--border-soft);
             flex-direction: column;
             gap: 0.25rem;
@@ -170,12 +177,13 @@ const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
             padding: 1rem var(--gutter) 1.5rem;
             position: fixed;
             transform: translateY(-115%);
-            transition: transform 0.3s ease, visibility 0.3s;
+            transition: transform var(--duration-base), visibility 0s var(--duration-base);
             visibility: hidden;
         }
 
         .site-nav.is-open {
             transform: translateY(0);
+            transition: transform var(--duration-base), visibility 0s;
             visibility: visible;
         }
 
@@ -187,29 +195,67 @@ const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
 </style>
 
 <script>
-    function handleKeydown(event: KeyboardEvent) {
-        if (event.key === 'Escape') setOpen(false);
+    function handleMenuKeydown(event: KeyboardEvent) {
+        const nav = document.getElementById('site-nav');
+
+        if (!nav?.classList.contains('is-open')) return;
+
+        if (event.key === 'Escape') {
+            setMenuOpen(false);
+            document.querySelector<HTMLElement>('.nav-toggle')?.focus();
+        } else if (event.key === 'Tab') {
+            const toggle = document.querySelector<HTMLElement>('.nav-toggle');
+
+            if (toggle && isToggleVisible(toggle)) trapFocus(event, nav);
+        }
     }
 
     function handleNavClick(event: Event) {
-        if (event.target instanceof Element && event.target.closest('a')) setOpen(false);
+        if (event.target instanceof Element && event.target.closest('a')) setMenuOpen(false);
     }
 
-    function initNav() {
+    function initNavbar() {
         const nav = document.getElementById('site-nav');
-        const toggle = document.getElementById('nav-toggle');
+        const toggle = document.querySelector('.nav-toggle');
 
         if (!nav || !toggle) return;
 
         nav.addEventListener('click', handleNavClick);
-        toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+        toggle.addEventListener('click', () => setMenuOpen(toggle.getAttribute('aria-expanded') !== 'true'));
     }
 
-    function setOpen(open: boolean) {
-        document.getElementById('site-nav')?.classList.toggle('is-open', open);
-        document.getElementById('nav-toggle')?.setAttribute('aria-expanded', String(open));
+    function isToggleVisible(toggle: HTMLElement) {
+        return getComputedStyle(toggle).display !== 'none';
     }
 
-    document.addEventListener('astro:page-load', initNav);
-    document.addEventListener('keydown', handleKeydown);
+    function setMenuOpen(open: boolean) {
+        const nav = document.getElementById('site-nav');
+        const toggle = document.querySelector<HTMLElement>('.nav-toggle');
+
+        nav?.classList.toggle('is-open', open);
+        toggle?.setAttribute('aria-expanded', String(open));
+
+        if (!open || !nav || !toggle || !isToggleVisible(toggle)) return;
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => nav.querySelector<HTMLElement>('a')?.focus());
+        });
+    }
+
+    function trapFocus(event: KeyboardEvent, nav: HTMLElement) {
+        const focusables = nav.querySelectorAll<HTMLElement>('a');
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    }
+
+    document.addEventListener('astro:page-load', initNavbar);
+    document.addEventListener('keydown', handleMenuKeydown);
 </script>

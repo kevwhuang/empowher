@@ -50,6 +50,10 @@ const { eyebrow, text, tint = false } = Astro.props;
         position: absolute;
     }
 
+    .cta-banner :is(h2, p):has(+ .cta-banner__actions) {
+        margin-bottom: 2rem;
+    }
+
     .cta-banner > * {
         position: relative;
     }
@@ -61,7 +65,7 @@ const { eyebrow, text, tint = false } = Astro.props;
     }
 
     .cta-banner p {
-        color: var(--color-muted);
+        color: var(--color-lavender);
         margin-inline: auto;
         max-width: 46ch;
     }
@@ -71,7 +75,6 @@ const { eyebrow, text, tint = false } = Astro.props;
         flex-wrap: wrap;
         gap: 1rem;
         justify-content: center;
-        margin-top: 2rem;
     }
 
     @keyframes cta-banner__rotate {
