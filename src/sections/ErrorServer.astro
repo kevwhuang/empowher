@@ -3,20 +3,20 @@
 ---
 
 <section
-    class="not-found"
-    aria-labelledby="not-found-title"
+    class="error-server"
+    aria-labelledby="error-server-title"
 >
     <div class="container">
         <p
-            class="not-found__code"
+            class="error-server__code"
             aria-hidden="true"
         >
-            <span>4</span>
+            <span>5</span>
             <span>0</span>
-            <span>4</span>
+            <span>0</span>
         </p>
-        <h1 id="not-found-title">This page lost the plot</h1>
-        <p class="not-found__lede">Whatever you were looking for isn't here &mdash; but the festival definitely is. Let's get you back to the music.</p>
+        <h1 id="error-server-title">Something skipped a beat</h1>
+        <p class="error-server__lede">Our end hit a snag &mdash; give it a moment and try again. The festival isn't going anywhere.</p>
         <div class="flex flex-wrap justify-center gap-4">
             <a
                 class="btn btn--large btn--primary"
@@ -28,14 +28,14 @@
                 class="btn btn--ghost btn--large"
                 href="/contact"
             >
-                Report a broken link
+                Report the problem
             </a>
         </div>
     </div>
 </section>
 
 <style>
-    .not-found {
+    .error-server {
         display: grid;
         min-height: calc(100svh - var(--spacing-header));
         padding: clamp(3rem, 7vw, 5rem) 0;
@@ -43,13 +43,13 @@
         text-align: center;
     }
 
-    .not-found p {
+    .error-server p {
         color: var(--color-lavender);
         margin-inline: auto;
         max-width: 40ch;
     }
 
-    .not-found__code {
+    .error-server__code {
         display: flex;
         font-family: var(--font-display);
         font-size: clamp(5rem, 18vw, 11rem);
@@ -59,23 +59,23 @@
         line-height: 1;
     }
 
-    .not-found__code span:nth-child(1) {
+    .error-server__code span:nth-child(1) {
         color: var(--color-purple);
         rotate: -7deg;
     }
 
-    .not-found__code span:nth-child(2) {
+    .error-server__code span:nth-child(2) {
         color: var(--color-pink);
         rotate: 4deg;
         translate: 0 -0.06em;
     }
 
-    .not-found__code span:nth-child(3) {
+    .error-server__code span:nth-child(3) {
         color: var(--color-cyan);
         rotate: -3deg;
     }
 
-    .not-found__lede {
+    .error-server__lede {
         margin-bottom: 2rem;
     }
 </style>

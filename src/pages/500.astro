@@ -1,0 +1,14 @@
+---
+import ErrorServer from '@sections/ErrorServer.astro';
+import Layout from '@/Layout.astro';
+
+export const prerender = false;
+---
+
+<Layout
+    description="Something skipped a beat on our end &mdash; give it a moment and try again, or head back to EmpowHER Festival."
+    noindex
+    title={'Server Error \u2014 EmpowHER Festival'}
+>
+    <ErrorServer />
+</Layout>
