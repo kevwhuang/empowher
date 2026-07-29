@@ -1,13 +1,12 @@
 ---
+import ErrorNotFound from '@sections/ErrorNotFound.astro';
 import Layout from '@/Layout.astro';
-import NotFound from '@sections/NotFound.astro';
-
-export const prerender = false;
 ---
 
 <Layout
     description="This page lost the plot &mdash; but EmpowHER Festival hasn't. Head back for November 8 at Austin Garden."
-    title="Page Not Found &mdash; EmpowHER Festival"
+    noindex
+    title={'Page Not Found \u2014 EmpowHER Festival'}
 >
-    <NotFound />
+    <ErrorNotFound />
 </Layout>

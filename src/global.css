@@ -61,8 +61,11 @@
     --gutter: clamp(1.25rem, 4vw, 2.5rem);
 }
 
-html {
-    scroll-behavior: smooth;
+a,
+button,
+label,
+select {
+    cursor: pointer;
 }
 
 a {
@@ -87,24 +90,39 @@ h2 {
     font-size: 1.5em;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+html[data-astro-transition] {
+    scroll-behavior: auto;
+}
+
 p {
     margin-bottom: 1em;
     text-wrap: pretty;
+}
+
+:disabled {
+    cursor: not-allowed;
 }
 
 :focus {
     outline: none;
 }
 
-:focus-visible {
+:focus-visible:not(input, select, textarea) {
     border-radius: 2px;
     outline: 3px solid var(--color-cyan);
     outline-offset: 3px;
 }
 
+::placeholder {
+    user-select: none;
+}
+
 ::selection {
-    background: var(--color-purple);
-    color: var(--color-ink);
+    background: var(--color-purple-20);
 }
 
 [data-reveal] {
@@ -125,11 +143,13 @@ p {
 
 @media (prefers-reduced-motion: reduce) {
     *,
-    *::before,
-    *::after {
+    *::after,
+    *::before {
+        animation-delay: 0s !important;
         animation-duration: 0.01s !important;
         animation-iteration-count: 1 !important;
         scroll-behavior: auto !important;
+        transition-delay: 0s !important;
         transition-duration: 0.01s !important;
     }
 

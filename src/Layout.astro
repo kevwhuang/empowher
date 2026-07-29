@@ -11,11 +11,13 @@ import Navbar from '@sections/Navbar.astro';
 
 interface Props {
     description: string;
+    noindex?: boolean;
     title: string;
 }
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
-const { description, title } = Astro.props;
+const { description, noindex, title } = Astro.props;
+const ogImageUrl = `${Astro.site}og.png`;
 ---
 
 <!doctype html>
@@ -27,19 +29,20 @@ const { description, title } = Astro.props;
         <meta content={description} name="description" />
         <meta content="Kevin Huang" name="author" />
         <meta content="#0e0816" name="theme-color" />
+        <meta content={noindex ? 'noindex, nofollow' : 'index, follow'} name="robots" />
         <link href={canonicalUrl} rel="canonical" />
         <link href="/apple-touch-icon.png" rel="apple-touch-icon" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         <meta content={title} property="og:title" />
         <meta content={description} property="og:description" />
-        <meta content={`${Astro.site}og.png`} property="og:image" />
+        <meta content={ogImageUrl} property="og:image" />
         <meta content={canonicalUrl} property="og:url" />
         <meta content="EmpowHER Festival" property="og:site_name" />
         <meta content="website" property="og:type" />
         <meta content="summary_large_image" name="twitter:card" />
         <meta content={title} name="twitter:title" />
         <meta content={description} name="twitter:description" />
-        <meta content={`${Astro.site}og.png`} name="twitter:image" />
+        <meta content={ogImageUrl} name="twitter:image" />
         <script
             is:inline
             set:html={JSON.stringify({
@@ -49,6 +52,7 @@ const { description, title } = Astro.props;
                     '@type': 'Person',
                     'name': 'Anna Madewell',
                 },
+                'inLanguage': 'en',
                 'name': 'EmpowHER Festival',
                 'url': Astro.site,
             })}
@@ -56,7 +60,7 @@ const { description, title } = Astro.props;
         />
         <ClientRouter />
     </head>
-    <body class="flex flex-col overflow-x-clip min-h-screen font-sans text-body bg-ink text-paper">
+    <body class="flex flex-col overflow-x-clip min-h-screen antialiased font-sans text-body bg-ink text-paper">
         <Navbar />
         <main class="flex flex-1 flex-col">
             <slot />
