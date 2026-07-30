@@ -5,15 +5,15 @@ import SectionHead from '@components/SectionHead.astro';
 
 <section
     class="section section--tint"
-    aria-labelledby="wall-title"
+    aria-labelledby="partners-wall-title"
 >
-    <div class="container">
+    <div class="shell">
         <SectionHead
             eyebrow="2026 brand partnerships"
-            headingId="wall-title"
+            headingId="partners-wall-title"
         >
             The partners behind the magic
         </SectionHead>
-        <LogoWall placeholders={[]} sponsors />
+        <LogoWall hasSponsors placeholderLabels={[]} />
     </div>
 </section>

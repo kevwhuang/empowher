@@ -7,22 +7,22 @@ import HomeStats from '@sections/HomeStats.astro';
 import Layout from '@/Layout.astro';
 import Marquee from '@sections/Marquee.astro';
 import Stages from '@sections/Stages.astro';
-import { LINKS } from '@lib/utils';
+import { LINKS } from '@lib/constants';
 ---
 
 <Layout
-    description="A storytelling immersive music production that reminds you who TF you are. November 8, 2026 &middot; 12PM&ndash;10PM &middot; Austin Garden, Austin TX."
+    description={'A storytelling immersive music production that reminds you who TF you are. November 8, 2026 \u00b7 12PM\u201310PM \u00b7 Austin Garden, Austin, TX.'}
     title="EmpowHER Festival"
 >
     <HomeHero />
     <Marquee
+        isLoud
         items={[
             'Remind you who TF you are',
             'Awaken your authenticity',
             'Empowering voices',
             'November 8 \u2014 Austin Garden',
         ]}
-        loud
     />
     <HomeCountdown />
     <HomePillars />
@@ -39,18 +39,18 @@ import { LINKS } from '@lib/utils';
     />
     <CtaBanner
         eyebrow="Join the movement"
-        text="Sponsor, vend, perform, or volunteer &mdash; if you align with the mission to empower creatives and amplify genuine self-expression, we want you."
+        text={'Sponsor, vend, perform, or volunteer \u2014 if you align with the mission to empower creatives and amplify genuine self-expression, we want you.'}
     >
         Inspire change. Become part of <span class="text-holo">HERstory</span>.
         <Fragment slot="actions">
             <a
-                class="btn btn--large btn--primary"
+                class="button button--large button--primary"
                 href="/contact"
             >
                 Get in touch
             </a>
             <a
-                class="btn btn--ghost btn--large"
+                class="button button--ghost button--large"
                 download
                 href={LINKS.pitchDeck}
             >

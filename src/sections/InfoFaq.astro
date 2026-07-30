@@ -1,62 +1,63 @@
 ---
 import SectionHead from '@components/SectionHead.astro';
-import { LINKS } from '@lib/utils';
+import { LINKS } from '@lib/constants';
 ---
 
 <section
     class="section"
-    aria-labelledby="faq-title"
+    aria-labelledby="info-faq-title"
 >
-    <div class="container">
+    <div class="shell">
         <SectionHead
             eyebrow="Good to know"
-            headingId="faq-title"
+            headingId="info-faq-title"
         >
             Frequently asked questions
         </SectionHead>
         <div
-            class="faq"
-            data-reveal
+            class="info-faq grid max-w-(--measure-prose) gap-3"
+            data-scroll
+            data-scroll-stagger
         >
-            <details>
+            <details name="faq">
                 <summary>What are the hours?</summary>
-                <div>
+                <div class="prose">
                     <p>Doors at 12PM, music until 10PM on November 8. Come for the live podcast kickoff, stay for the headliners.</p>
                 </div>
             </details>
-            <details>
+            <details name="faq">
                 <summary>Where do I get tickets?</summary>
-                <div>
+                <div class="prose">
                     <p>Ticketing details are coming soon. Reach out via the <a href="/contact">contact page</a> or DM <a href={LINKS.instagram} rel="noopener noreferrer" target="_blank">{LINKS.instagramHandle}</a> and we'll let you know the moment they're live.</p>
                 </div>
             </details>
-            <details>
+            <details name="faq">
                 <summary>Is the festival 18+ or all ages?</summary>
-                <div>
+                <div class="prose">
                     <p>Age policy will be confirmed with ticketing details.</p>
                 </div>
             </details>
-            <details>
+            <details name="faq">
                 <summary>Is the venue accessible?</summary>
-                <div>
-                    <p>We're committed to an accessible festival &mdash; ground-level entry at the gardens, and our team can assist with rooftop access. Email <a href={`mailto:${LINKS.email}`}>{LINKS.email}</a> ahead of time and we'll make it work.</p>
+                <div class="prose">
+                    <p>We're committed to an accessible festival &mdash; ground-level entry at the garden, and our team can assist with rooftop access. Email <a href={`mailto:${LINKS.email}`}>{LINKS.email}</a> ahead of time and we'll make it work.</p>
                 </div>
             </details>
-            <details>
+            <details name="faq">
                 <summary>What should I bring?</summary>
-                <div>
+                <div class="prose">
                     <p>Comfortable shoes, sun protection for the open-air stages, a layer for the evening, and your most authentic self. Outside food and drink aren't permitted &mdash; food trucks and bars are on site.</p>
                 </div>
             </details>
-            <details>
+            <details name="faq">
                 <summary>Can I perform, vend, or volunteer?</summary>
-                <div>
+                <div class="prose">
                     <p>Yes! We book performers, vendors, and volunteers every year. Head to the <a href="/contact">contact page</a> and tell us what you do.</p>
                 </div>
             </details>
-            <details>
+            <details name="faq">
                 <summary>What happens if it rains?</summary>
-                <div>
+                <div class="prose">
                     <p>EmpowHER is rain or shine &mdash; The Studio is covered, and programming shifts indoors if the weather turns. Updates will be posted to <a href={LINKS.instagram} rel="noopener noreferrer" target="_blank">{LINKS.instagramHandle}</a>.</p>
                 </div>
             </details>
@@ -65,75 +66,68 @@ import { LINKS } from '@lib/utils';
 </section>
 
 <style>
-    .faq {
-        display: grid;
-        gap: 0.8rem;
-        max-width: 50rem;
-    }
-
-    .faq a {
-        transition: color var(--duration-fast);
-    }
-
-    .faq a:hover {
-        color: var(--color-purple-bright);
-    }
-
-    .faq details {
-        background: var(--color-ink-2);
+    .info-faq details {
+        background: var(--color-ink-light);
         border: var(--border-soft);
         border-radius: var(--radius-card-sm);
         overflow: clip;
-        transition: border-color var(--duration-fast);
+        transition: border-color var(--duration-fast) ease;
     }
 
-    .faq details:hover {
+    .info-faq details:hover {
         border-color: var(--color-purple-35);
     }
 
-    .faq details[open] {
+    .info-faq details[open] {
         border-color: var(--color-purple-55);
     }
 
-    .faq details[open] summary::after {
+    .info-faq details[open] summary::after {
         rotate: 45deg;
     }
 
-    .faq details > div {
+    .info-faq details > div {
         color: var(--color-lavender);
-        padding: 0 1.4rem 1.3rem;
+        padding: 0 1.5rem 1.25rem;
     }
 
-    .faq details > div p:last-child {
-        margin-bottom: 0;
-    }
-
-    .faq summary {
+    .info-faq summary {
         align-items: center;
         cursor: pointer;
         display: flex;
         font-family: var(--font-display);
-        font-size: 0.95rem;
+        font-size: 1rem;
         font-weight: 500;
         gap: 1rem;
         justify-content: space-between;
         list-style: none;
-        padding: 1.1rem 1.4rem;
+        padding: 1rem 1.5rem;
+        transition:
+            color var(--duration-fast) ease,
+            opacity var(--duration-fast) ease;
         user-select: none;
     }
 
-    .faq summary::-webkit-details-marker {
-        display: none;
+    .info-faq summary:active {
+        opacity: 0.7;
     }
 
-    .faq summary::after {
+    .info-faq summary:focus-visible {
+        outline-offset: -0.1875rem;
+    }
+
+    .info-faq summary:hover {
+        color: var(--color-purple-bright);
+    }
+
+    .info-faq summary::after {
         color: var(--color-purple);
         content: '+';
         content: '+' / '';
         flex-shrink: 0;
         font-family: var(--font-sans);
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         font-weight: 600;
-        transition: rotate var(--duration-base);
+        transition: rotate var(--duration-base) ease;
     }
 </style>

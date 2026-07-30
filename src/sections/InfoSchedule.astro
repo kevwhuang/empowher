@@ -1,15 +1,9 @@
 ---
 import SectionHead from '@components/SectionHead.astro';
 
-interface ScheduleRow {
-    description: string;
-    time: string;
-    title: string;
-    where: string;
-}
-
-const SCHEDULE: ScheduleRow[] = [
+const SCHEDULE = [
     {
+        datetime: '2026-11-08T12:00-06:00',
         description: 'Panelists kick off EmpowHER with stories of authenticity and resilience.',
         time: '12PM',
         title: 'Doors + Live Podcast Session',
@@ -38,29 +32,40 @@ const SCHEDULE: ScheduleRow[] = [
 
 <section
     class="section"
-    aria-labelledby="schedule-title"
+    aria-labelledby="info-schedule-title"
 >
-    <div class="container">
+    <div class="shell">
         <SectionHead
             eyebrow="Day-of flow"
-            headingId="schedule-title"
+            headingId="info-schedule-title"
         >
             The shape of the day
             <p slot="text">Lineup and set times drop soon &mdash; here's how the day flows.</p>
         </SectionHead>
-        <ol class="grid gap-[0.8rem]">
-            {SCHEDULE.map((row, index) => (
-                <li
-                    class="card schedule__row"
-                    data-reveal
-                    style={index ? `--reveal-index: ${index};` : undefined}
-                >
-                    <span class="schedule__time">{row.time}</span>
-                    <div class="schedule__what">
+        <ol
+            class="info-schedule grid gap-x-4 gap-y-3"
+            data-scroll
+            data-scroll-stagger
+        >
+            {SCHEDULE.map(row => (
+                <li class="card info-schedule__row">
+                    {row.datetime
+                        ? (
+                                <time
+                                    class="font-bold font-display text-[0.875rem] text-purple-bright"
+                                    datetime={row.datetime}
+                                >
+                                    {row.time}
+                                </time>
+                            )
+                        : (
+                                <span class="font-bold font-display text-[0.875rem] text-purple-bright">{row.time}</span>
+                            )}
+                    <div class="info-schedule__what min-w-0">
                         <h3>{row.title}</h3>
                         <p>{row.description}</p>
                     </div>
-                    <span class="schedule__where">{row.where}</span>
+                    <span class="font-mono text-[0.75rem] tracking-[0.12em] uppercase text-cyan">{row.where}</span>
                 </li>
             ))}
         </ol>
@@ -68,42 +73,34 @@ const SCHEDULE: ScheduleRow[] = [
 </section>
 
 <style>
-    .schedule__row {
+    .info-schedule {
+        grid-template-columns: 7.5rem minmax(min(100%, 12rem), 1fr) minmax(0, auto);
+    }
+
+    .info-schedule__row {
         align-items: center;
         display: grid;
-        gap: 1rem;
-        grid-template-columns: 7.5rem 1fr auto;
-        padding: 1.1rem 1.4rem;
+        grid-column: 1 / -1;
+        grid-template-columns: subgrid;
+        padding: 1rem 1.5rem;
     }
 
-    .schedule__time {
-        color: var(--color-purple-bright);
-        font-family: var(--font-display);
-        font-size: 0.95rem;
-        font-weight: 700;
-    }
-
-    .schedule__what h3 {
+    .info-schedule__what h3 {
         font-size: 1rem;
-        margin-bottom: 0.15rem;
+        margin-bottom: 0.25rem;
     }
 
-    .schedule__what p {
-        font-size: 0.9rem;
-    }
-
-    .schedule__where {
-        color: var(--color-cyan);
-        font-family: var(--font-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
+    .info-schedule__what p {
+        font-size: 0.875rem;
     }
 
     @media (max-width: 48rem) {
-        .schedule__row {
-            gap: 0.3rem;
-            grid-template-columns: 1fr;
+        .info-schedule {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .info-schedule__row {
+            row-gap: 0.25rem;
         }
     }
 </style>

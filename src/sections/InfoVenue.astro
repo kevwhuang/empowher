@@ -1,16 +1,9 @@
 ---
 import SectionHead from '@components/SectionHead.astro';
 
-interface TravelOption {
-    description: string;
-    tag: string;
-    tagModifier: string;
-    title: string;
-}
-
-const OPTIONS: TravelOption[] = [
+const TRAVEL_OPTIONS = [
     {
-        description: 'Rideshare drop-off is the easiest way in and out \u2014 pin "Inn Cahoots, East 6th Street."',
+        description: 'Rideshare drop-off is the easiest way in and out \u2014 pin \u201cInn Cahoots, East 6th Street.\u201d',
         tag: 'Rideshare',
         tagModifier: 'card__tag--cyan',
         title: 'Best move: get dropped off',
@@ -32,23 +25,23 @@ const OPTIONS: TravelOption[] = [
 
 <section
     class="section section--tint"
-    aria-labelledby="venue-title"
+    aria-labelledby="info-venue-title"
 >
-    <div class="container">
+    <div class="shell">
         <SectionHead
             eyebrow="Getting there"
-            headingId="venue-title"
+            headingId="info-venue-title"
         >
             Austin Garden at Inn Cahoots
-            <address slot="text">East 6th Street, Austin, TX</address>
+            <p slot="text">East 6th Street, Austin, TX</p>
         </SectionHead>
-        <ul class="grid grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] gap-[1.2rem] list-none">
-            {OPTIONS.map((option, index) => (
-                <li
-                    class="card"
-                    data-reveal
-                    style={index ? `--reveal-index: ${index};` : undefined}
-                >
+        <ul
+            class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,17rem),1fr))] gap-5 list-none"
+            data-scroll
+            data-scroll-stagger
+        >
+            {TRAVEL_OPTIONS.map(option => (
+                <li class="card card--subgrid">
                     <span class:list={['card__tag', option.tagModifier]}>{option.tag}</span>
                     <h3>{option.title}</h3>
                     <p>{option.description}</p>
@@ -57,13 +50,3 @@ const OPTIONS: TravelOption[] = [
         </ul>
     </div>
 </section>
-
-<style>
-    address {
-        color: var(--color-lavender);
-        font-size: 1.06em;
-        font-style: normal;
-        margin-bottom: 1em;
-        text-wrap: pretty;
-    }
-</style>

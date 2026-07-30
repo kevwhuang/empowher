@@ -1,49 +1,59 @@
 ---
 import SectionHead from '@components/SectionHead.astro';
-import { LINKS } from '@lib/utils';
+import { LINKS } from '@lib/constants';
 ---
 
 <section
     class="section section--tint"
-    aria-labelledby="founder-title"
+    aria-labelledby="team-founder-title"
 >
-    <div class="container">
-        <div class="founder">
+    <div class="shell">
+        <div class="team-founder grid items-center">
             <div
-                class="placeholder"
-                data-reveal
+                class="placeholder aspect-[4/5] -rotate-2 shadow-pop-purple"
+                aria-hidden="true"
+                data-scroll="left"
             >
-                <span>photo</span>
+                <span>[Photo placeholder]</span>
             </div>
             <div
-                class="founder__content"
-                data-reveal
+                class="team-founder__content"
+                data-scroll="right"
+                data-scroll-stagger
             >
                 <SectionHead
                     eyebrow="Founder spotlight"
-                    headingId="founder-title"
+                    headingId="team-founder-title"
                 >
                     Anna Madewell
                     <p
-                        class="founder__role"
+                        class="team-founder__role"
                         slot="text"
                     >
                         Founder &amp; Executive Director &middot; Madewell Productions
                     </p>
                 </SectionHead>
-                <p>The director behind EmpowHER Festival, Anna leads Madewell Productions in cross-collaboration with Austin's creative collectives &mdash; turning one venue, three stages, and a 40+ person team into a storytelling immersive music production.</p>
-                <p class="founder__impact">Under her direction, EmpowHER 2025 generated $10,000+ in cash sponsorships and ticket revenue while building a growing movement around authenticity and self-expression.</p>
-                <div class="flex flex-wrap gap-4">
+                <p data-scroll>The director behind EmpowHER Festival, Anna leads Madewell Productions in cross-collaboration with Austin's creative collectives &mdash; turning one venue, three stages, and a 40+ person team into a storytelling immersive music production.</p>
+                <p
+                    class="team-founder__impact"
+                    data-scroll
+                >
+                    Under her direction, EmpowHER 2025 generated $10,000+ in cash sponsorships and ticket revenue while building a growing movement around authenticity and self-expression.
+                </p>
+                <div
+                    class="flex flex-wrap gap-4"
+                    data-scroll
+                >
                     <a
-                        class="btn btn--primary"
+                        class="button button--primary"
+                        aria-disabled="true"
                         href={LINKS.website}
-                        rel="noopener noreferrer"
-                        target="_blank"
+                        tabindex="-1"
                     >
                         {LINKS.websiteLabel}
                     </a>
                     <a
-                        class="btn btn--ghost"
+                        class="button button--ghost"
                         href="/contact"
                     >
                         Work with us
@@ -55,38 +65,56 @@ import { LINKS } from '@lib/utils';
 </section>
 
 <style>
-    .founder {
-        align-items: center;
-        display: grid;
-        gap: clamp(2rem, 5vw, 4rem);
-        grid-template-columns: minmax(15rem, 24rem) 1fr;
+    .team-founder {
+        gap: clamp(2rem, calc(1.33rem + 3.33vw), 4rem);
+        grid-template-columns: minmax(15rem, 24rem) minmax(0, 1fr);
     }
 
-    .founder .placeholder {
-        aspect-ratio: 4 / 5;
-        box-shadow: var(--shadow-pop-purple);
-        rotate: -2deg;
+    .team-founder .button[aria-disabled='true'] {
+        cursor: not-allowed;
+        opacity: 0.45;
     }
 
-    .founder__content {
-        --reveal-index: 1;
+    .team-founder .button[aria-disabled='true']:active {
+        box-shadow: var(--shadow-pop);
+        transform: none;
     }
 
-    .founder__impact {
-        margin-bottom: 1.6rem;
+    .team-founder .button[aria-disabled='true']:hover {
+        background: var(--color-purple);
+        transform: none;
     }
 
-    .founder__role {
+    .team-founder .team-founder__role {
         color: var(--color-pink);
         font-family: var(--font-mono);
-        font-size: 0.9rem;
+        font-size: 0.875rem;
         letter-spacing: 0.18em;
         text-transform: uppercase;
     }
 
+    .team-founder__content {
+        overflow-clip-margin: 0.5rem;
+        overflow-x: clip;
+    }
+
+    .team-founder__impact {
+        margin-bottom: 1.5rem;
+    }
+
     @media (max-width: 48rem) {
-        .founder {
-            grid-template-columns: 1fr;
+        .team-founder {
+            grid-template-columns: minmax(0, 1fr);
         }
     }
 </style>
+
+<script>
+    import { initDisabledLinks, registerPageScript } from '@lib/utils';
+
+    function initTeamFounder(signal: AbortSignal) {
+        initDisabledLinks('.team-founder a[aria-disabled="true"]', signal);
+    }
+
+    registerPageScript(initTeamFounder);
+</script>

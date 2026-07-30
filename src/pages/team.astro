@@ -7,8 +7,8 @@ import TeamGrid from '@sections/TeamGrid.astro';
 ---
 
 <Layout
-    description="The 40+ humans behind EmpowHER Festival &mdash; founder Anna Madewell and the producers, stage managers, and volunteers building Austin's most empowering festival."
-    title="Team &mdash; EmpowHER Festival"
+    description={'The 40+ humans behind EmpowHER Festival \u2014 founder Anna Madewell and the producers, stage managers, and volunteers building the festival in Austin, TX.'}
+    title={'Team \u2014 EmpowHER Festival'}
 >
     <PageHero
         eyebrow="The crew"
@@ -20,13 +20,13 @@ import TeamGrid from '@sections/TeamGrid.astro';
     <TeamGrid />
     <CtaBanner
         eyebrow="Join the crew"
-        text="Volunteers, stagehands, content creators, flow artists &mdash; reach out and tell us how you want to contribute."
-        tint
+        isTinted
+        text={'Volunteers, stagehands, content creators, flow artists \u2014 reach out and tell us how you want to contribute.'}
     >
         Want in? We're always growing.
         <Fragment slot="actions">
             <a
-                class="btn btn--large btn--primary"
+                class="button button--large button--primary"
                 href="/contact"
             >
                 Join the team

@@ -1,7 +1,7 @@
 ---
 import '@fontsource-variable/outfit/index.css';
 import '@fontsource-variable/unbounded/index.css';
-import '@fontsource/special-elite/index.css';
+import '@fontsource/special-elite/400.css';
 import { ClientRouter } from 'astro:transitions';
 
 import '@/global.css';
@@ -50,7 +50,7 @@ const ogImageUrl = `${Astro.site}og.png`;
                 '@type': 'WebSite',
                 'author': {
                     '@type': 'Person',
-                    'name': 'Anna Madewell',
+                    'name': 'Kevin Huang',
                 },
                 'inLanguage': 'en',
                 'name': 'EmpowHER Festival',
@@ -60,7 +60,7 @@ const ogImageUrl = `${Astro.site}og.png`;
         />
         <ClientRouter />
     </head>
-    <body class="flex flex-col overflow-x-clip min-h-screen antialiased font-sans text-body bg-ink text-paper">
+    <body class="flex flex-col overflow-x-clip min-h-svh antialiased font-sans text-body bg-ink text-paper">
         <Navbar />
         <main class="flex flex-1 flex-col">
             <slot />

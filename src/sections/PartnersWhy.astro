@@ -1,14 +1,7 @@
 ---
 import SectionHead from '@components/SectionHead.astro';
 
-interface Pillar {
-    description: string;
-    tag: string;
-    tagModifier?: string;
-    title: string;
-}
-
-const PILLARS: Pillar[] = [
+const PILLARS = [
     {
         description:
             'A full-day audience of creatives, organizers, and music lovers across three distinct stages \u2014 from open-air headliners to intimate podcast sessions.',
@@ -34,22 +27,22 @@ const PILLARS: Pillar[] = [
 
 <section
     class="section section--tint"
-    aria-labelledby="why-title"
+    aria-labelledby="partners-why-title"
 >
-    <div class="container">
+    <div class="shell">
         <SectionHead
             eyebrow="Why EmpowHER"
-            headingId="why-title"
+            headingId="partners-why-title"
         >
             Your brand, in the moment that matters
         </SectionHead>
-        <ul class="grid grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] gap-[1.2rem] list-none">
-            {PILLARS.map((pillar, index) => (
-                <li
-                    class="card"
-                    data-reveal
-                    style={index ? `--reveal-index: ${index};` : undefined}
-                >
+        <ul
+            class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,17rem),1fr))] gap-5 list-none"
+            data-scroll
+            data-scroll-stagger
+        >
+            {PILLARS.map(pillar => (
+                <li class="card card--subgrid">
                     <span class:list={['card__tag', pillar.tagModifier]}>{pillar.tag}</span>
                     <h3>{pillar.title}</h3>
                     <p>{pillar.description}</p>

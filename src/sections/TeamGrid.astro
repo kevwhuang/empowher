@@ -1,45 +1,36 @@
 ---
 import SectionHead from '@components/SectionHead.astro';
 
-const REVEAL_CYCLE = 4;
-const ROLES = [
-    'Hospitality',
-    'Marketing & Socials',
-    'Production',
-    'Safety',
-    'Sponsorships & Vendors',
-    'Stage Management',
-    'Talent & Booking',
-    'Volunteers',
-];
+const ROLE_COUNT = 8;
 ---
 
 <section
     class="section"
-    aria-labelledby="team-title"
+    aria-labelledby="team-grid-title"
 >
-    <div class="container">
+    <div class="shell">
         <SectionHead
             eyebrow="Operational team"
-            headingId="team-title"
+            headingId="team-grid-title"
         >
             The hands and hearts behind it
             <p slot="text">Meet the leads &mdash; with dozens more across stages, production, hospitality, and safety.</p>
         </SectionHead>
-        <ul class="grid grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-[1.2rem] list-none">
-            {ROLES.map((role, index) => (
-                <li
-                    class="card team-card"
-                    data-reveal
-                    style={index % REVEAL_CYCLE ? `--reveal-index: ${index % REVEAL_CYCLE};` : undefined}
-                >
-                    <div class="placeholder">
-                        <span>photo</span>
+        <ul
+            class="team-grid grid grid-cols-[repeat(auto-fill,minmax(min(100%,13rem),1fr))] gap-5 list-none"
+            data-scroll
+            data-scroll-stagger
+        >
+            {Array.from({ length: ROLE_COUNT }).map(() => (
+                <li class="card card--subgrid team-grid__card">
+                    <div
+                        class="placeholder aspect-square"
+                        aria-hidden="true"
+                    >
+                        <span>[Photo placeholder]</span>
                     </div>
-                    <div class="team-card__body">
-                        <h3>Name Placeholder</h3>
-                        <p>{role}</p>
-                    </div>
+                    <h3>[Role placeholder]</h3>
+                    <p class="text-[0.875rem]">[Name placeholder]</p>
                 </li>
             ))}
         </ul>
@@ -47,29 +38,23 @@ const ROLES = [
 </section>
 
 <style>
-    .team-card {
+    .team-grid__card {
+        --team-grid-pad: 1rem;
         overflow: clip;
-        padding: 0;
+        padding: 0 var(--team-grid-pad) 1.25rem;
         text-align: center;
     }
 
-    .team-card .placeholder {
-        aspect-ratio: 1;
+    .team-grid__card .placeholder {
         border: 0;
         border-bottom: var(--border-soft);
         border-radius: 0;
+        margin-bottom: var(--team-grid-pad);
+        margin-inline: calc(var(--team-grid-pad) * -1);
     }
 
-    .team-card__body {
-        padding: 1.1rem 1rem 1.3rem;
-    }
-
-    .team-card__body h3 {
-        font-size: 0.98rem;
-        margin-bottom: 0.2rem;
-    }
-
-    .team-card__body p {
-        font-size: 0.85rem;
+    .team-grid__card h3 {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
     }
 </style>

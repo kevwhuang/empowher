@@ -9,6 +9,6 @@ describe('ErrorServer', () => {
 
         const html = await container.renderToString(ErrorServer);
 
-        expect(html).toMatch(/<h1[^>]*>[\s]*Something skipped a beat[\s]*<\/h1>/);
+        expect(html).toMatch(/<h1[^>]*>\s*Something skipped a beat\s*<\/h1>/);
     });
 });

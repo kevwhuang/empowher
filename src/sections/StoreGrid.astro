@@ -1,36 +1,34 @@
 ---
-const PRODUCT_COUNT = 8;
-const STAGGER_COLUMNS = 4;
-
-const staggers = Array.from({ length: PRODUCT_COUNT }, (_, index) => index % STAGGER_COLUMNS);
+const PRODUCT_COUNT = 10;
 ---
 
 <section
     class="section"
-    aria-labelledby="products-title"
+    aria-labelledby="store-grid-title"
 >
-    <div class="container">
+    <div class="shell">
         <h2
-            id="products-title"
+            id="store-grid-title"
             class="sr-only"
         >
             Products
         </h2>
-        <ul class="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-[1.2rem] list-none">
-            {staggers.map(stagger => (
-                <li
-                    class="card product"
-                    data-reveal
-                    style={stagger ? `--reveal-index: ${stagger};` : undefined}
-                >
-                    <div class="placeholder">
-                        <span>photo</span>
+        <ul
+            class="store-grid grid grid-cols-[repeat(auto-fill,minmax(min(100%,15rem),1fr))] gap-5 list-none"
+            data-scroll
+            data-scroll-stagger
+        >
+            {Array.from({ length: PRODUCT_COUNT }).map(() => (
+                <li class="card card--subgrid store-grid__product">
+                    <div
+                        class="placeholder aspect-square"
+                        aria-hidden="true"
+                    >
+                        <span>[Photo placeholder]</span>
                     </div>
-                    <div class="product__body">
-                        <h3>Product Name</h3>
-                        <p class="product__description">Product description</p>
-                        <p class="product__price">$ &mdash;</p>
-                    </div>
+                    <h3>[Product placeholder]</h3>
+                    <p>[Description placeholder]</p>
+                    <p class="store-grid__product-price">[Price placeholder]</p>
                 </li>
             ))}
         </ul>
@@ -38,41 +36,31 @@ const staggers = Array.from({ length: PRODUCT_COUNT }, (_, index) => index % STA
 </section>
 
 <style>
-    .product {
-        display: flex;
-        flex-direction: column;
+    .store-grid__product {
+        --card-rows: 4;
+        --store-grid-pad: 1.25rem;
         overflow: clip;
-        padding: 0;
+        padding: 0 var(--store-grid-pad) 1.5rem;
+        row-gap: 0.25rem;
     }
 
-    .product .placeholder {
-        aspect-ratio: 1;
+    .store-grid__product .placeholder {
         border: 0;
         border-bottom: var(--border-soft);
         border-radius: 0;
+        margin-bottom: calc(var(--store-grid-pad) - 0.25rem);
+        margin-inline: calc(var(--store-grid-pad) * -1);
     }
 
-    .product__body {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        gap: 0.3rem;
-        padding: 1.2rem 1.3rem 1.4rem;
-    }
-
-    .product__body .product__description {
-        flex: 1;
-    }
-
-    .product__body .product__price {
+    .store-grid__product .store-grid__product-price {
         color: var(--color-purple-bright);
         font-family: var(--font-display);
         font-weight: 700;
-        padding-top: 0.6rem;
+        padding-top: 0.5rem;
     }
 
-    .product__body h3 {
-        font-size: 1.02rem;
+    .store-grid__product h3 {
+        font-size: 1rem;
         margin-bottom: 0;
     }
 </style>
