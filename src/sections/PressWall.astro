@@ -1,19 +1,23 @@
 ---
 import LogoWall from '@components/LogoWall.astro';
 import SectionHead from '@components/SectionHead.astro';
+
+const PRESS_LOGO_COUNT = 4;
+
+const placeholderLabels = Array.from({ length: PRESS_LOGO_COUNT }, () => '[Logo placeholder]');
 ---
 
 <section
     class="section section--tint"
-    aria-labelledby="press-title"
+    aria-labelledby="press-wall-title"
 >
-    <div class="container">
+    <div class="shell">
         <SectionHead
-            eyebrow="Press &amp; media &mdash; 2025"
-            headingId="press-title"
+            eyebrow={'Press & media \u2014 2025'}
+            headingId="press-wall-title"
         >
             As seen &amp; heard
         </SectionHead>
-        <LogoWall placeholders={['logo', 'logo', 'logo', 'logo']} />
+        <LogoWall placeholderLabels={placeholderLabels} />
     </div>
 </section>

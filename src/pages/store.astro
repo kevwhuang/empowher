@@ -3,12 +3,12 @@ import CtaBanner from '@sections/CtaBanner.astro';
 import Layout from '@/Layout.astro';
 import PageHero from '@sections/PageHero.astro';
 import StoreGrid from '@sections/StoreGrid.astro';
-import { LINKS } from '@lib/utils';
+import { LINKS } from '@lib/constants';
 ---
 
 <Layout
-    description="The official EmpowHER Festival store &mdash; wear the movement and rep empowering voices ahead of November 8 at Austin Garden."
-    title="Store &mdash; EmpowHER Festival"
+    description={'The official EmpowHER Festival store \u2014 wear the movement and rep empowering voices ahead of November 8 at Austin Garden.'}
+    title={'Store \u2014 EmpowHER Festival'}
 >
     <PageHero
         eyebrow="Merch"
@@ -19,19 +19,19 @@ import { LINKS } from '@lib/utils';
     <StoreGrid />
     <CtaBanner
         eyebrow="Questions?"
-        text="Questions about merch, sizing, or orders &mdash; reach out anytime."
-        tint
+        isTinted
+        text={'Questions about merch, sizing, or orders \u2014 reach out anytime.'}
     >
         We're happy to help
         <Fragment slot="actions">
             <a
-                class="btn btn--large btn--primary"
+                class="button button--large button--primary"
                 href="/contact"
             >
                 Contact us
             </a>
             <a
-                class="btn btn--ghost btn--large"
+                class="button button--ghost button--large"
                 href={LINKS.instagram}
                 rel="noopener noreferrer"
                 target="_blank"

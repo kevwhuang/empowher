@@ -1,19 +1,19 @@
 ---
 interface Props {
+    isLoud?: boolean;
     items: string[];
-    loud?: boolean;
 }
 
-const TRACKS = [0, 1];
+const TRACK_COUNT = 6;
 
-const { items, loud = false } = Astro.props;
+const { isLoud = false, items } = Astro.props;
 ---
 
-<div
-    class:list={['marquee', { 'marquee--loud': loud }]}
+<section
+    class:list={['marquee', { 'marquee--loud': isLoud }]}
     aria-hidden="true"
 >
-    {TRACKS.map(() => (
+    {Array.from({ length: TRACK_COUNT }, () => (
         <div class="marquee__track">
             {items.map(item => (
                 <>
@@ -23,21 +23,21 @@ const { items, loud = false } = Astro.props;
             ))}
         </div>
     ))}
-</div>
+</section>
 
 <style>
     .marquee {
-        background: var(--color-ink-2);
+        background: var(--color-ink-light);
         border-block: var(--border-soft);
         display: flex;
         overflow: hidden;
-        padding-block: 0.9rem;
+        padding-block: 1rem;
         user-select: none;
     }
 
     .marquee--loud {
         background: var(--color-purple);
-        border-block: 2px solid var(--color-ink);
+        border-block: 0.125rem solid var(--color-ink);
     }
 
     .marquee--loud .marquee__spark {
@@ -59,7 +59,7 @@ const { items, loud = false } = Astro.props;
         display: flex;
         flex-shrink: 0;
         font-family: var(--font-display);
-        font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+        font-size: clamp(0.875rem, calc(0.75rem + 0.625vw), 1.25rem);
         font-weight: 700;
         gap: var(--marquee-gap);
         letter-spacing: 0.06em;

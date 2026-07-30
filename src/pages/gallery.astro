@@ -3,35 +3,35 @@ import CtaBanner from '@sections/CtaBanner.astro';
 import GalleryMasonry from '@sections/GalleryMasonry.astro';
 import Layout from '@/Layout.astro';
 import PageHero from '@sections/PageHero.astro';
-import { LINKS } from '@lib/utils';
+import { LINKS } from '@lib/constants';
 ---
 
 <Layout
-    description="Gallery from EmpowHER Festival &mdash; photos from the 2025 celebration coming soon: Garden Stage, IYKYK Rooftop, The Studio, and a whole lot of glitter."
-    title="Gallery &mdash; EmpowHER Festival"
+    description={'Gallery from EmpowHER Festival \u2014 photos from the 2025 celebration coming soon: Garden Stage, IYKYK Rooftop, The Studio, and a whole lot of glitter.'}
+    title={'Gallery \u2014 EmpowHER Festival'}
 >
     <PageHero
         eyebrow="2025 in pictures"
-        text="A look back at EmpowHER 2025 &mdash; three stages, ten hours, and a whole lot of glitter."
+        text={'A look back at EmpowHER 2025 \u2014 three stages, ten hours, and a whole lot of glitter.'}
     >
         The moments that <span class="text-holo">made it</span>
     </PageHero>
     <GalleryMasonry />
     <CtaBanner
         eyebrow="Be in the next batch"
-        text="November 8 &middot; 12PM&ndash;10PM &middot; Austin Garden. See you in the photos."
-        tint
+        isTinted
+        text={'November 8 \u00b7 12PM\u201310PM \u00b7 Austin Garden. See you in the photos.'}
     >
         2026 will be even louder
         <Fragment slot="actions">
             <a
-                class="btn btn--large btn--primary"
+                class="button button--large button--primary"
                 href="/info"
             >
                 Festival info
             </a>
             <a
-                class="btn btn--ghost btn--large"
+                class="button button--ghost button--large"
                 href={LINKS.instagram}
                 rel="noopener noreferrer"
                 target="_blank"

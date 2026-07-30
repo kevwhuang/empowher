@@ -1,41 +1,89 @@
 ---
-const ASPECTS = [
-    'aspect-[3/4]', 'aspect-square', 'aspect-[4/3]', 'aspect-video', 'aspect-square',
-    'aspect-[3/4]', 'aspect-[4/3]', 'aspect-square', 'aspect-[3/4]', 'aspect-[4/3]',
-    'aspect-square', 'aspect-video', 'aspect-square', 'aspect-[3/4]', 'aspect-[4/3]',
-];
+const TILE_ASPECTS = [
+    'aspect-[3/4]', 'aspect-video', 'aspect-square', 'aspect-[2/3]', 'aspect-[4/3]',
+    'aspect-square', 'aspect-[2/3]', 'aspect-[4/3]', 'aspect-[3/4]', 'aspect-video',
+    'aspect-video', 'aspect-[4/3]', 'aspect-[3/4]', 'aspect-square', 'aspect-[2/3]',
+    'aspect-[2/3]', 'aspect-[3/4]', 'aspect-video', 'aspect-[4/3]', 'aspect-square',
+] as const;
+
+const TILE_TINTS = {
+    'aspect-[2/3]': 'var(--color-pink-15)',
+    'aspect-[3/4]': 'var(--color-purple-15)',
+    'aspect-[4/3]': 'var(--color-cyan-10)',
+    'aspect-square': 'var(--color-ink-55)',
+    'aspect-video': 'transparent',
+} as const;
+
+const tiles = TILE_ASPECTS.map(aspect => ({
+    aspect,
+    tint: TILE_TINTS[aspect],
+}));
 ---
 
 <section
     class="section"
-    aria-labelledby="masonry-title"
+    aria-labelledby="gallery-masonry-title"
 >
-    <div class="container">
+    <div class="shell">
         <h2
-            id="masonry-title"
+            id="gallery-masonry-title"
             class="sr-only"
         >
             Photo gallery
         </h2>
         <ul
-            class="masonry list-none"
-            data-reveal
+            class="gallery-masonry columns-4 gap-x-3 list-none"
+            data-scroll="scale"
+            data-scroll-stagger
         >
-            {ASPECTS.map(aspect => (
-                <li class:list={['placeholder', aspect]}><span>photo</span></li>
+            {tiles.map(tile => (
+                <li
+                    class:list={['gallery-masonry__tile', 'placeholder', tile.aspect, 'break-inside-avoid', 'mb-3']}
+                    aria-hidden="true"
+                    style={`--gallery-masonry-tint: ${tile.tint};`}
+                >
+                    <span class="relative z-1">[Photo placeholder]</span>
+                </li>
             ))}
         </ul>
     </div>
 </section>
 
 <style>
-    .masonry {
-        column-gap: 1.1rem;
-        columns: 3 16rem;
+    .gallery-masonry__tile {
+        border-radius: var(--radius-card-sm);
+        min-height: 0;
     }
 
-    .masonry .placeholder {
-        break-inside: avoid;
-        margin-bottom: 1.1rem;
+    .gallery-masonry__tile::after {
+        background: var(--gallery-masonry-tint);
+        content: '';
+        inset: 0;
+        position: absolute;
+    }
+
+    .gallery-masonry__tile > span {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    @media (max-width: 64rem) {
+        .gallery-masonry {
+            column-count: 3;
+        }
+
+        .gallery-masonry__tile:nth-child(n + 16) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 48rem) {
+        .gallery-masonry {
+            column-count: 2;
+        }
+
+        .gallery-masonry__tile:nth-child(n + 11) {
+            display: none;
+        }
     }
 </style>

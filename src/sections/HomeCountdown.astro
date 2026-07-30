@@ -1,95 +1,76 @@
 ---
 import SectionHead from '@components/SectionHead.astro';
 
-const EVENT_DATE = '2026-11-08T12:00:00-06:00';
+const EVENT_DATETIME = '2026-11-08T12:00:00-06:00';
 
 const UNITS = [
     { label: 'Days', unit: 'days' },
     { label: 'Hours', unit: 'hours' },
     { label: 'Minutes', unit: 'minutes' },
     { label: 'Seconds', unit: 'seconds' },
-];
+] as const;
 ---
 
 <section
-    id="countdown"
     class="section text-center"
-    aria-labelledby="countdown-title"
+    aria-labelledby="home-countdown-title"
 >
-    <div class="container">
+    <div
+        class="shell"
+        data-scroll
+        data-scroll-stagger
+    >
         <SectionHead
-            center
             eyebrow="The clock is ticking"
-            headingId="countdown-title"
+            headingId="home-countdown-title"
+            isCentered
         >
             EmpowHER goes live in
         </SectionHead>
-        <ul
-            class="countdown list-none"
+        <dl
+            class="home-countdown flex flex-wrap justify-center select-none"
             aria-label="Event countdown"
-            aria-live="off"
-            data-countdown={EVENT_DATE}
-            data-reveal
-            role="timer"
+            data-countdown={EVENT_DATETIME}
+            data-scroll="scale"
         >
             {UNITS.map(({ label, unit }) => (
-                <li class="countdown__unit">
-                    <span
-                        class="countdown__number"
+                <div class="flex flex-col-reverse items-center gap-2">
+                    <dt class="font-mono text-[0.875rem] tracking-[0.2em] uppercase text-lavender">{label}</dt>
+                    <dd
+                        class="home-countdown__number"
                         data-unit={unit}
                     >
-                        --
-                    </span>
-                    <span class="countdown__label">{label}</span>
-                </li>
+                        00
+                    </dd>
+                </div>
             ))}
-        </ul>
+        </dl>
     </div>
 </section>
 
 <style>
-    .countdown {
-        --reveal-index: 1;
-        display: flex;
-        flex-wrap: wrap;
-        gap: clamp(0.7rem, 2.5vw, 1.6rem);
-        justify-content: center;
-        user-select: none;
+    .home-countdown {
+        gap: clamp(0.75rem, calc(0.5rem + 1.25vw), 1.5rem);
     }
 
-    .countdown__label {
-        color: var(--color-lavender);
-        font-family: var(--font-mono);
-        font-size: 0.85rem;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-    }
-
-    .countdown__number {
-        background: var(--color-ink-2);
+    .home-countdown__number {
+        background: var(--color-ink-light);
         border: var(--border-soft);
         border-radius: var(--radius-card-sm);
         box-shadow: var(--shadow-pop-purple);
         font-family: var(--font-display);
-        font-size: clamp(2.2rem, 7vw, 4.5rem);
+        font-size: clamp(2.25rem, calc(1.5rem + 3.75vw), 4.5rem);
         font-variant-numeric: tabular-nums;
         font-weight: 900;
         line-height: 1;
-        min-width: 2ch;
         padding: 0.45em 0.6em;
     }
 
-    .countdown__number.is-tick {
-        animation: countdown__tick 0.45s var(--ease-pop);
+    .home-countdown__number--tick {
+        animation: home-countdown__tick var(--duration-base) var(--ease-pop) both;
     }
 
-    .countdown__unit {
-        display: grid;
-        gap: 0.4rem;
-        justify-items: center;
-    }
-
-    @keyframes countdown__tick {
+    @keyframes home-countdown__tick {
         0% {
             opacity: 0.2;
             transform: translateY(-0.35em);
@@ -103,16 +84,22 @@ const UNITS = [
 </style>
 
 <script>
-    import { pad } from '@lib/utils';
+    import { REDUCED_MOTION_QUERY } from '@lib/constants';
 
     const MS_PER_SECOND = 1_000;
+    const PAD_LENGTH = 2;
     const SECONDS_PER_DAY = 86_400;
     const SECONDS_PER_HOUR = 3_600;
     const SECONDS_PER_MINUTE = 60;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reducedMotionQuery = window.matchMedia(REDUCED_MOTION_QUERY);
 
-    let countdownInterval: Timer | undefined;
+    let countdownInterval: ReturnType<typeof setInterval> | undefined;
+    let daysElement: HTMLElement | null = null;
+    let hoursElement: HTMLElement | null = null;
+    let minutesElement: HTMLElement | null = null;
+    let secondsElement: HTMLElement | null = null;
+    let targetTime = 0;
 
     function initCountdown() {
         clearInterval(countdownInterval);
@@ -121,40 +108,41 @@ const UNITS = [
 
         if (!root) return;
 
-        const days = root.querySelector<HTMLElement>('[data-unit="days"]');
-        const hours = root.querySelector<HTMLElement>('[data-unit="hours"]');
-        const minutes = root.querySelector<HTMLElement>('[data-unit="minutes"]');
-        const seconds = root.querySelector<HTMLElement>('[data-unit="seconds"]');
-        const target = new Date(root.dataset.countdown ?? '').getTime();
+        targetTime = new Date(root.dataset.countdown ?? '').getTime();
 
-        if (Number.isNaN(target)) return;
+        if (Number.isNaN(targetTime)) return;
 
-        function update() {
-            const remaining = Math.max(0, target - Date.now());
-            const total = Math.floor(remaining / MS_PER_SECOND);
-
-            setValue(days, Math.floor(total / SECONDS_PER_DAY));
-            setValue(hours, Math.floor((total % SECONDS_PER_DAY) / SECONDS_PER_HOUR));
-            setValue(minutes, Math.floor((total % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE));
-            setValue(seconds, total % SECONDS_PER_MINUTE);
-        }
-
+        daysElement = root.querySelector<HTMLElement>('[data-unit="days"]');
+        hoursElement = root.querySelector<HTMLElement>('[data-unit="hours"]');
+        minutesElement = root.querySelector<HTMLElement>('[data-unit="minutes"]');
+        secondsElement = root.querySelector<HTMLElement>('[data-unit="seconds"]');
         update();
         countdownInterval = setInterval(update, MS_PER_SECOND);
     }
 
     function setValue(element: HTMLElement | null, value: number) {
-        const text = pad(value);
+        const text = String(value).padStart(PAD_LENGTH, '0');
 
         if (!element || element.textContent === text) return;
 
         element.textContent = text;
 
-        if (element.dataset.unit === 'seconds' || prefersReducedMotion) return;
+        if (element.dataset.unit === 'seconds' || reducedMotionQuery.matches) return;
 
-        element.classList.remove('is-tick');
+        element.classList.remove('home-countdown__number--tick');
         void element.offsetWidth;
-        element.classList.add('is-tick');
+        element.classList.add('home-countdown__number--tick');
+    }
+
+    function update() {
+        const remaining = Math.max(0, targetTime - Date.now());
+
+        const totalSeconds = Math.floor(remaining / MS_PER_SECOND);
+
+        setValue(daysElement, Math.floor(totalSeconds / SECONDS_PER_DAY));
+        setValue(hoursElement, Math.floor((totalSeconds % SECONDS_PER_DAY) / SECONDS_PER_HOUR));
+        setValue(minutesElement, Math.floor((totalSeconds % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE));
+        setValue(secondsElement, totalSeconds % SECONDS_PER_MINUTE);
     }
 
     document.addEventListener('astro:page-load', initCountdown);

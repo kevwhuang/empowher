@@ -6,14 +6,15 @@ import poster from '@images/poster.webp';
 ---
 
 <section
-    class="hero"
-    aria-labelledby="hero-title"
+    class="home-hero grid overflow-clip place-items-center relative isolate min-h-svh text-center"
+    aria-labelledby="home-hero-title"
 >
     <div
-        class="hero__media"
+        class="home-hero__media -z-1"
         aria-hidden="true"
     >
         <video
+            class="object-cover h-full w-full"
             autoplay
             loop
             muted
@@ -23,107 +24,82 @@ import poster from '@images/poster.webp';
             <source src="/videos/hero.webm" type="video/webm" />
         </video>
     </div>
-    <div class="container relative z-1">
-        <h1 id="hero-title">
+    <div
+        class="shell relative"
+        data-scroll
+        data-scroll-stagger
+    >
+        <h1 id="home-hero-title">
             <Image
-                class="hero__logo"
+                class="home-hero__logo"
                 alt="EmpowHER Festival"
                 densities={[1, 2]}
                 fetchpriority="high"
                 loading="eager"
                 src={logoEmpowher}
-                width={544}
+                width={640}
             />
         </h1>
-        <p
-            class="hero__tagline"
-            data-reveal
-        >
+        <p class="home-hero__tagline">
             A storytelling immersive music production that reminds you <strong>who TF you are</strong>. Empowering voices.
         </p>
-        <p
-            class="hero__meta"
-            data-reveal
-        >
-            <span><time datetime="2026-11-08">November 8</time></span>
-            <span
-                class="hero__meta-dot"
+        <ul class="home-hero__meta list-none">
+            <li><time datetime="2026-11-08">November 8</time></li>
+            <li
+                class="text-pink"
                 aria-hidden="true"
             >
                 &#x2726;
-            </span>
-            <span>12PM&ndash;10PM</span>
-            <span
-                class="hero__meta-dot"
+            </li>
+            <li><time datetime="2026-11-08T12:00-06:00">12PM</time>&ndash;<time datetime="2026-11-08T22:00-06:00">10PM</time></li>
+            <li
+                class="text-pink"
                 aria-hidden="true"
             >
                 &#x2726;
-            </span>
-            <span>Austin Garden</span>
+            </li>
+            <li>Austin Garden</li>
+        </ul>
+        <p class="home-hero__spaces">
+            Garden Stage &middot; IYKYK Rooftop &middot; The Studio
         </p>
-        <p
-            class="hero__spaces"
-            data-reveal
-        >
-            Garden Stage &bull; IYKYK Rooftop &bull; The Studio
-        </p>
-        <div
-            class="hero__actions"
-            data-reveal
-        >
+        <div class="flex flex-wrap justify-center gap-4">
             <a
-                class="btn btn--large btn--primary"
+                class="button button--large button--primary"
                 href="/contact"
             >
-                Become a Sponsor
+                Become a sponsor
             </a>
             <a
-                class="btn btn--ghost btn--large"
+                class="button button--ghost button--large"
                 href="/info"
             >
-                Explore the Festival
+                Explore the festival
             </a>
         </div>
     </div>
-    <a
-        class="hero__scroll"
-        href="#countdown"
-    >
-        Scroll &darr;
-    </a>
 </section>
 
 <style>
-    .hero {
-        display: grid;
-        min-height: calc(100svh - var(--spacing-header));
-        overflow: clip;
-        padding: clamp(3.5rem, 7.5vw, 6rem) 0;
-        place-items: center;
-        position: relative;
-        text-align: center;
+    .home-hero {
+        --spacing-section: clamp(3.5rem, calc(2.67rem + 4.17vw), 6rem);
+        padding-bottom: var(--spacing-section);
     }
 
-    .hero h1 {
-        margin-bottom: 1.4rem;
+    .home-hero h1 {
+        --home-hero-logo-width: min(40rem, 74.6vw);
+        margin-bottom: calc(1.5rem + var(--home-hero-logo-width) * 0.1413);
+        padding-top: calc(var(--home-hero-logo-width) * 0.107);
         user-select: none;
     }
 
-    .hero__actions {
-        --reveal-index: 3;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        justify-content: center;
-    }
-
-    .hero__logo {
+    .home-hero__logo {
         filter: drop-shadow(0 0.8rem 2.5rem var(--color-purple-45));
         margin-inline: auto;
-        width: min(34rem, 84vw);
+        width: var(--home-hero-logo-width);
     }
 
-    .hero__media {
+    .home-hero__media {
         background:
             radial-gradient(60% 80% at 25% 25%, var(--color-purple-40), transparent 65%),
             radial-gradient(55% 70% at 78% 30%, var(--color-pink-25), transparent 65%),
@@ -131,92 +107,71 @@ import poster from '@images/poster.webp';
             var(--color-ink);
         inset: 0;
         position: absolute;
-        z-index: 0;
     }
 
-    .hero__media::after {
+    .home-hero__media::after {
         background: linear-gradient(180deg, var(--color-ink-55), var(--color-ink-80) 80%, var(--color-ink));
         content: '';
         inset: 0;
         position: absolute;
     }
 
-    .hero__media video {
-        height: 100%;
-        object-fit: cover;
-        width: 100%;
-    }
-
-    .hero__meta {
-        --reveal-index: 1;
+    .home-hero__meta {
         align-items: center;
         display: flex;
         flex-wrap: wrap;
         font-family: var(--font-display);
-        font-size: clamp(0.82rem, 1.5vw, 1rem);
+        font-size: 0.875rem;
         font-weight: 700;
         gap: 0.5rem 1rem;
         justify-content: center;
         letter-spacing: 0.05em;
+        margin-bottom: 1em;
         text-transform: uppercase;
     }
 
-    .hero__meta-dot {
-        color: var(--color-pink);
-    }
-
-    .hero__scroll {
-        animation: hero__scroll-hint 2.4s ease-in-out infinite;
-        bottom: 1.4rem;
-        color: var(--color-lavender);
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        left: 50%;
-        letter-spacing: 0.25em;
-        position: absolute;
-        text-decoration: none;
-        text-transform: uppercase;
-        transition: color var(--duration-fast);
-        translate: -50%;
-        z-index: 1;
-    }
-
-    .hero__scroll:hover {
-        color: var(--color-paper);
-    }
-
-    .hero__spaces {
-        --reveal-index: 2;
+    .home-hero__spaces {
         color: var(--color-cyan);
         font-family: var(--font-mono);
-        font-size: clamp(0.8rem, 1.4vw, 0.95rem);
+        font-size: 0.875rem;
         letter-spacing: 0.14em;
-        margin-bottom: 2.4rem;
+        margin-bottom: 2.5rem;
         text-transform: uppercase;
     }
 
-    .hero__tagline {
-        font-size: clamp(1.05rem, 2vw, 1.4rem);
+    .home-hero__tagline {
+        font-size: clamp(1rem, calc(0.92rem + 0.42vw), 1.25rem);
         font-weight: 500;
-        margin-bottom: 1.6rem;
+        margin-bottom: 1.5rem;
         margin-inline: auto;
-        max-width: 44ch;
+        max-width: 40rem;
     }
 
-    .hero__tagline strong {
+    .home-hero__tagline strong {
         color: var(--color-purple);
     }
-
-    @keyframes hero__scroll-hint {
-        0%,
-        100% {
-            opacity: 0.7;
-            transform: translateY(0);
-        }
-
-        50% {
-            opacity: 1;
-            transform: translateY(0.45rem);
-        }
-    }
 </style>
+
+<script>
+    import { REDUCED_MOTION_QUERY } from '@lib/constants';
+    import { registerPageScript } from '@lib/utils';
+
+    const reducedMotionQuery = window.matchMedia(REDUCED_MOTION_QUERY);
+
+    function initHeroVideo(signal: AbortSignal) {
+        syncHeroVideo(reducedMotionQuery.matches);
+        reducedMotionQuery.addEventListener('change', event => syncHeroVideo(event.matches), { signal });
+    }
+
+    function syncHeroVideo(prefersReducedMotion: boolean) {
+        const video = document.querySelector<HTMLVideoElement>('.home-hero__media video');
+
+        if (!prefersReducedMotion || !video) return;
+
+        video.removeAttribute('autoplay');
+        video.pause();
+        video.load();
+    }
+
+    registerPageScript(initHeroVideo);
+</script>

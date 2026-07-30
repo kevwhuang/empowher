@@ -1,31 +1,45 @@
----
-
----
-
 <section
-    class="error-not-found"
+    class="error-not-found grid place-items-center min-h-svh text-center"
     aria-labelledby="error-not-found-title"
 >
-    <div class="container">
+    <div
+        class="shell"
+        data-scroll
+        data-scroll-stagger
+    >
         <p
             class="error-not-found__code"
             aria-hidden="true"
+            data-scroll
         >
             <span>4</span>
             <span>0</span>
             <span>4</span>
         </p>
-        <h1 id="error-not-found-title">This page lost the plot</h1>
-        <p class="error-not-found__lede">Whatever you were looking for isn't here &mdash; but the festival definitely is. Let's get you back to the music.</p>
-        <div class="flex flex-wrap justify-center gap-4">
+        <h1
+            id="error-not-found-title"
+            data-scroll
+        >
+            This page lost the plot
+        </h1>
+        <p
+            class="error-not-found__lede"
+            data-scroll
+        >
+            Whatever you were looking for isn't here &mdash; but the festival definitely is. Let's get you back to the music.
+        </p>
+        <div
+            class="flex flex-wrap justify-center gap-4"
+            data-scroll
+        >
             <a
-                class="btn btn--large btn--primary"
+                class="button button--large button--primary"
                 href="/"
             >
                 Take me home
             </a>
             <a
-                class="btn btn--ghost btn--large"
+                class="button button--ghost button--large"
                 href="/contact"
             >
                 Report a broken link
@@ -36,27 +50,29 @@
 
 <style>
     .error-not-found {
-        display: grid;
-        min-height: calc(100svh - var(--spacing-header));
-        padding: clamp(3rem, 7vw, 5rem) 0;
-        place-items: center;
-        text-align: center;
+        --spacing-section: clamp(3rem, calc(2.33rem + 3.33vw), 5rem);
+        padding-bottom: var(--spacing-section);
+    }
+
+    .error-not-found h1 {
+        font-size: var(--text-h2);
     }
 
     .error-not-found p {
         color: var(--color-lavender);
         margin-inline: auto;
-        max-width: 40ch;
     }
 
     .error-not-found__code {
         display: flex;
+        flex-wrap: wrap;
         font-family: var(--font-display);
-        font-size: clamp(5rem, 18vw, 11rem);
+        font-size: clamp(5rem, calc(3rem + 10vw), 11rem);
         font-weight: 900;
         justify-content: center;
         letter-spacing: 0.02em;
         line-height: 1;
+        user-select: none;
     }
 
     .error-not-found__code span:nth-child(1) {
@@ -77,5 +93,6 @@
 
     .error-not-found__lede {
         margin-bottom: 2rem;
+        max-width: var(--measure-narrow);
     }
 </style>

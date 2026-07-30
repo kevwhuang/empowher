@@ -11,57 +11,53 @@ const STATS = [
 
 <section
     class="section section--tint"
-    aria-labelledby="stats-title"
+    aria-labelledby="home-stats-title"
 >
-    <div class="container">
+    <div class="shell">
         <SectionHead
-            center
             eyebrow="Receipts"
-            headingId="stats-title"
+            headingId="home-stats-title"
+            isCentered
         >
             Built different. <span class="text-holo">Proven loud.</span>
         </SectionHead>
-        <ul class="grid grid-cols-[repeat(auto-fit,minmax(13rem,1fr))] gap-4">
-            {STATS.map((stat, index) => (
-                <li
-                    class="stat"
-                    data-reveal
-                    style={index ? `--reveal-index: ${index};` : undefined}
-                >
-                    <div
-                        class="stat__number"
+        <dl
+            class="home-stats grid grid-cols-[repeat(auto-fit,minmax(min(100%,13rem),1fr))] gap-5"
+            data-scroll="scale"
+            data-scroll-stagger
+        >
+            {STATS.map(stat => (
+                <div class="home-stats__item">
+                    <dt class="text-[0.875rem] text-lavender">{stat.label}</dt>
+                    <dd
+                        class="home-stats__number"
                         data-count-to={stat.countTo}
                         data-prefix={stat.prefix}
                         data-suffix={stat.suffix}
                     >
                         {stat.prefix}0
-                    </div>
-                    <p class="stat__label">{stat.label}</p>
-                </li>
+                    </dd>
+                </div>
             ))}
-        </ul>
+        </dl>
     </div>
 </section>
 
 <style>
-    .stat {
-        background: var(--color-ink-2);
+    .home-stats__item {
+        background: var(--color-ink-lighter);
         border: var(--border-soft);
         border-radius: var(--radius-card);
-        display: grid;
-        gap: 0.4rem;
-        padding: clamp(1.6rem, 3vw, 2.4rem) 1.2rem;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 0.5rem;
+        padding: clamp(1.5rem, calc(1.17rem + 1.67vw), 2.5rem) 1.25rem;
         text-align: center;
     }
 
-    .stat__label {
-        color: var(--color-lavender);
-        font-size: 0.95rem;
-    }
-
-    .stat__number {
+    .home-stats__number {
         font-family: var(--font-display);
-        font-size: clamp(2rem, 4.5vw, 3.2rem);
+        font-size: clamp(2rem, calc(1.67rem + 1.67vw), 3rem);
         font-variant-numeric: tabular-nums;
         font-weight: 900;
         line-height: 1.1;

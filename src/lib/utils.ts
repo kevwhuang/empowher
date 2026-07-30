@@ -1,24 +1,23 @@
-const PAD_LENGTH = 2;
+export function initDisabledLinks(selector: string, signal: AbortSignal): void {
+    document.querySelectorAll(selector).forEach((link) => {
+        link.addEventListener('auxclick', event => event.preventDefault(), { signal });
+        link.addEventListener('click', event => event.preventDefault(), { signal });
+    });
+}
 
-export const LINKS = {
-    email: 'empowher@annamadewell.com',
-    instagram: 'https://instagram.com/empowher.atx',
-    instagramHandle: '@empowher.atx',
-    pitchDeck: '/assets/empowher_festival_pitch_deck.pdf',
-    website: 'https://annamadewell.com',
-    websiteLabel: 'annamadewell.com',
-} as const;
+export function registerPageScript(init: (signal: AbortSignal) => void): void {
+    let controller: AbortController | undefined;
 
-export const ROUTES = [
-    { href: '/', label: 'Home' },
-    { href: '/info', label: 'Info' },
-    { href: '/store', label: 'Store' },
-    { href: '/partners', label: 'Partners' },
-    { href: '/team', label: 'Team' },
-    { href: '/gallery', label: 'Gallery' },
-    { href: '/contact', label: 'Contact' },
-] as const;
+    function handlePageLoad() {
+        teardown();
+        controller = new AbortController();
+        init(controller.signal);
+    }
 
-export function pad(value: number, length = PAD_LENGTH): string {
-    return String(value).padStart(length, '0');
+    function teardown() {
+        controller?.abort();
+    }
+
+    document.addEventListener('astro:before-swap', teardown);
+    document.addEventListener('astro:page-load', handlePageLoad);
 }

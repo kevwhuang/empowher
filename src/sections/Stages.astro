@@ -1,4 +1,6 @@
 ---
+import type { ImageMetadata } from 'astro';
+
 import { Image } from 'astro:assets';
 
 import SectionHead from '@components/SectionHead.astro';
@@ -6,17 +8,16 @@ import logoAustinGarden from '@images/logos/inn_cahoots_garden.webp';
 import logoIykyk from '@images/logos/inn_cahoots_iykyk_rooftop.webp';
 import logoStudio from '@images/logos/inn_cahoots_studio.webp';
 
-import type { ImageMetadata } from 'astro';
-
 interface Props {
     variant?: 'home' | 'info';
 }
 
 interface Stage {
-    descriptions: Record<'home' | 'info', string>;
-    invert?: boolean;
+    descriptions: { home: string; info?: string };
+    isInverted?: boolean;
     logo: ImageMetadata;
     logoAlt: string;
+    logoHeight: string;
     name: string;
     vibe: string;
     width: number;
@@ -26,90 +27,95 @@ const STAGES: Stage[] = [
     {
         descriptions: {
             home: 'Main acts + DJ headliners',
-            info: 'Main acts + DJ headliners',
         },
         logo: logoAustinGarden,
         logoAlt: 'Austin Garden \u2014 Inn Cahoots',
+        logoHeight: '2.6rem',
         name: 'Garden Stage',
-        vibe: 'Vibe: High-energy \u00B7 Open-air \u00B7 Peak visibility',
+        vibe: 'Vibe: High-energy \u00b7 Open-air \u00b7 Peak visibility',
         width: 42,
     },
     {
         descriptions: {
-            home: 'Rooftop home of acoustic acts \u00B7 tattoos \u00B7 tarot \u00B7 immersive experiences',
-            info: 'Acoustic acts \u00B7 Tattoos \u00B7 Tarot \u00B7 Sunset sets \u00B7 Skyline views \u00B7 Immersive experiences',
+            home: 'Rooftop home of acoustic acts \u00b7 tattoos \u00b7 tarot \u00b7 immersive experiences',
+            info: 'Acoustic acts \u00b7 Tattoos \u00b7 Tarot \u00b7 Sunset sets \u00b7 Skyline views \u00b7 Immersive experiences',
         },
-        invert: true,
+        isInverted: true,
         logo: logoIykyk,
         logoAlt: 'IYKYK Rooftop \u2014 Inn Cahoots',
+        logoHeight: '1.37rem',
         name: 'IYKYK Rooftop',
-        vibe: 'Vibe: Mystical \u00B7 Intimate \u00B7 Golden hour',
-        width: 74,
+        vibe: 'Vibe: Mystical \u00b7 Intimate \u00b7 Golden hour',
+        width: 45,
     },
     {
         descriptions: {
-            home: 'Podcasts \u00B7 Comedians \u00B7 Live bands \u00B7 Solo artists',
-            info: 'Podcasts \u00B7 Comedians \u00B7 Live bands \u00B7 Solo artists \u00B7 Storytelling brands',
+            home: 'Podcasts \u00b7 Comedians \u00b7 Live bands \u00b7 Solo artists',
+            info: 'Podcasts \u00b7 Comedians \u00b7 Live bands \u00b7 Solo artists \u00b7 Storytelling brands',
         },
-        invert: true,
+        isInverted: true,
         logo: logoStudio,
         logoAlt: 'The Studio \u2014 Inn Cahoots',
+        logoHeight: '1.69rem',
         name: 'The Studio',
-        vibe: 'Vibe: Intimate \u00B7 Conversational \u00B7 Content-driven',
-        width: 74,
+        vibe: 'Vibe: Intimate \u00b7 Conversational \u00b7 Content-driven',
+        width: 63,
     },
 ];
 
 const { variant = 'home' } = Astro.props;
+
 const isInfo = variant === 'info';
 ---
 
 <section
-    class:list={['section', { 'section--tint': isInfo }]}
+    class:list={['section', { 'section--tint': isInfo }, 'stages', { 'stages--info': isInfo }]}
     aria-labelledby="stages-title"
 >
-    <div class="container">
+    <div class="shell">
         <SectionHead
             eyebrow="The spaces"
             headingId="stages-title"
         >
             Three stages. One immersive experience.
         </SectionHead>
-        <ul class:list={['grid grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] gap-[1.2rem] list-none', { 'mb-8': !isInfo }]}>
-            {STAGES.map((stage, index) => (
-                <li
-                    class="card stage-card"
-                    data-reveal
-                    style={index ? `--reveal-index: ${index};` : undefined}
-                >
-                    <div class="placeholder">
-                        <span>photo</span>
+        <ul
+            class:list={['grid grid-cols-[repeat(auto-fit,minmax(min(100%,17rem),1fr))] gap-5', { 'mb-8': !isInfo }, 'list-none']}
+            data-scroll
+            data-scroll-stagger
+        >
+            {STAGES.map(stage => (
+                <li class="card card--subgrid stages__card">
+                    <div
+                        class="placeholder aspect-[16/10]"
+                        aria-hidden="true"
+                    >
+                        <span>[Photo placeholder]</span>
                     </div>
-                    <div class="stage-card__body">
-                        <h3>{stage.name}</h3>
-                        <p class="stage-card__description">{stage.descriptions[variant]}</p>
-                        <p class="stage-card__vibe">{stage.vibe}</p>
-                        {isInfo && (
-                            <Image
-                                class:list={['stage-card__logo', { 'stage-card__logo--invert': stage.invert }]}
-                                alt={stage.logoAlt}
-                                densities={[1, 2]}
-                                loading="lazy"
-                                src={stage.logo}
-                                width={stage.width}
-                            />
-                        )}
-                    </div>
+                    <h3>{stage.name}</h3>
+                    <p>{stage.descriptions[variant] ?? stage.descriptions.home}</p>
+                    <p class="stages__card-vibe">{stage.vibe}</p>
+                    {isInfo && (
+                        <Image
+                            class:list={['stages__card-logo object-contain w-auto', { 'invert opacity-[0.92]': stage.isInverted }]}
+                            alt={stage.logoAlt}
+                            densities={[1, 2]}
+                            loading="lazy"
+                            src={stage.logo}
+                            style={`--stages-logo-height: ${stage.logoHeight};`}
+                            width={stage.width}
+                        />
+                    )}
                 </li>
             ))}
         </ul>
         {!isInfo && (
-            <p data-reveal>
+            <p data-scroll>
                 <a
-                    class="btn btn--ghost"
+                    class="button button--ghost"
                     href="/info"
                 >
-                    Full festival info &rarr;
+                    Full festival info
                 </a>
             </p>
         )}
@@ -117,48 +123,45 @@ const isInfo = variant === 'info';
 </section>
 
 <style>
-    .stage-card {
-        display: flex;
-        flex-direction: column;
-        overflow: clip;
-        padding: 0;
+    .stages .button::after {
+        content: '\2192';
+        content: '\2192' / '';
     }
 
-    .stage-card .placeholder {
-        aspect-ratio: 16 / 10;
+    .stages .shell > p {
+        margin-bottom: 0;
+    }
+
+    .stages--info .stages__card {
+        --card-rows: 5;
+    }
+
+    .stages__card {
+        --card-rows: 4;
+        --stages-card-pad: clamp(1.25rem, calc(1.08rem + 0.83vw), 1.75rem);
+        overflow: clip;
+        padding: 0 var(--stages-card-pad) var(--stages-card-pad);
+        row-gap: 0.5rem;
+    }
+
+    .stages__card .placeholder {
         border: 0;
         border-bottom: var(--border-soft);
         border-radius: 0;
+        margin-bottom: calc(var(--stages-card-pad) - 0.5rem);
+        margin-inline: calc(var(--stages-card-pad) * -1);
     }
 
-    .stage-card__body {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: clamp(1.3rem, 2.5vw, 1.8rem);
+    .stages__card .stages__card-logo {
+        align-self: center;
+        height: var(--stages-logo-height);
     }
 
-    .stage-card__body .stage-card__description {
-        flex: 1;
-    }
-
-    .stage-card__body .stage-card__vibe {
+    .stages__card .stages__card-vibe {
         color: var(--color-yellow);
         font-family: var(--font-mono);
-        font-size: 0.82rem;
+        font-size: 0.75rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-    }
-
-    .stage-card__logo {
-        height: 2.6rem;
-        object-fit: contain;
-        width: auto;
-    }
-
-    .stage-card__logo--invert {
-        filter: invert(1);
-        opacity: 0.92;
     }
 </style>

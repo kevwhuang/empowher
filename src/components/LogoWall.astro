@@ -6,109 +6,94 @@ import logoIykyk from '@images/logos/inn_cahoots_iykyk_rooftop.webp';
 import logoLeftway from '@images/logos/leftway_studios.webp';
 import logoStudio from '@images/logos/inn_cahoots_studio.webp';
 
-import type { ImageMetadata } from 'astro';
-
 interface Props {
-    placeholders: string[];
-    sponsors?: boolean;
+    hasSponsors?: boolean;
+    placeholderLabels: string[];
 }
 
-interface Sponsor {
-    alt: string;
-    densities?: number[];
-    image: ImageMetadata;
-    invert?: boolean;
-    photo?: boolean;
-    width: number;
-    zoom?: boolean;
-}
-
-const SPONSORS: Sponsor[] = [
-    { alt: 'Austin Garden \u2014 Inn Cahoots', image: logoAustinGarden, photo: true, width: 225 },
-    { alt: 'IYKYK Rooftop \u2014 Inn Cahoots', densities: [1, 2], image: logoIykyk, invert: true, width: 320, zoom: true },
-    { alt: 'The Studio \u2014 Inn Cahoots', densities: [1, 2], image: logoStudio, invert: true, width: 320, zoom: true },
-    { alt: 'Leftway Studios', densities: [1, 2], image: logoLeftway, invert: true, width: 320 },
+const SPONSORS = [
+    { alt: 'Austin Garden \u2014 Inn Cahoots', fitBlock: 1, fitInline: 1, image: logoAustinGarden, isPhoto: true, width: 225 },
+    { alt: 'IYKYK Rooftop \u2014 Inn Cahoots', densities: [1, 2], fitBlock: 0.708, fitInline: 1, image: logoIykyk, isInverted: true, width: 480 },
+    { alt: 'The Studio \u2014 Inn Cahoots', densities: [1, 2], fitBlock: 0.875, fitInline: 1, image: logoStudio, isInverted: true, width: 480 },
+    { alt: 'Leftway Studios', densities: [1, 2], fitBlock: 1, fitInline: 0.827, image: logoLeftway, isInverted: true, width: 400 },
 ];
 
-const { placeholders, sponsors = false } = Astro.props;
+const { hasSponsors = false, placeholderLabels } = Astro.props;
 ---
 
 <ul
-    class="logo-wall list-none"
-    data-reveal
+    class="logo-wall grid grid-cols-4 gap-5 list-none"
+    data-scroll="scale"
+    data-scroll-stagger
 >
-    {sponsors && SPONSORS.map(sponsor => (
-        <li class:list={['logo-tile', { 'logo-tile--photo': sponsor.photo }]}>
+    {hasSponsors && SPONSORS.map(sponsor => (
+        <li class:list={['logo-wall__tile aspect-[4/3]', { 'logo-wall__tile--photo': sponsor.isPhoto }]}>
             <Image
-                class:list={[
-                    'logo-tile__image',
-                    {
-                        'logo-tile__image--invert': sponsor.invert,
-                        'logo-tile__image--zoom': sponsor.zoom,
-                    },
-                ]}
+                class:list={['logo-wall__image absolute inset-0 object-contain m-auto', { 'invert opacity-[0.92]': sponsor.isInverted }]}
                 alt={sponsor.alt}
                 densities={sponsor.densities}
                 loading="lazy"
                 src={sponsor.image}
+                style={`--logo-wall-fit-block: ${sponsor.fitBlock}; --logo-wall-fit-inline: ${sponsor.fitInline};`}
                 width={sponsor.width}
             />
         </li>
     ))}
-    {placeholders.map(label => (
-        <li class="logo-tile placeholder">
+    {placeholderLabels.map(label => (
+        <li
+            class="logo-wall__tile placeholder aspect-[4/3]"
+            aria-hidden="true"
+        >
             <span>{label}</span>
         </li>
     ))}
 </ul>
 
 <style>
-    .logo-tile {
-        aspect-ratio: 16 / 9;
-        background: var(--color-ink-2);
-        border: var(--border-soft);
+    .logo-wall__image {
+        --logo-wall-inset: 1rem;
+        height: calc((100% - var(--logo-wall-inset) * 2) * var(--logo-wall-fit-block));
+        width: calc((100% - var(--logo-wall-inset) * 2) * var(--logo-wall-fit-inline));
+    }
+
+    .logo-wall__tile {
         border-radius: var(--radius-card-sm);
         overflow: hidden;
         position: relative;
-        transition: border-color var(--duration-base), transform var(--duration-base);
+        transition:
+            border-color var(--duration-base) ease,
+            transform var(--duration-base) ease;
     }
 
-    .logo-tile:hover {
+    .logo-wall__tile:hover {
         border-color: var(--color-purple-55);
         transform: translateY(-0.3rem) rotate(-1deg);
     }
 
-    .logo-tile--photo .logo-tile__image {
+    .logo-wall__tile:where(:not(.placeholder)) {
+        background: var(--color-ink-lighter);
+        border: var(--border-soft);
+    }
+
+    .logo-wall__tile--photo .logo-wall__image {
         height: 100%;
-        inset: 0;
         object-fit: cover;
         width: 100%;
     }
 
-    .logo-tile.placeholder {
+    .logo-wall__tile.placeholder {
         min-height: 0;
     }
 
-    .logo-tile__image {
-        height: calc(100% - 2.6rem);
-        inset: 1.3rem;
-        object-fit: contain;
-        position: absolute;
-        width: calc(100% - 2.6rem);
+    @media (max-width: 64rem) {
+        .logo-wall {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
     }
 
-    .logo-tile__image--invert {
-        filter: invert(1);
-        opacity: 0.92;
-    }
-
-    .logo-tile__image--zoom {
-        transform: scale(1.35);
-    }
-
-    .logo-wall {
-        display: grid;
-        gap: 1rem;
-        grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    @media (max-width: 48rem) {
+        .logo-wall {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+        }
     }
 </style>

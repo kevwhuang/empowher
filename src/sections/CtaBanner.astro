@@ -1,28 +1,28 @@
 ---
 interface Props {
     eyebrow: string;
-    text?: string;
-    tint?: boolean;
+    isTinted?: boolean;
+    text: string;
 }
 
-const { eyebrow, text, tint = false } = Astro.props;
+const { eyebrow, isTinted = false, text } = Astro.props;
 ---
 
 <section
-    class:list={['section', { 'section--tint': tint }]}
-    aria-labelledby="cta-title"
+    class:list={['section', { 'section--tint': isTinted }]}
+    aria-labelledby="cta-banner-title"
 >
-    <div class="container">
+    <div class="shell">
         <div
-            class="cta-banner"
-            data-reveal
+            class="cta-banner overflow-clip relative text-center bg-ink-light"
+            data-scroll="scale"
         >
             <p class="eyebrow">{eyebrow}</p>
-            <h2 id="cta-title">
+            <h2 id="cta-banner-title">
                 <slot />
             </h2>
-            {text && <p>{text}</p>}
-            <div class="cta-banner__actions">
+            <p>{text}</p>
+            <div class="cta-banner__actions flex flex-wrap justify-center gap-4">
                 <slot name="actions" />
             </div>
         </div>
@@ -31,27 +31,19 @@ const { eyebrow, text, tint = false } = Astro.props;
 
 <style>
     .cta-banner {
-        background: var(--color-ink-2);
         border: var(--border-soft);
         border-radius: calc(var(--radius-card) * 1.4);
-        overflow: clip;
-        padding: clamp(3.5rem, 8vw, 6rem) var(--gutter);
-        position: relative;
-        text-align: center;
+        padding: clamp(3.5rem, calc(2.67rem + 4.17vw), 6rem) var(--gutter);
     }
 
     .cta-banner::before {
         animation: cta-banner__rotate 14s linear infinite;
         background: var(--gradient-holo);
         content: '';
-        filter: blur(60px);
+        filter: blur(3.75rem);
         inset: -40%;
         opacity: 0.16;
         position: absolute;
-    }
-
-    .cta-banner :is(h2, p):has(+ .cta-banner__actions) {
-        margin-bottom: 2rem;
     }
 
     .cta-banner > * {
@@ -61,20 +53,17 @@ const { eyebrow, text, tint = false } = Astro.props;
     .cta-banner h2 {
         font-size: var(--text-h2);
         margin-inline: auto;
-        max-width: 22ch;
+        max-width: 976px;
     }
 
     .cta-banner p {
         color: var(--color-lavender);
         margin-inline: auto;
-        max-width: 46ch;
+        max-width: var(--measure-narrow);
     }
 
-    .cta-banner__actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        justify-content: center;
+    .cta-banner p:has(+ .cta-banner__actions) {
+        margin-bottom: 2rem;
     }
 
     @keyframes cta-banner__rotate {

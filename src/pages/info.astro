@@ -9,12 +9,12 @@ import Stages from '@sections/Stages.astro';
 ---
 
 <Layout
-    description="Know before you glow &mdash; stages, day-of schedule, getting to Austin Garden at Inn Cahoots, FAQ, and accessibility for EmpowHER Festival on November 8, 2026."
-    title="Festival Info &mdash; EmpowHER Festival"
+    description={'EmpowHER Festival info for November 8, 2026 \u2014 three stages, the day-of schedule, directions to Austin Garden at Inn Cahoots, FAQ, and accessibility.'}
+    title={'Festival Info \u2014 EmpowHER Festival'}
 >
     <PageHero
         eyebrow="Festival info"
-        text="November 8 &middot; 12PM&ndash;10PM &middot; Austin Garden at Inn Cahoots. Three stages, one immersive experience."
+        text={'November 8 \u00b7 12PM\u201310PM \u00b7 Austin Garden at Inn Cahoots. Three stages, one immersive experience.'}
     >
         Know before <span class="text-holo">you glow</span>
     </PageHero>
@@ -24,13 +24,13 @@ import Stages from '@sections/Stages.astro';
     <InfoFaq />
     <CtaBanner
         eyebrow="Still curious?"
-        text="Questions about tickets, accessibility, vending, or press &mdash; we answer fast."
-        tint
+        isTinted
+        text={'Questions about tickets, accessibility, vending, or press \u2014 we answer fast.'}
     >
         Ask us anything
         <Fragment slot="actions">
             <a
-                class="btn btn--large btn--primary"
+                class="button button--large button--primary"
                 href="/contact"
             >
                 Contact us

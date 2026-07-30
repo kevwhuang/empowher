@@ -1,31 +1,45 @@
----
-
----
-
 <section
-    class="error-server"
+    class="error-server grid place-items-center min-h-svh text-center"
     aria-labelledby="error-server-title"
 >
-    <div class="container">
+    <div
+        class="shell"
+        data-scroll
+        data-scroll-stagger
+    >
         <p
             class="error-server__code"
             aria-hidden="true"
+            data-scroll
         >
             <span>5</span>
             <span>0</span>
             <span>0</span>
         </p>
-        <h1 id="error-server-title">Something skipped a beat</h1>
-        <p class="error-server__lede">Our end hit a snag &mdash; give it a moment and try again. The festival isn't going anywhere.</p>
-        <div class="flex flex-wrap justify-center gap-4">
+        <h1
+            id="error-server-title"
+            data-scroll
+        >
+            Something skipped a beat
+        </h1>
+        <p
+            class="error-server__lede"
+            data-scroll
+        >
+            Our end hit a snag &mdash; give it a moment and try again. The festival isn't going anywhere.
+        </p>
+        <div
+            class="flex flex-wrap justify-center gap-4"
+            data-scroll
+        >
             <a
-                class="btn btn--large btn--primary"
+                class="button button--large button--primary"
                 href="/"
             >
                 Take me home
             </a>
             <a
-                class="btn btn--ghost btn--large"
+                class="button button--ghost button--large"
                 href="/contact"
             >
                 Report the problem
@@ -36,27 +50,29 @@
 
 <style>
     .error-server {
-        display: grid;
-        min-height: calc(100svh - var(--spacing-header));
-        padding: clamp(3rem, 7vw, 5rem) 0;
-        place-items: center;
-        text-align: center;
+        --spacing-section: clamp(3rem, calc(2.33rem + 3.33vw), 5rem);
+        padding-bottom: var(--spacing-section);
+    }
+
+    .error-server h1 {
+        font-size: var(--text-h2);
     }
 
     .error-server p {
         color: var(--color-lavender);
         margin-inline: auto;
-        max-width: 40ch;
     }
 
     .error-server__code {
         display: flex;
+        flex-wrap: wrap;
         font-family: var(--font-display);
-        font-size: clamp(5rem, 18vw, 11rem);
+        font-size: clamp(5rem, calc(3rem + 10vw), 11rem);
         font-weight: 900;
         justify-content: center;
         letter-spacing: 0.02em;
         line-height: 1;
+        user-select: none;
     }
 
     .error-server__code span:nth-child(1) {
@@ -77,5 +93,6 @@
 
     .error-server__lede {
         margin-bottom: 2rem;
+        max-width: var(--measure-narrow);
     }
 </style>

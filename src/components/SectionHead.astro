@@ -1,42 +1,32 @@
 ---
 interface Props {
-    center?: boolean;
     eyebrow: string;
     headingId: string;
+    isCentered?: boolean;
 }
 
-const { center = false, eyebrow, headingId } = Astro.props;
+const { eyebrow, headingId, isCentered = false } = Astro.props;
 ---
 
-<div
-    class:list={['section-head', { 'section-head--center': center }]}
-    data-reveal
+<header
+    class:list={['section-head', { 'section-head--center mx-auto text-center': isCentered }]}
+    data-scroll
 >
     <p class="eyebrow">{eyebrow}</p>
     <h2 id={headingId}>
         <slot />
     </h2>
     <slot name="text" />
-</div>
+</header>
 
 <style>
     .section-head {
-        margin-bottom: clamp(2rem, 5vw, 3.5rem);
-        max-width: 44rem;
+        margin-bottom: clamp(2rem, calc(1.5rem + 2.5vw), 3.5rem);
+        max-width: var(--measure-prose);
     }
 
     .section-head h2 {
         font-size: var(--text-h2);
-    }
-
-    :global(.section-head p) {
-        color: var(--color-lavender);
-        font-size: 1.06em;
-    }
-
-    .section-head--center {
-        margin-inline: auto;
-        text-align: center;
     }
 
     .section-head--center .eyebrow::before {

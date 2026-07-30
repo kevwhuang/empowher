@@ -1,72 +1,115 @@
 ---
-import { LINKS } from '@lib/utils';
+import { LINKS } from '@lib/constants';
 
 const CARDS = [
     { href: `mailto:${LINKS.email}`, icon: '\u2709', title: 'Email', value: LINKS.email },
-    { external: true, href: LINKS.instagram, icon: '\u2726', title: 'Instagram', value: LINKS.instagramHandle },
-    { external: true, href: LINKS.website, icon: '\u2665', title: 'Website', value: LINKS.websiteLabel },
+    { href: LINKS.instagram, icon: '\u2726', isExternal: true, title: 'Instagram', value: LINKS.instagramHandle },
+    { href: LINKS.website, icon: '\u2197', isDisabled: true, title: 'Website', value: LINKS.websiteLabel },
 ];
 ---
 
 <section
-    class="section"
-    aria-labelledby="reach-title"
+    class="contact-panel section overflow-x-clip"
+    aria-labelledby="contact-panel-title"
 >
-    <div class="container">
+    <div class="shell">
         <h2
-            id="reach-title"
+            id="contact-panel-title"
             class="sr-only"
         >
             Ways to reach us
         </h2>
-        <div class="contact-grid">
-            <ul class="grid gap-4 list-none">
-                {CARDS.map((card, index) => (
-                    <li>
+        <div class="contact-panel__grid grid items-start">
+            <ul
+                class="grid gap-5 list-none"
+                data-scroll="left"
+                data-scroll-stagger
+            >
+                {CARDS.map(card => (
+                    <li data-scroll>
                         <a
-                            class="card contact-card"
-                            data-reveal
+                            class="card contact-panel__card flex items-center gap-4"
+                            aria-disabled={card.isDisabled ? 'true' : undefined}
                             href={card.href}
-                            rel={card.external ? 'noopener noreferrer' : undefined}
-                            style={index ? `--reveal-index: ${index};` : undefined}
-                            target={card.external ? '_blank' : undefined}
+                            rel={card.isExternal ? 'noopener noreferrer' : undefined}
+                            tabindex={card.isDisabled ? '-1' : undefined}
+                            target={card.isExternal ? '_blank' : undefined}
                         >
                             <span
-                                class="contact-card__icon"
+                                class="grid place-items-center shrink-0 size-12 rounded-full text-[1.25rem] bg-purple-15 text-purple"
                                 aria-hidden="true"
                             >
                                 {card.icon}
                             </span>
-                            <div class="contact-card__body">
-                                <h3>{card.title}</h3>
-                                <p>{card.value}</p>
-                            </div>
+                            <dl class="contact-panel__card-body">
+                                <dt>{card.title}</dt>
+                                <dd>{card.value}</dd>
+                            </dl>
                         </a>
                     </li>
                 ))}
             </ul>
             <div
                 class="card"
-                data-reveal
+                data-scroll="right"
             >
-                <h2 class="text-h3">Send a message</h2>
+                <h2>Send a message</h2>
                 <form
-                    class="contact-form grid gap-[1.1rem]"
+                    class="contact-panel__form grid gap-4"
                     novalidate
                 >
-                    <div class="contact-form__row">
-                        <label class="field">
-                            <span>Name</span>
-                            <input autocomplete="name" name="name" required type="text" />
+                    <div class="contact-panel__form-row grid grid-cols-2 gap-4">
+                        <label class="contact-panel__field grid gap-2">
+                            <span>
+                                Name&nbsp;
+                                <span
+                                    class="text-pink"
+                                    aria-hidden="true"
+                                >
+                                    *
+                                </span>
+                            </span>
+                            <input autocomplete="name" data-error="contact-panel-error-name" name="name" required type="text" />
+                            <p
+                                id="contact-panel-error-name"
+                                class="contact-panel__error"
+                                hidden
+                            >
+                                Please enter your name.
+                            </p>
                         </label>
-                        <label class="field">
-                            <span>Email</span>
-                            <input autocomplete="email" name="email" required type="email" />
+                        <label class="contact-panel__field grid gap-2">
+                            <span>
+                                Email&nbsp;
+                                <span
+                                    class="text-pink"
+                                    aria-hidden="true"
+                                >
+                                    *
+                                </span>
+                            </span>
+                            <input autocomplete="email" data-error="contact-panel-error-email" name="email" required type="email" />
+                            <p
+                                id="contact-panel-error-email"
+                                class="contact-panel__error"
+                                hidden
+                            >
+                                Please enter a valid email.
+                            </p>
                         </label>
                     </div>
-                    <label class="field">
-                        <span>I'm reaching out about</span>
+                    <label class="contact-panel__field grid gap-2">
+                        <span>
+                            I'm reaching out about&nbsp;
+                            <span
+                                class="text-pink"
+                                aria-hidden="true"
+                            >
+                                *
+                            </span>
+                        </span>
                         <select
+                            data-error="contact-panel-error-topic"
                             name="topic"
                             required
                         >
@@ -85,163 +128,245 @@ const CARDS = [
                             <option value="vending">Vending</option>
                             <option value="volunteering">Volunteering</option>
                         </select>
+                        <p
+                            id="contact-panel-error-topic"
+                            class="contact-panel__error"
+                            hidden
+                        >
+                            Please choose a topic.
+                        </p>
                     </label>
-                    <label class="field">
-                        <span>Message</span>
-                        <textarea name="message" required />
+                    <label class="contact-panel__field grid gap-2">
+                        <span>
+                            Message&nbsp;
+                            <span
+                                class="text-pink"
+                                aria-hidden="true"
+                            >
+                                *
+                            </span>
+                        </span>
+                        <textarea class="min-h-32 resize-y" data-error="contact-panel-error-message" name="message" required />
+                        <p
+                            id="contact-panel-error-message"
+                            class="contact-panel__error"
+                            hidden
+                        >
+                            Please add a short message.
+                        </p>
                     </label>
                     <button
-                        class="btn btn--large btn--primary"
+                        class="button button--large button--primary"
+                        aria-describedby="contact-panel-note"
+                        disabled
                         type="submit"
                     >
-                        Send it &#x2726;
+                        Send it
                     </button>
+                    <p
+                        id="contact-panel-note"
+                        class="contact-panel__note"
+                    >
+                        This form isn&apos;t live yet &mdash; email us in the meantime.
+                    </p>
                 </form>
+                <p
+                    class="contact-panel__success px-5 py-4 rounded-card-sm border-[0.0625rem] border-cyan-40 font-semibold bg-cyan-15"
+                    hidden
+                    role="status"
+                    tabindex="-1"
+                >
+                    Got it! We'll get back to you soon. <span aria-hidden="true">&#x1f49c;</span>
+                </p>
             </div>
         </div>
     </div>
 </section>
 
 <style>
-    .card {
-        --reveal-index: 2;
-    }
-
-    .contact-card {
-        align-items: center;
-        display: flex;
-        gap: 1.1rem;
+    .contact-panel__card {
         text-decoration: none;
     }
 
-    .contact-card__body h3 {
+    .contact-panel__card:active {
+        border-color: var(--color-purple-bright);
+        transform: none;
+    }
+
+    .contact-panel__card[aria-disabled='true'] {
+        cursor: not-allowed;
+        opacity: 0.45;
+    }
+
+    .contact-panel__card[aria-disabled='true']:active {
+        border-color: var(--color-paper-15);
+    }
+
+    .contact-panel__card[aria-disabled='true']:hover {
+        border-color: var(--color-paper-15);
+        box-shadow: none;
+        transform: none;
+    }
+
+    .contact-panel__card-body dd {
+        color: var(--color-paper);
+        font-weight: 600;
+    }
+
+    .contact-panel__card-body dt {
         color: var(--color-lavender);
-        font-size: 0.82rem;
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        font-weight: 700;
         letter-spacing: 0.08em;
-        margin-bottom: 0.15rem;
+        line-height: 1.12;
+        margin-bottom: 0.25rem;
         text-transform: uppercase;
     }
 
-    .contact-card__body p {
-        color: var(--color-paper);
-        font-weight: 600;
-        word-break: break-word;
+    .contact-panel__error {
+        color: var(--color-pink);
+        font-size: 0.75rem;
+        margin-bottom: 0;
     }
 
-    .contact-card__icon {
-        background: var(--color-purple-15);
-        border-radius: 999px;
-        color: var(--color-purple);
-        display: grid;
-        flex-shrink: 0;
-        font-size: 1.2rem;
-        height: 3rem;
-        place-items: center;
-        width: 3rem;
-    }
-
-    .contact-form__row {
-        display: grid;
-        gap: 1.1rem;
-        grid-template-columns: 1fr 1fr;
-    }
-
-    :global(.contact-form__success) {
-        background: var(--color-cyan-15);
-        border: 1px solid var(--color-cyan-40);
-        border-radius: var(--radius-card-sm);
-        color: var(--color-cyan);
-        font-weight: 600;
-        padding: 1rem 1.3rem;
-    }
-
-    .contact-grid {
-        align-items: start;
-        display: grid;
-        gap: clamp(2rem, 5vw, 4rem);
-        grid-template-columns: 1fr 1.3fr;
-    }
-
-    .field {
-        display: grid;
-        gap: 0.4rem;
-    }
-
-    .field > span {
+    .contact-panel__field > span {
         color: var(--color-lavender);
         font-family: var(--font-mono);
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         letter-spacing: 0.15em;
         text-transform: uppercase;
     }
 
-    .field input,
-    .field select,
-    .field textarea {
-        background: var(--color-ink-2);
-        border: 1px solid var(--color-paper-35);
+    .contact-panel__field input,
+    .contact-panel__field select,
+    .contact-panel__field textarea {
+        background: var(--color-ink-light);
+        border: 0.0625rem solid var(--color-paper-35);
         border-radius: var(--radius-card-sm);
         color: var(--color-paper);
-        padding: 0.85rem 1rem;
-        transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+        padding: 0.75rem 1rem;
+        transition:
+            border-color var(--duration-fast) ease,
+            box-shadow var(--duration-fast) ease;
         width: 100%;
     }
 
-    .field input:focus-visible,
-    .field select:focus-visible,
-    .field textarea:focus-visible {
+    .contact-panel__field input:focus-visible,
+    .contact-panel__field select:focus-visible,
+    .contact-panel__field textarea:focus-visible {
         border-color: var(--color-purple);
-        box-shadow: 0 0 0 3px var(--color-purple-25);
-        outline: none;
+        box-shadow: 0 0 0 0.1875rem var(--color-purple-25);
     }
 
-    .field input:hover,
-    .field select:hover,
-    .field textarea:hover {
+    .contact-panel__field input:hover,
+    .contact-panel__field select:hover,
+    .contact-panel__field textarea:hover {
         border-color: var(--color-paper-40);
     }
 
-    .field select {
-        cursor: pointer;
+    .contact-panel__form button::after {
+        content: '\2726';
+        content: '\2726' / '';
     }
 
-    .field textarea {
-        min-height: 8rem;
-        resize: vertical;
+    .contact-panel__grid {
+        gap: clamp(2rem, calc(1.33rem + 3.33vw), 4rem);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    }
+
+    .contact-panel__note {
+        color: var(--color-lavender);
+        font-size: 0.875rem;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    .contact-panel__success {
+        color: var(--color-cyan);
     }
 
     @media (max-width: 48rem) {
-        .contact-form__row {
-            grid-template-columns: 1fr;
+        .contact-panel__form-row {
+            grid-template-columns: minmax(0, 1fr);
         }
 
-        .contact-grid {
-            grid-template-columns: 1fr;
+        .contact-panel__grid {
+            grid-template-columns: minmax(0, 1fr);
         }
     }
 </style>
 
 <script>
+    import { initDisabledLinks, registerPageScript } from '@lib/utils';
+
+    type FormControl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+    function handleInput(event: Event) {
+        const control = event.target;
+
+        if (!(control instanceof HTMLElement)) return;
+
+        const error = document.getElementById(control.dataset.error ?? '');
+
+        if (!error) return;
+
+        control.removeAttribute('aria-describedby');
+        error.hidden = true;
+    }
+
     function handleSubmit(event: SubmitEvent) {
         event.preventDefault();
 
         const form = event.currentTarget;
 
-        if (!(form instanceof HTMLFormElement) || !form.reportValidity()) return;
+        if (!(form instanceof HTMLFormElement)) return;
 
-        const success = document.createElement('p');
+        const controls = form.querySelectorAll<FormControl>('[data-error]');
+        const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
 
-        success.className = 'contact-form__success';
-        success.setAttribute('role', 'status');
-        success.textContent = 'Got it! We\'ll get back to you soon. \u{1F49C}';
-        form.replaceWith(success);
+        controls.forEach(syncControlError);
+
+        if (!form.checkValidity()) {
+            form.querySelector<HTMLElement>(':invalid')?.focus();
+
+            return;
+        }
+
+        if (submitButton) submitButton.disabled = true;
+
+        const successMessage = document.querySelector<HTMLElement>('.contact-panel__success');
+
+        if (successMessage) {
+            successMessage.hidden = false;
+            successMessage.focus();
+        }
+
+        form.hidden = true;
     }
 
-    function initContactForm() {
-        const form = document.querySelector<HTMLFormElement>('.contact-form');
+    function initContactPanel(signal: AbortSignal) {
+        const form = document.querySelector<HTMLFormElement>('.contact-panel__form');
 
-        form?.addEventListener('submit', handleSubmit);
+        form?.addEventListener('input', handleInput, { signal });
+        form?.addEventListener('submit', handleSubmit, { signal });
+        initDisabledLinks('.contact-panel a[aria-disabled="true"]', signal);
     }
 
-    document.addEventListener('astro:page-load', initContactForm);
+    function syncControlError(control: FormControl) {
+        const error = document.getElementById(control.dataset.error ?? '');
+
+        if (!error) return;
+
+        if (!(control instanceof HTMLSelectElement)) control.value = control.value.trim();
+
+        const isValid = control.checkValidity();
+
+        error.hidden = isValid;
+
+        if (isValid) control.removeAttribute('aria-describedby');
+        else control.setAttribute('aria-describedby', error.id);
+    }
+
+    registerPageScript(initContactPanel);
 </script>
