@@ -1,7 +1,7 @@
 ---
 import SectionHead from '@components/SectionHead.astro';
 
-const ROLE_COUNT = 8;
+const ROLE_COUNT = 12;
 ---
 
 <section
@@ -17,44 +17,16 @@ const ROLE_COUNT = 8;
             <p slot="text">Meet the leads &mdash; with dozens more across stages, production, hospitality, and safety.</p>
         </SectionHead>
         <ul
-            class="team-grid grid grid-cols-[repeat(auto-fill,minmax(min(100%,13rem),1fr))] gap-5 list-none"
+            class="grid grid-cols-4 gap-5 list-none max-lg:grid-cols-2 max-md:grid-cols-1"
             data-scroll
             data-scroll-stagger
         >
             {Array.from({ length: ROLE_COUNT }).map(() => (
-                <li class="card card--subgrid team-grid__card">
-                    <div
-                        class="placeholder aspect-square"
-                        aria-hidden="true"
-                    >
-                        <span>[Photo placeholder]</span>
-                    </div>
-                    <h3>[Role placeholder]</h3>
-                    <p class="text-[0.875rem]">[Name placeholder]</p>
-                </li>
+                <li
+                    class="placeholder aspect-square"
+                    aria-hidden="true"
+                />
             ))}
         </ul>
     </div>
 </section>
-
-<style>
-    .team-grid__card {
-        --team-grid-pad: 1rem;
-        overflow: clip;
-        padding: 0 var(--team-grid-pad) 1.25rem;
-        text-align: center;
-    }
-
-    .team-grid__card .placeholder {
-        border: 0;
-        border-bottom: var(--border-soft);
-        border-radius: 0;
-        margin-bottom: var(--team-grid-pad);
-        margin-inline: calc(var(--team-grid-pad) * -1);
-    }
-
-    .team-grid__card h3 {
-        font-size: 1rem;
-        margin-bottom: 0.25rem;
-    }
-</style>

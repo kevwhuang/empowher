@@ -20,7 +20,7 @@ const CREDIT_URL = 'https://instagram.com/aephonics';
                     src={logoEmpowher}
                     width={127}
                 />
-                <p class="max-w-[24rem] text-[0.875rem] text-lavender">A storytelling immersive music production that reminds you who TF you are. One day, three stages, ten hours &mdash; <time datetime="2026-11-08">November 8, 2026</time>, <time datetime="2026-11-08T12:00-06:00">12PM</time> to <time datetime="2026-11-08T22:00-06:00">10PM</time> at the Austin Garden at Inn Cahoots in Austin, TX. Empowering voices, awakening authenticity.</p>
+                <p class="max-w-[24rem] text-[0.875rem] text-lavender">A storytelling immersive music production that reminds you who TF you are. One day, three stages, ten hours &mdash; <time datetime="2027-04-17">April 17, 2027</time>, <time datetime="2027-04-17T12:00-05:00">12PM</time> to <time datetime="2027-04-17T22:00-05:00">10PM</time> at the Austin Garden at Inn Cahoots in Austin, TX. Empowering voices, awakening authenticity.</p>
             </div>
             <div>
                 <h2 class="site-footer__heading">Explore</h2>
@@ -40,16 +40,7 @@ const CREDIT_URL = 'https://instagram.com/aephonics';
                             rel="noopener noreferrer"
                             target="_blank"
                         >
-                            Instagram &mdash; {LINKS.instagramHandle}
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            aria-disabled="true"
-                            href={LINKS.website}
-                            tabindex="-1"
-                        >
-                            {LINKS.websiteLabel}
+                            {LINKS.instagramHandle}
                         </a>
                     </li>
                 </ul>
@@ -68,12 +59,8 @@ const CREDIT_URL = 'https://instagram.com/aephonics';
                 </ul>
             </div>
         </div>
-        <p class="site-footer__notice">
-            <span class="site-footer__notice-tag">Heads up</span>
-            <span>This site is still a work in progress. Last updated <time datetime="2026-07-29">July 29, 2026</time>.</span>
-        </p>
         <div class="site-footer__legal">
-            <p>&copy; 2026 EmpowHER Festival. All rights reserved.</p>
+            <p>&copy; 2026 EmpowHER Festival.</p>
             <nav
                 class="inline-flex gap-4"
                 aria-label="Legal"
@@ -124,21 +111,6 @@ const CREDIT_URL = 'https://instagram.com/aephonics';
 
     .site-footer a:hover {
         color: var(--color-purple-bright);
-    }
-
-    .site-footer a[aria-disabled='true'] {
-        color: var(--color-lavender);
-        cursor: not-allowed;
-        opacity: 0.45;
-    }
-
-    .site-footer a[aria-disabled='true']:active {
-        color: var(--color-lavender);
-        opacity: 0.45;
-    }
-
-    .site-footer a[aria-disabled='true']:hover {
-        color: var(--color-lavender);
     }
 
     .site-footer li {
@@ -202,32 +174,6 @@ const CREDIT_URL = 'https://instagram.com/aephonics';
         margin-bottom: 0;
     }
 
-    .site-footer__notice {
-        align-items: center;
-        background: var(--color-purple-10);
-        border: 0.0625rem solid var(--color-purple-35);
-        border-radius: var(--radius-card-sm);
-        color: var(--color-lavender);
-        display: flex;
-        flex-wrap: wrap;
-        font-size: 0.875rem;
-        gap: 0.75rem;
-        margin-bottom: 2.5rem;
-        padding: 0.75rem 1.25rem;
-    }
-
-    .site-footer__notice-tag {
-        background: var(--color-purple-15);
-        border-radius: var(--radius-pill);
-        color: var(--color-purple-bright);
-        flex-shrink: 0;
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        letter-spacing: 0.15em;
-        padding: 0.3em 0.9em;
-        text-transform: uppercase;
-    }
-
     @media (max-width: 64rem) {
         .site-footer__grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -240,13 +186,3 @@ const CREDIT_URL = 'https://instagram.com/aephonics';
         }
     }
 </style>
-
-<script>
-    import { initDisabledLinks, registerPageScript } from '@lib/utils';
-
-    function initFooter(signal: AbortSignal) {
-        initDisabledLinks('.site-footer a[aria-disabled="true"]', signal);
-    }
-
-    registerPageScript(initFooter);
-</script>

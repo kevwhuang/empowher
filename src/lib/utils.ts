@@ -1,10 +1,3 @@
-export function initDisabledLinks(selector: string, signal: AbortSignal): void {
-    document.querySelectorAll(selector).forEach((link) => {
-        link.addEventListener('auxclick', event => event.preventDefault(), { signal });
-        link.addEventListener('click', event => event.preventDefault(), { signal });
-    });
-}
-
 export function registerPageScript(init: (signal: AbortSignal) => void): void {
     let controller: AbortController | undefined;
 

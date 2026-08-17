@@ -3,8 +3,6 @@ export const LINKS = {
     instagram: 'https://instagram.com/empowher.atx',
     instagramHandle: '@empowher.atx',
     pitchDeck: '/assets/empowher_festival_pitch_deck.pdf',
-    website: 'https://annamadewell.com',
-    websiteLabel: 'annamadewell.com',
 } as const;
 
 export const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';

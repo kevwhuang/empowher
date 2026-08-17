@@ -34,16 +34,14 @@ const tiles = TILE_ASPECTS.map(aspect => ({
         <ul
             class="gallery-masonry columns-4 gap-x-3 list-none"
             data-scroll="scale"
-            data-scroll-stagger
+            data-scroll-stagger="0.03"
         >
             {tiles.map(tile => (
                 <li
                     class:list={['gallery-masonry__tile', 'placeholder', tile.aspect, 'break-inside-avoid', 'mb-3']}
                     aria-hidden="true"
                     style={`--gallery-masonry-tint: ${tile.tint};`}
-                >
-                    <span class="relative z-1">[Photo placeholder]</span>
-                </li>
+                />
             ))}
         </ul>
     </div>
@@ -60,11 +58,6 @@ const tiles = TILE_ASPECTS.map(aspect => ({
         content: '';
         inset: 0;
         position: absolute;
-    }
-
-    .gallery-masonry__tile > span {
-        font-size: 0.75rem;
-        padding: 0.5rem;
     }
 
     @media (max-width: 64rem) {

@@ -8,7 +8,7 @@ import logoStudio from '@images/logos/inn_cahoots_studio.webp';
 
 interface Props {
     hasSponsors?: boolean;
-    placeholderLabels: string[];
+    placeholderCount?: number;
 }
 
 const SPONSORS = [
@@ -18,7 +18,7 @@ const SPONSORS = [
     { alt: 'Leftway Studios', densities: [1, 2], fitBlock: 1, fitInline: 0.827, image: logoLeftway, isInverted: true, width: 400 },
 ];
 
-const { hasSponsors = false, placeholderLabels } = Astro.props;
+const { hasSponsors = false, placeholderCount = 0 } = Astro.props;
 ---
 
 <ul
@@ -39,13 +39,11 @@ const { hasSponsors = false, placeholderLabels } = Astro.props;
             />
         </li>
     ))}
-    {placeholderLabels.map(label => (
+    {Array.from({ length: placeholderCount }).map(() => (
         <li
             class="logo-wall__tile placeholder aspect-[4/3]"
             aria-hidden="true"
-        >
-            <span>{label}</span>
-        </li>
+        />
     ))}
 </ul>
 

@@ -170,15 +170,6 @@
     position: relative;
 }
 
-.placeholder > span {
-    color: var(--color-lavender);
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
-    letter-spacing: 0.12em;
-    padding: 1rem;
-    text-align: center;
-}
-
 .prose {
     max-width: var(--measure-prose);
 }

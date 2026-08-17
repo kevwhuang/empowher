@@ -1,6 +1,5 @@
 ---
 import SectionHead from '@components/SectionHead.astro';
-import { LINKS } from '@lib/constants';
 ---
 
 <section
@@ -13,9 +12,7 @@ import { LINKS } from '@lib/constants';
                 class="placeholder aspect-[4/5] -rotate-2 shadow-pop-purple"
                 aria-hidden="true"
                 data-scroll="left"
-            >
-                <span>[Photo placeholder]</span>
-            </div>
+            />
             <div
                 class="team-founder__content"
                 data-scroll="right"
@@ -46,14 +43,6 @@ import { LINKS } from '@lib/constants';
                 >
                     <a
                         class="button button--primary"
-                        aria-disabled="true"
-                        href={LINKS.website}
-                        tabindex="-1"
-                    >
-                        {LINKS.websiteLabel}
-                    </a>
-                    <a
-                        class="button button--ghost"
                         href="/contact"
                     >
                         Work with us
@@ -68,21 +57,6 @@ import { LINKS } from '@lib/constants';
     .team-founder {
         gap: clamp(2rem, calc(1.33rem + 3.33vw), 4rem);
         grid-template-columns: minmax(15rem, 24rem) minmax(0, 1fr);
-    }
-
-    .team-founder .button[aria-disabled='true'] {
-        cursor: not-allowed;
-        opacity: 0.45;
-    }
-
-    .team-founder .button[aria-disabled='true']:active {
-        box-shadow: var(--shadow-pop);
-        transform: none;
-    }
-
-    .team-founder .button[aria-disabled='true']:hover {
-        background: var(--color-purple);
-        transform: none;
     }
 
     .team-founder .team-founder__role {
@@ -108,13 +82,3 @@ import { LINKS } from '@lib/constants';
         }
     }
 </style>
-
-<script>
-    import { initDisabledLinks, registerPageScript } from '@lib/utils';
-
-    function initTeamFounder(signal: AbortSignal) {
-        initDisabledLinks('.team-founder a[aria-disabled="true"]', signal);
-    }
-
-    registerPageScript(initTeamFounder);
-</script>

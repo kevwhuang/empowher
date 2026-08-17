@@ -4,7 +4,6 @@ import { LINKS } from '@lib/constants';
 const CARDS = [
     { href: `mailto:${LINKS.email}`, icon: '\u2709', title: 'Email', value: LINKS.email },
     { href: LINKS.instagram, icon: '\u2726', isExternal: true, title: 'Instagram', value: LINKS.instagramHandle },
-    { href: LINKS.website, icon: '\u2197', isDisabled: true, title: 'Website', value: LINKS.websiteLabel },
 ];
 ---
 
@@ -29,10 +28,8 @@ const CARDS = [
                     <li data-scroll>
                         <a
                             class="card contact-panel__card flex items-center gap-4"
-                            aria-disabled={card.isDisabled ? 'true' : undefined}
                             href={card.href}
                             rel={card.isExternal ? 'noopener noreferrer' : undefined}
-                            tabindex={card.isDisabled ? '-1' : undefined}
                             target={card.isExternal ? '_blank' : undefined}
                         >
                             <span
@@ -108,26 +105,28 @@ const CARDS = [
                                 *
                             </span>
                         </span>
-                        <select
-                            data-error="contact-panel-error-topic"
-                            name="topic"
-                            required
-                        >
-                            <option
-                                disabled
-                                selected
-                                value=""
+                        <span class="contact-panel__select relative grid">
+                            <select
+                                data-error="contact-panel-error-topic"
+                                name="topic"
+                                required
                             >
-                                Choose a topic&hellip;
-                            </option>
-                            <option value="performing">Performing</option>
-                            <option value="press">Press &amp; media</option>
-                            <option value="other">Something else</option>
-                            <option value="sponsorship">Sponsorship</option>
-                            <option value="tickets">Tickets</option>
-                            <option value="vending">Vending</option>
-                            <option value="volunteering">Volunteering</option>
-                        </select>
+                                <option
+                                    disabled
+                                    selected
+                                    value=""
+                                >
+                                    Choose a topic&hellip;
+                                </option>
+                                <option value="performing">Performing</option>
+                                <option value="press">Press &amp; media</option>
+                                <option value="other">Something else</option>
+                                <option value="sponsorship">Sponsorship</option>
+                                <option value="tickets">Tickets</option>
+                                <option value="vending">Vending</option>
+                                <option value="volunteering">Volunteering</option>
+                            </select>
+                        </span>
                         <p
                             id="contact-panel-error-topic"
                             class="contact-panel__error"
@@ -157,18 +156,11 @@ const CARDS = [
                     </label>
                     <button
                         class="button button--large button--primary"
-                        aria-describedby="contact-panel-note"
                         disabled
                         type="submit"
                     >
                         Send it
                     </button>
-                    <p
-                        id="contact-panel-note"
-                        class="contact-panel__note"
-                    >
-                        This form isn&apos;t live yet &mdash; email us in the meantime.
-                    </p>
                 </form>
                 <p
                     class="contact-panel__success px-5 py-4 rounded-card-sm border-[0.0625rem] border-cyan-40 font-semibold bg-cyan-15"
@@ -190,21 +182,6 @@ const CARDS = [
 
     .contact-panel__card:active {
         border-color: var(--color-purple-bright);
-        transform: none;
-    }
-
-    .contact-panel__card[aria-disabled='true'] {
-        cursor: not-allowed;
-        opacity: 0.45;
-    }
-
-    .contact-panel__card[aria-disabled='true']:active {
-        border-color: var(--color-paper-15);
-    }
-
-    .contact-panel__card[aria-disabled='true']:hover {
-        border-color: var(--color-paper-15);
-        box-shadow: none;
         transform: none;
     }
 
@@ -265,6 +242,11 @@ const CARDS = [
         border-color: var(--color-paper-40);
     }
 
+    .contact-panel__field select {
+        appearance: none;
+        padding-right: 2.75rem;
+    }
+
     .contact-panel__form button::after {
         content: '\2726';
         content: '\2726' / '';
@@ -275,11 +257,16 @@ const CARDS = [
         grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
     }
 
-    .contact-panel__note {
+    .contact-panel__select::after {
         color: var(--color-lavender);
-        font-size: 0.875rem;
-        margin-bottom: 0;
-        text-align: center;
+        content: '\25BE';
+        content: '\25BE' / '';
+        font-size: 1.25rem;
+        pointer-events: none;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     .contact-panel__success {
@@ -298,7 +285,7 @@ const CARDS = [
 </style>
 
 <script>
-    import { initDisabledLinks, registerPageScript } from '@lib/utils';
+    import { registerPageScript } from '@lib/utils';
 
     type FormControl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
@@ -350,7 +337,6 @@ const CARDS = [
 
         form?.addEventListener('input', handleInput, { signal });
         form?.addEventListener('submit', handleSubmit, { signal });
-        initDisabledLinks('.contact-panel a[aria-disabled="true"]', signal);
     }
 
     function syncControlError(control: FormControl) {
