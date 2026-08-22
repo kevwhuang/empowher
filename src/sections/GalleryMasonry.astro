@@ -1,22 +1,17 @@
 ---
-const TILE_ASPECTS = [
-    'aspect-[3/4]', 'aspect-video', 'aspect-square', 'aspect-[2/3]', 'aspect-[4/3]',
-    'aspect-square', 'aspect-[2/3]', 'aspect-[4/3]', 'aspect-[3/4]', 'aspect-video',
-    'aspect-video', 'aspect-[4/3]', 'aspect-[3/4]', 'aspect-square', 'aspect-[2/3]',
-    'aspect-[2/3]', 'aspect-[3/4]', 'aspect-video', 'aspect-[4/3]', 'aspect-square',
+const TILE_RATIOS = ['aspect-[4/5]', 'aspect-video', 'aspect-square', 'aspect-[4/3]'] as const;
+
+const TILE_TINTS = [
+    'var(--color-purple-15)',
+    'var(--color-pink-15)',
+    'var(--color-cyan-10)',
+    'var(--color-ink-55)',
+    'transparent',
 ] as const;
 
-const TILE_TINTS = {
-    'aspect-[2/3]': 'var(--color-pink-15)',
-    'aspect-[3/4]': 'var(--color-purple-15)',
-    'aspect-[4/3]': 'var(--color-cyan-10)',
-    'aspect-square': 'var(--color-ink-55)',
-    'aspect-video': 'transparent',
-} as const;
-
-const tiles = TILE_ASPECTS.map(aspect => ({
-    aspect,
-    tint: TILE_TINTS[aspect],
+const tiles = Array.from({ length: TILE_RATIOS.length * TILE_TINTS.length }, (_, index) => ({
+    aspect: TILE_RATIOS[index % TILE_RATIOS.length],
+    tint: TILE_TINTS[index % TILE_TINTS.length],
 }));
 ---
 

@@ -1,21 +1,37 @@
 ---
 import LogoWall from '@components/LogoWall.astro';
 import SectionHead from '@components/SectionHead.astro';
+import logoCbsNews from '@images/logos/cbs_news.webp';
+import logoCultureMap from '@images/logos/culturemap_austin.webp';
+import logoDo512 from '@images/logos/do512.webp';
+import logoEdmtrain from '@images/logos/edmtrain.webp';
+import logoNowPlayingAustin from '@images/logos/now_playing_austin.webp';
+import logoVisitAustin from '@images/logos/visit_austin.webp';
 
-const PRESS_LOGO_COUNT = 4;
+const MEDIA = [
+    { alt: 'CBS News', image: logoCbsNews },
+    { alt: 'CultureMap Austin', image: logoCultureMap },
+    { alt: 'Do512', image: logoDo512 },
+    { alt: 'EDMTrain', image: logoEdmtrain },
+    { alt: 'Now Playing Austin', image: logoNowPlayingAustin },
+    { alt: 'Visit Austin', image: logoVisitAustin },
+];
 ---
 
 <section
-    class="section section--tint"
+    class="section"
     aria-labelledby="press-wall-title"
 >
     <div class="shell">
         <SectionHead
-            eyebrow={'Press & media \u2014 2025'}
+            eyebrow={'Media & press \u2014 2025'}
             headingId="press-wall-title"
         >
             As seen &amp; heard
         </SectionHead>
-        <LogoWall placeholderCount={PRESS_LOGO_COUNT} />
+        <LogoWall
+            isWide
+            logos={MEDIA}
+        />
     </div>
 </section>

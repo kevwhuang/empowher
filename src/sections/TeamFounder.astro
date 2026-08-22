@@ -1,5 +1,8 @@
 ---
+import { Image } from 'astro:assets';
+
 import SectionHead from '@components/SectionHead.astro';
+import photoAnna from '@images/team/anna_madewell.webp';
 ---
 
 <section
@@ -9,10 +12,18 @@ import SectionHead from '@components/SectionHead.astro';
     <div class="shell">
         <div class="team-founder grid items-center">
             <div
-                class="placeholder aspect-[4/5] -rotate-2 shadow-pop-purple"
-                aria-hidden="true"
+                class="aspect-[4/5] overflow-clip rounded-card -rotate-2 shadow-pop-purple"
                 data-scroll="left"
-            />
+            >
+                <Image
+                    class="object-cover h-full w-full"
+                    alt="Anna Madewell holding a vintage microphone"
+                    loading="lazy"
+                    sizes="(min-width: 768px) 384px, 100vw"
+                    src={photoAnna}
+                    widths={[600, 1_200]}
+                />
+            </div>
             <div
                 class="team-founder__content"
                 data-scroll="right"
@@ -27,10 +38,10 @@ import SectionHead from '@components/SectionHead.astro';
                         class="team-founder__role"
                         slot="text"
                     >
-                        Founder &amp; Executive Director &middot; Madewell Productions
+                        Founder &amp; Festival Director &middot; Madewell Productions
                     </p>
                 </SectionHead>
-                <p data-scroll>The director behind EmpowHER Festival, Anna leads Madewell Productions in cross-collaboration with Austin's creative collectives &mdash; turning one venue, three stages, and a 40+ person team into a storytelling immersive music production.</p>
+                <p data-scroll>The director behind EmpowHER Festival, Anna leads Madewell Productions in cross-collaboration with Austin's creative collectives &mdash; turning one venue, three stages, and a 20-person team into a storytelling immersive music production.</p>
                 <p
                     class="team-founder__impact"
                     data-scroll

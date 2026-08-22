@@ -3,7 +3,9 @@ import SectionHead from '@components/SectionHead.astro';
 
 const STATS = [
     { countTo: '10', label: 'Cash sponsorships + ticket revenue generated', prefix: '$', suffix: 'K+' },
-    { countTo: '40', label: 'Operational team members', suffix: '+' },
+    { countTo: '180', label: 'Tickets sold in 2025' },
+    { countTo: '30', label: 'Performers across three stages' },
+    { countTo: '20', label: 'Operational team members' },
     { countTo: '3', label: 'Stages, one immersive experience' },
     { countTo: '10', label: 'Hours of nonstop programming' },
 ];
@@ -22,7 +24,7 @@ const STATS = [
             Built different. <span class="text-holo">Proven loud.</span>
         </SectionHead>
         <dl
-            class="home-stats grid grid-cols-[repeat(auto-fit,minmax(min(100%,13rem),1fr))] gap-5"
+            class="home-stats grid grid-cols-3 gap-5 max-lg:grid-cols-2 max-md:grid-cols-1"
             data-scroll="scale"
             data-scroll-stagger
         >

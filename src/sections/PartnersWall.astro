@@ -1,6 +1,17 @@
 ---
 import LogoWall from '@components/LogoWall.astro';
 import SectionHead from '@components/SectionHead.astro';
+import logoAustinGarden from '@images/logos/inn_cahoots_garden.webp';
+import logoIykyk from '@images/logos/inn_cahoots_iykyk_rooftop.webp';
+import logoLeftway from '@images/logos/leftway_studios.webp';
+import logoStudio from '@images/logos/inn_cahoots_studio.webp';
+
+const PARTNERS = [
+    { alt: 'Austin Garden Stage \u2014 Inn Cahoots', image: logoAustinGarden, isPhoto: true },
+    { alt: 'IYKYK Rooftop \u2014 Inn Cahoots', fitBlock: 0.708, image: logoIykyk, isInverted: true },
+    { alt: 'The Studio \u2014 Inn Cahoots', fitBlock: 0.875, image: logoStudio, isInverted: true },
+    { alt: 'Leftway Studios', fitInline: 0.827, image: logoLeftway, isInverted: true },
+];
 ---
 
 <section
@@ -14,6 +25,6 @@ import SectionHead from '@components/SectionHead.astro';
         >
             The partners behind the magic
         </SectionHead>
-        <LogoWall hasSponsors />
+        <LogoWall logos={PARTNERS} />
     </div>
 </section>

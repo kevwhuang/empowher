@@ -1,7 +1,31 @@
 ---
+import PersonCard from '@components/PersonCard.astro';
 import SectionHead from '@components/SectionHead.astro';
+import photoAmiiri from '@images/team/amiiri.webp';
+import photoAnna from '@images/team/anna.webp';
+import photoCassie from '@images/team/cassie.webp';
+import photoHannah from '@images/team/hannah.webp';
+import photoJasmine from '@images/team/jasmine.webp';
+import photoKelsey from '@images/team/kelsey.webp';
+import photoLaura from '@images/team/laura.webp';
+import photoMarissa from '@images/team/marissa.webp';
+import photoPaloma from '@images/team/paloma.webp';
+import photoPriyanka from '@images/team/priyanka.webp';
+import photoSarah from '@images/team/sarah.webp';
 
-const ROLE_COUNT = 12;
+const TEAM = [
+    { image: photoAnna, name: 'Anna', role: 'Founder & Festival Director' },
+    { image: photoLaura, name: 'Laura', role: 'Executive Director' },
+    { image: photoKelsey, name: 'Kelsey', role: 'Dance Director' },
+    { image: photoSarah, name: 'Sarah', role: 'Social Media Manager' },
+    { image: photoPriyanka, name: 'Priyanka', role: 'Sponsorship Director' },
+    { image: photoAmiiri, name: 'Amiiri', role: 'Promotions Queen' },
+    { image: photoHannah, name: 'Hannah', role: 'Event Coordinator' },
+    { image: photoMarissa, name: 'Marissa', role: 'Graphic Designer' },
+    { image: photoPaloma, name: 'Paloma', role: 'PR Lead' },
+    { image: photoJasmine, name: 'Jasmine', role: 'Operations Manager' },
+    { image: photoCassie, name: 'Cassie', role: 'Flow Director' },
+];
 ---
 
 <section
@@ -14,19 +38,14 @@ const ROLE_COUNT = 12;
             headingId="team-grid-title"
         >
             The hands and hearts behind it
-            <p slot="text">Meet the leads &mdash; with dozens more across stages, production, hospitality, and safety.</p>
+            <p slot="text">Meet the leads &mdash; with more hands across stages, production, hospitality, and safety.</p>
         </SectionHead>
         <ul
-            class="grid grid-cols-4 gap-5 list-none max-lg:grid-cols-2 max-md:grid-cols-1"
+            class="flex flex-wrap justify-center gap-5 list-none"
             data-scroll
             data-scroll-stagger
         >
-            {Array.from({ length: ROLE_COUNT }).map(() => (
-                <li
-                    class="placeholder aspect-square"
-                    aria-hidden="true"
-                />
-            ))}
+            {TEAM.map(member => <PersonCard image={member.image} name={member.name} role={member.role} />)}
         </ul>
     </div>
 </section>

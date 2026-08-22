@@ -6,12 +6,13 @@ import HomePillars from '@sections/HomePillars.astro';
 import HomeStats from '@sections/HomeStats.astro';
 import Layout from '@/Layout.astro';
 import Marquee from '@sections/Marquee.astro';
+import PressWall from '@sections/PressWall.astro';
 import Stages from '@sections/Stages.astro';
 import { LINKS } from '@lib/constants';
 ---
 
 <Layout
-    description={'A storytelling immersive music production that reminds you who TF you are. April 17, 2027 \u00b7 12PM\u201310PM \u00b7 Austin Garden, Austin, TX.'}
+    description={'A storytelling immersive music production that reminds you who TF you are. April 17, 2027 \u00b7 12PM\u201310PM \u00b7 Austin Garden Stage, Austin, TX.'}
     title="EmpowHER Festival"
 >
     <HomeHero />
@@ -21,19 +22,20 @@ import { LINKS } from '@lib/constants';
             'Remind you who TF you are',
             'Awaken your authenticity',
             'Empowering voices',
-            'April 17 \u2014 Austin Garden',
+            'April 17 \u2014 Austin Garden Stage',
         ]}
     />
     <HomeCountdown />
     <HomePillars />
     <Stages />
     <HomeStats />
+    <PressWall />
     <Marquee
         items={[
             LINKS.instagramHandle,
             'IYKYK Rooftop',
             'The Studio',
-            'Garden Stage',
+            'Austin Garden Stage',
             'Pop to EDM',
         ]}
     />

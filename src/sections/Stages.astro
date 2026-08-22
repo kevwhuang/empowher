@@ -7,6 +7,9 @@ import SectionHead from '@components/SectionHead.astro';
 import logoAustinGarden from '@images/logos/inn_cahoots_garden.webp';
 import logoIykyk from '@images/logos/inn_cahoots_iykyk_rooftop.webp';
 import logoStudio from '@images/logos/inn_cahoots_studio.webp';
+import photoAustinGarden from '@images/stages/austin_garden_stage.webp';
+import photoIykyk from '@images/stages/iykyk_rooftop.webp';
+import photoStudio from '@images/stages/the_studio.webp';
 
 interface Props {
     variant?: 'home' | 'info';
@@ -19,6 +22,8 @@ interface Stage {
     logoAlt: string;
     logoHeight: string;
     name: string;
+    photo: ImageMetadata;
+    photoAlt: string;
     vibe: string;
     width: number;
 }
@@ -29,9 +34,11 @@ const STAGES: Stage[] = [
             home: 'Main acts + DJ headliners',
         },
         logo: logoAustinGarden,
-        logoAlt: 'Austin Garden \u2014 Inn Cahoots',
+        logoAlt: 'Austin Garden Stage \u2014 Inn Cahoots',
         logoHeight: '2.6rem',
-        name: 'Garden Stage',
+        name: 'Austin Garden Stage',
+        photo: photoAustinGarden,
+        photoAlt: 'Aerial view of the Austin Garden Stage at sunset',
         vibe: 'Vibe: High-energy \u00b7 Open-air \u00b7 Peak visibility',
         width: 42,
     },
@@ -45,6 +52,8 @@ const STAGES: Stage[] = [
         logoAlt: 'IYKYK Rooftop \u2014 Inn Cahoots',
         logoHeight: '1.37rem',
         name: 'IYKYK Rooftop',
+        photo: photoIykyk,
+        photoAlt: 'IYKYK Rooftop lounge overlooking the Austin skyline at sunset',
         vibe: 'Vibe: Mystical \u00b7 Intimate \u00b7 Golden hour',
         width: 45,
     },
@@ -58,6 +67,8 @@ const STAGES: Stage[] = [
         logoAlt: 'The Studio \u2014 Inn Cahoots',
         logoHeight: '1.69rem',
         name: 'The Studio',
+        photo: photoStudio,
+        photoAlt: 'The Studio bar and lounge',
         vibe: 'Vibe: Intimate \u00b7 Conversational \u00b7 Content-driven',
         width: 63,
     },
@@ -86,10 +97,16 @@ const isInfo = variant === 'info';
         >
             {STAGES.map(stage => (
                 <li class="card card--subgrid stages__card">
-                    <div
-                        class="placeholder aspect-[16/10]"
-                        aria-hidden="true"
-                    />
+                    <div class="stages__card-photo aspect-video">
+                        <Image
+                            class="object-cover h-full w-full"
+                            alt={stage.photoAlt}
+                            loading="lazy"
+                            sizes="(min-width: 768px) 33vw, 100vw"
+                            src={stage.photo}
+                            widths={[360, 720]}
+                        />
+                    </div>
                     <h3>{stage.name}</h3>
                     <p>{stage.descriptions[variant] ?? stage.descriptions.home}</p>
                     <p class="stages__card-vibe">{stage.vibe}</p>
@@ -142,14 +159,6 @@ const isInfo = variant === 'info';
         row-gap: 0.5rem;
     }
 
-    .stages__card .placeholder {
-        border: 0;
-        border-bottom: var(--border-soft);
-        border-radius: 0;
-        margin-bottom: calc(var(--stages-card-pad) - 0.5rem);
-        margin-inline: calc(var(--stages-card-pad) * -1);
-    }
-
     .stages__card .stages__card-logo {
         align-self: center;
         height: var(--stages-logo-height);
@@ -161,5 +170,11 @@ const isInfo = variant === 'info';
         font-size: 0.75rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
+    }
+
+    .stages__card-photo {
+        border-bottom: var(--border-soft);
+        margin-bottom: calc(var(--stages-card-pad) - 0.5rem);
+        margin-inline: calc(var(--stages-card-pad) * -1);
     }
 </style>

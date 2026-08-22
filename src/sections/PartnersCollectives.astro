@@ -1,17 +1,41 @@
 ---
+import LogoWall from '@components/LogoWall.astro';
+import PersonCard from '@components/PersonCard.astro';
 import SectionHead from '@components/SectionHead.astro';
+import logoACristal from '@images/logos/a_cristal_experience.webp';
+import logoAmplifyEdm from '@images/logos/amplify_edm.webp';
+import logoBakedUp from '@images/logos/baked_up.webp';
+import logoBpe from '@images/logos/bpe.webp';
+import logoEdmProsperity from '@images/logos/edm_prosperity_network.webp';
+import logoFitcidence from '@images/logos/fitcidence.webp';
+import logoVenusCollective from '@images/logos/venus_collective.webp';
+import logoWarriorWomen from '@images/logos/warrior_women.webp';
+import photoDanielle from '@images/partners/danielle.webp';
+import photoKay from '@images/partners/kay.webp';
+import photoSaratonin from '@images/partners/saratonin.webp';
+import photoSydney from '@images/partners/sydney.webp';
 
 const COLLECTIVES = [
-    'Amplify EDM',
-    'Baked Up',
-    'EDM Prosperity Network',
-    'The Dance Academy',
-    'Warrior Women',
-] as const;
+    { alt: 'A Cristal Experience', image: logoACristal },
+    { alt: 'Amplify EDM', image: logoAmplifyEdm },
+    { alt: 'BPE', image: logoBpe },
+    { alt: 'Baked Up', image: logoBakedUp },
+    { alt: 'EDM Prosperity Network', image: logoEdmProsperity },
+    { alt: 'Fitcidence', image: logoFitcidence },
+    { alt: 'Venus Collective', image: logoVenusCollective },
+    { alt: 'Warrior Women', image: logoWarriorWomen },
+];
+
+const FOUNDERS = [
+    { image: photoDanielle, name: 'Danielle', role: 'Founder, Warrior Women' },
+    { image: photoKay, name: 'Kay', role: 'Founder, Amplify EDM' },
+    { image: photoSaratonin, name: 'Saratonin', role: 'Founder, EDM Prosperity Network' },
+    { image: photoSydney, name: 'Sydney', role: 'Founder, Baked Up' },
+];
 ---
 
 <section
-    class="section"
+    class="section section--tint"
     aria-labelledby="partners-collectives-title"
 >
     <div class="shell">
@@ -23,35 +47,12 @@ const COLLECTIVES = [
             <p slot="text">Madewell Productions builds space for Austin's community of leading creative organizations.</p>
         </SectionHead>
         <ul
-            class="partners-collectives flex flex-wrap gap-3"
+            class="flex flex-wrap justify-center gap-5 mb-8 list-none"
             data-scroll
             data-scroll-stagger
         >
-            {COLLECTIVES.map(name => (
-                <li class="partners-collectives__item">{name}</li>
-            ))}
+            {FOUNDERS.map(founder => <PersonCard image={founder.image} name={founder.name} role={founder.role} />)}
         </ul>
+        <LogoWall logos={COLLECTIVES} />
     </div>
 </section>
-
-<style>
-    .partners-collectives__item {
-        background: var(--color-ink-light);
-        border: var(--border-soft);
-        border-radius: var(--radius-pill);
-        font-family: var(--font-display);
-        font-size: 0.875rem;
-        font-weight: 500;
-        padding: 0.7em 1.4em;
-        transition:
-            border-color var(--duration-fast) ease,
-            color var(--duration-fast) ease,
-            transform var(--duration-fast) ease;
-    }
-
-    .partners-collectives__item:hover {
-        border-color: var(--color-pink);
-        color: var(--color-pink);
-        transform: translateY(-0.2rem) rotate(-1.5deg);
-    }
-</style>

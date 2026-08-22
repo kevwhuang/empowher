@@ -1,0 +1,36 @@
+---
+import type { ImageMetadata } from 'astro';
+
+import { Image } from 'astro:assets';
+
+interface Props {
+    image: ImageMetadata;
+    name: string;
+    role: string;
+}
+
+const { image, name, role } = Astro.props;
+---
+
+<li class="person-card card flex flex-col items-center basis-[calc((100%-3*1.25rem)/4)] text-center max-lg:basis-[calc((100%-1.25rem)/2)] max-md:basis-full">
+    <Image
+        class="object-cover size-28 mb-4 rounded-full select-none"
+        alt=""
+        loading="lazy"
+        sizes="7rem"
+        src={image}
+        widths={[112, 224]}
+    />
+    <h3>{name}</h3>
+    <p class="person-card__role">{role}</p>
+</li>
+
+<style>
+    .person-card .person-card__role {
+        color: var(--color-cyan);
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+    }
+</style>
