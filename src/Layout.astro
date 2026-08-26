@@ -1,8 +1,6 @@
 ---
-import '@fontsource-variable/outfit/index.css';
-import '@fontsource-variable/unbounded/index.css';
-import '@fontsource/special-elite/400.css';
 import { ClientRouter } from 'astro:transitions';
+import { Font } from 'astro:assets';
 
 import '@/global.css';
 import '@/styles.css';
@@ -85,9 +83,12 @@ const structuredData = {
         <meta content={ogImageUrl} name="twitter:image" />
         <meta content={title} name="twitter:title" />
         <script is:inline set:html={JSON.stringify(structuredData)} type="application/ld+json" />
+        <Font cssVariable="--font-outfit" preload />
+        <Font cssVariable="--font-special-elite" preload />
+        <Font cssVariable="--font-unbounded" preload />
         <ClientRouter />
     </head>
-    <body class="flex flex-col overflow-x-clip min-h-svh antialiased font-sans text-body bg-ink text-paper">
+    <body class="flex flex-col overflow-x-clip min-h-svh antialiased text-body bg-ink text-paper">
         <Navbar />
         <main class="flex flex-1 flex-col">
             <slot />

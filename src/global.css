@@ -39,18 +39,9 @@
     --color-yellow: #ffd23d;
     --color-yellow-15: #ffd23d26;
     --ease-pop: cubic-bezier(0.22, 1, 0.36, 1);
-    --font-display:
-        'Unbounded Variable',
-        system-ui,
-        sans-serif;
-    --font-mono:
-        'Special Elite',
-        'Courier New',
-        monospace;
-    --font-sans:
-        'Outfit Variable',
-        system-ui,
-        sans-serif;
+    --font-display: var(--font-unbounded);
+    --font-mono: var(--font-special-elite);
+    --font-sans: var(--font-outfit);
     --radius-card: 1.25rem;
     --radius-card-sm: 0.65rem;
     --radius-pill: 999rem;
