@@ -1,7 +1,7 @@
 ---
-import type { ImageMetadata } from 'astro';
-
 import { Image } from 'astro:assets';
+
+import type { ImageMetadata } from 'astro';
 
 interface Logo {
     alt: string;
@@ -18,8 +18,8 @@ interface Props {
 }
 
 const DEFAULT_FIT = 1;
-const SIZES = '(min-width: 64rem) 25vw, (min-width: 48rem) 50vw, 100vw';
-const SIZES_WIDE = '(min-width: 64rem) 17vw, (min-width: 48rem) 34vw, 100vw';
+const SIZES = '(max-width: 48rem) 20rem, (max-width: 64rem) 50vw, 25vw';
+const SIZES_WIDE = '(max-width: 48rem) 20rem, (max-width: 64rem) 34vw, 17vw';
 
 const { isWide = false, logos } = Astro.props;
 
@@ -27,12 +27,12 @@ const sizes = isWide ? SIZES_WIDE : SIZES;
 ---
 
 <ul
-    class:list={['logo-wall grid gap-5 list-none', { 'logo-wall--wide': isWide }]}
+    class:list={['logo-wall', { 'logo-wall--wide': isWide }, 'grid gap-5 list-none']}
     data-scroll="scale"
     data-scroll-stagger
 >
     {logos.map(logo => (
-        <li class:list={['logo-wall__tile aspect-[4/3]', { 'logo-wall__tile--photo': logo.isPhoto }]}>
+        <li class:list={['logo-wall__tile', { 'logo-wall__tile--photo': logo.isPhoto }, 'aspect-[4/3]']}>
             <Image
                 class:list={['logo-wall__image absolute inset-0 object-contain m-auto', { 'invert opacity-[0.92]': logo.isInverted }]}
                 alt={logo.alt}
@@ -74,7 +74,7 @@ const sizes = isWide ? SIZES_WIDE : SIZES;
 
     .logo-wall__tile:hover {
         border-color: var(--color-purple-55);
-        transform: translateY(-0.3rem) rotate(-1deg);
+        transform: translateY(-0.375rem) rotate(-1deg);
     }
 
     .logo-wall__tile--photo .logo-wall__image {

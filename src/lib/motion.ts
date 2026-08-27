@@ -1,26 +1,21 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import { REDUCED_MOTION_QUERY } from '@lib/constants';
+import { LOCALE, MS_PER_SECOND, REDUCED_MOTION_QUERY } from '@lib/constants';
 
 type ScrolledListener = (isScrolled: boolean) => void;
 
 const COUNT_DURATION = readSeconds('--duration-count', 1.4);
-const COUNT_LOCALE = 'en-US';
-const MS_PER_SECOND = 1_000;
 const PARALLAX_RATE = 0.28;
 const PARALLAX_SELECTOR = '.home-hero__media';
-const PERCENT_SCALE = 100;
 const REVEAL_DURATION = readSeconds('--duration-slow', 0.75);
 const REVEAL_EASE = 'power3.out';
 const REVEAL_OFFSET = 26;
 const REVEAL_PROPERTIES = ['rotate', 'scale', 'transform', 'transition', 'translate'];
 const REVEAL_SCALE = 0.94;
 const REVEAL_STAGGER = readSeconds('--scroll-step', 0.09);
-const REVEAL_START_RATIO = 0.85;
+const REVEAL_START = 'top 85%';
 const SCROLLED_OFFSET = 8;
-
-const REVEAL_START = `top ${REVEAL_START_RATIO * PERCENT_SCALE}%`;
 
 const REVEAL_TO: gsap.TweenVars = {
     clearProps: 'transform,transition',
@@ -43,11 +38,11 @@ function animateCount(element: HTMLElement, prefersReducedMotion: boolean) {
     const suffix = element.dataset.suffix ?? '';
     const target = Number.parseInt(element.dataset.countTo ?? '0', 10);
 
-    function format(value: number) {
-        return prefix + Math.round(value).toLocaleString(COUNT_LOCALE) + suffix;
-    }
-
     const finalText = format(target);
+
+    function format(value: number) {
+        return prefix + Math.round(value).toLocaleString(LOCALE) + suffix;
+    }
 
     if (element.textContent === finalText || prefersReducedMotion) {
         element.textContent = finalText;
@@ -88,10 +83,6 @@ function getRevealFrom(element: HTMLElement): gsap.TweenVars {
     }
 }
 
-function getRevealTargets() {
-    return [...getStaggerParents().flatMap(getStaggerChildren), ...getSingleReveals()];
-}
-
 function getSingleReveals() {
     const elements = Array.from(document.querySelectorAll<HTMLElement>('[data-scroll]'));
 
@@ -120,10 +111,6 @@ function handleFocusIn(event: FocusEvent) {
     }
 
     revealInstantly(hiddenElements);
-}
-
-function hideReveals() {
-    getRevealTargets().forEach(element => gsap.set(element, getRevealFrom(element)));
 }
 
 function initParallax(prefersReducedMotion: boolean) {
@@ -161,7 +148,7 @@ function initReveals(prefersReducedMotion: boolean) {
         return;
     }
 
-    targets.forEach(element => gsap.set(element, getRevealFrom(element)));
+    presetReveals(targets);
 
     staggerGroups.forEach(({ children, parent }) => {
         const stagger = Number.parseFloat(parent.dataset.scrollStagger ?? '');
@@ -197,6 +184,10 @@ function isStaggerParent(element: Element | null) {
     return element instanceof HTMLElement && element.dataset.scrollStagger !== undefined;
 }
 
+function presetReveals(elements: HTMLElement[]) {
+    elements.forEach(element => gsap.set(element, getRevealFrom(element)));
+}
+
 function readSeconds(token: string, fallback: number) {
     const value = getComputedStyle(document.documentElement).getPropertyValue(token).trim();
 
@@ -205,10 +196,14 @@ function readSeconds(token: string, fallback: number) {
     return seconds || fallback;
 }
 
-function refreshAfterAssets() {
-    const pendingImages = [...document.images].filter(image => !image.complete).map(image => image.decode().catch(() => undefined));
+async function refreshAfterAssets() {
+    const pendingImages = [...document.images]
+        .filter(image => !image.complete)
+        .map(image => image.decode().catch(() => undefined));
 
-    Promise.all([document.fonts.ready, ...pendingImages]).then(() => ScrollTrigger.refresh());
+    await Promise.all([document.fonts.ready, ...pendingImages]);
+
+    ScrollTrigger.refresh();
 }
 
 function revealInstantly(elements: HTMLElement[]) {
@@ -241,7 +236,7 @@ document.addEventListener('focusin', handleFocusIn);
 gsap.registerPlugin(ScrollTrigger);
 reducedMotionQuery.addEventListener('change', initMotion);
 
-if (!reducedMotionQuery.matches) hideReveals();
+if (!reducedMotionQuery.matches) presetReveals([...getStaggerParents().flatMap(getStaggerChildren), ...getSingleReveals()]);
 
 export function initMotion(): void {
     const prefersReducedMotion = reducedMotionQuery.matches;

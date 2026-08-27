@@ -1,36 +1,29 @@
 ---
-import CtaBanner from '@sections/CtaBanner.astro';
+import Banner from '@sections/shared/Banner.astro';
+import Founder from '@sections/team/Founder.astro';
+import Grid from '@sections/team/Grid.astro';
+import Hero from '@sections/shared/Hero.astro';
 import Layout from '@/Layout.astro';
-import PageHero from '@sections/PageHero.astro';
-import TeamFounder from '@sections/TeamFounder.astro';
-import TeamGrid from '@sections/TeamGrid.astro';
 ---
 
 <Layout
     description={'The 20 humans behind EmpowHER Festival \u2014 founder Anna Madewell and the producers, stage managers, and volunteers building the festival in Austin, TX.'}
     title={'Team \u2014 EmpowHER Festival'}
 >
-    <PageHero
+    <Hero
         eyebrow="The crew"
         text="EmpowHER is built by an operational team of producers, stage managers, artists, and volunteers who believe in reminding you who TF you are."
     >
         20 humans. <span class="text-holo">One mission.</span>
-    </PageHero>
-    <TeamFounder />
-    <TeamGrid />
-    <CtaBanner
+    </Hero>
+    <Founder />
+    <Grid />
+    <Banner
+        actions={[{ href: '/contact', label: 'Join the team' }]}
         eyebrow="Join the crew"
         isTinted
         text={'Volunteers, stagehands, content creators, flow artists \u2014 reach out and tell us how you want to contribute.'}
     >
         Want in? We're always growing.
-        <Fragment slot="actions">
-            <a
-                class="button button--large button--primary"
-                href="/contact"
-            >
-                Join the team
-            </a>
-        </Fragment>
-    </CtaBanner>
+    </Banner>
 </Layout>

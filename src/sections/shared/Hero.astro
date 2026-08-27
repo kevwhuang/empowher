@@ -1,10 +1,11 @@
 ---
 interface Props {
+    actions?: Action[];
     eyebrow: string;
     text?: string;
 }
 
-const { eyebrow, text } = Astro.props;
+const { actions = [], eyebrow, text } = Astro.props;
 ---
 
 <section
@@ -23,9 +24,19 @@ const { eyebrow, text } = Astro.props;
         {text && (
             <p class="page-hero__text max-w-(--measure-prose) text-[1.25rem] text-lavender">{text}</p>
         )}
-        {Astro.slots.has('actions') && (
+        {actions.length > 0 && (
             <div class="page-hero__actions flex flex-wrap gap-4">
-                <slot name="actions" />
+                {actions.map(action => (
+                    <a
+                        class:list={['button', action.isGhost ? 'button--ghost' : 'button--primary']}
+                        download={action.isDownload}
+                        href={action.href}
+                        rel={action.isExternal ? 'noopener noreferrer' : undefined}
+                        target={action.isExternal ? '_blank' : undefined}
+                    >
+                        {action.label}
+                    </a>
+                ))}
             </div>
         )}
     </div>

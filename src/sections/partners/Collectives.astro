@@ -1,6 +1,6 @@
 ---
+import CardPerson from '@components/CardPerson.astro';
 import LogoWall from '@components/LogoWall.astro';
-import PersonCard from '@components/PersonCard.astro';
 import SectionHead from '@components/SectionHead.astro';
 import logoACristal from '@images/logos/a_cristal_experience.webp';
 import logoAmplifyEdm from '@images/logos/amplify_edm.webp';
@@ -51,7 +51,7 @@ const FOUNDERS = [
             data-scroll
             data-scroll-stagger
         >
-            {FOUNDERS.map(founder => <PersonCard image={founder.image} name={founder.name} role={founder.role} />)}
+            {FOUNDERS.map(founder => <CardPerson image={founder.image} name={founder.name} role={founder.role} />)}
         </ul>
         <LogoWall logos={COLLECTIVES} />
     </div>

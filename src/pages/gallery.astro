@@ -1,43 +1,31 @@
 ---
-import CtaBanner from '@sections/CtaBanner.astro';
-import GalleryMasonry from '@sections/GalleryMasonry.astro';
+import Banner from '@sections/shared/Banner.astro';
+import Hero from '@sections/shared/Hero.astro';
 import Layout from '@/Layout.astro';
-import PageHero from '@sections/PageHero.astro';
+import Masonry from '@sections/gallery/Masonry.astro';
 import { LINKS } from '@lib/constants';
 ---
 
 <Layout
-    description={'Gallery from EmpowHER Festival \u2014 photos from the 2025 celebration coming soon: Austin Garden Stage, IYKYK Rooftop, The Studio, and a whole lot of glitter.'}
+    description={'Photo gallery from EmpowHER Festival 2025 \u2014 ten hours of music and storytelling across Austin Garden Stage, IYKYK Rooftop, and The Studio in Austin, TX.'}
     title={'Gallery \u2014 EmpowHER Festival'}
 >
-    <PageHero
+    <Hero
         eyebrow="2025 in pictures"
         text={'A look back at EmpowHER 2025 \u2014 three stages, ten hours, and a whole lot of glitter.'}
     >
         The moments that <span class="text-holo">made it</span>
-    </PageHero>
-    <GalleryMasonry />
-    <CtaBanner
+    </Hero>
+    <Masonry />
+    <Banner
+        actions={[
+            { href: '/info', label: 'Festival info' },
+            { href: LINKS.instagram, isExternal: true, isGhost: true, label: 'More on Instagram' },
+        ]}
         eyebrow="Be in the next batch"
         isTinted
         text={'April 17 \u00b7 12PM\u201310PM \u00b7 Austin Garden Stage. See you in the photos.'}
     >
         2027 will be even louder
-        <Fragment slot="actions">
-            <a
-                class="button button--large button--primary"
-                href="/info"
-            >
-                Festival info
-            </a>
-            <a
-                class="button button--ghost button--large"
-                href={LINKS.instagram}
-                rel="noopener noreferrer"
-                target="_blank"
-            >
-                More on Instagram
-            </a>
-        </Fragment>
-    </CtaBanner>
+    </Banner>
 </Layout>

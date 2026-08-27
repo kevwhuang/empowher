@@ -1,13 +1,13 @@
 ---
+import Hero from '@sections/shared/Hero.astro';
 import Layout from '@/Layout.astro';
-import PageHero from '@sections/PageHero.astro';
-import TermsProse from '@sections/TermsProse.astro';
+import Terms from '@sections/legal/Terms.astro';
 ---
 
 <Layout
     description={'The terms of use for empowheratx.com and EmpowHER Festival events \u2014 tickets, entry, conduct, photography consent, and intellectual property.'}
     title={'Terms of Use \u2014 EmpowHER Festival'}
 >
-    <PageHero eyebrow="Legal">Terms of Use</PageHero>
-    <TermsProse />
+    <Hero eyebrow="Legal">Terms of Use</Hero>
+    <Terms />
 </Layout>

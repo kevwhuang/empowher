@@ -1,5 +1,5 @@
 ---
-import { LINKS } from '@lib/constants';
+import { EMAIL_MAX, LINKS, MESSAGE_MAX, NAME_MAX, TOPICS } from '@lib/constants';
 
 const CARDS = [
     { href: `mailto:${LINKS.email}`, icon: '\u2709', title: 'Email', value: LINKS.email },
@@ -56,17 +56,26 @@ const CARDS = [
                     novalidate
                 >
                     <div class="contact-panel__form-row grid grid-cols-2 gap-4">
-                        <label class="contact-panel__field grid gap-2">
-                            <span>
-                                Name&nbsp;
-                                <span
-                                    class="text-pink"
-                                    aria-hidden="true"
-                                >
-                                    *
+                        <div class="contact-panel__field grid gap-2">
+                            <label class="grid gap-2">
+                                <span>
+                                    Name&nbsp;
+                                    <span
+                                        class="text-pink"
+                                        aria-hidden="true"
+                                    >
+                                        *
+                                    </span>
                                 </span>
-                            </span>
-                            <input autocomplete="name" data-error="contact-panel-error-name" name="name" required type="text" />
+                                <input
+                                    autocomplete="name"
+                                    data-error="contact-panel-error-name"
+                                    maxlength={NAME_MAX}
+                                    name="name"
+                                    required
+                                    type="text"
+                                />
+                            </label>
                             <p
                                 id="contact-panel-error-name"
                                 class="contact-panel__error"
@@ -74,18 +83,27 @@ const CARDS = [
                             >
                                 Please enter your name.
                             </p>
-                        </label>
-                        <label class="contact-panel__field grid gap-2">
-                            <span>
-                                Email&nbsp;
-                                <span
-                                    class="text-pink"
-                                    aria-hidden="true"
-                                >
-                                    *
+                        </div>
+                        <div class="contact-panel__field grid gap-2">
+                            <label class="grid gap-2">
+                                <span>
+                                    Email&nbsp;
+                                    <span
+                                        class="text-pink"
+                                        aria-hidden="true"
+                                    >
+                                        *
+                                    </span>
                                 </span>
-                            </span>
-                            <input autocomplete="email" data-error="contact-panel-error-email" name="email" required type="email" />
+                                <input
+                                    autocomplete="email"
+                                    data-error="contact-panel-error-email"
+                                    maxlength={EMAIL_MAX}
+                                    name="email"
+                                    required
+                                    type="email"
+                                />
+                            </label>
                             <p
                                 id="contact-panel-error-email"
                                 class="contact-panel__error"
@@ -93,40 +111,38 @@ const CARDS = [
                             >
                                 Please enter a valid email.
                             </p>
-                        </label>
+                        </div>
                     </div>
-                    <label class="contact-panel__field grid gap-2">
-                        <span>
-                            I'm reaching out about&nbsp;
-                            <span
-                                class="text-pink"
-                                aria-hidden="true"
-                            >
-                                *
-                            </span>
-                        </span>
-                        <span class="contact-panel__select relative grid">
-                            <select
-                                data-error="contact-panel-error-topic"
-                                name="topic"
-                                required
-                            >
-                                <option
-                                    disabled
-                                    selected
-                                    value=""
+                    <div class="contact-panel__field grid gap-2">
+                        <label class="grid gap-2">
+                            <span>
+                                I'm reaching out about&nbsp;
+                                <span
+                                    class="text-pink"
+                                    aria-hidden="true"
                                 >
-                                    Choose a topic&hellip;
-                                </option>
-                                <option value="performing">Performing</option>
-                                <option value="press">Media &amp; press</option>
-                                <option value="other">Something else</option>
-                                <option value="sponsorship">Sponsorship</option>
-                                <option value="tickets">Tickets</option>
-                                <option value="vending">Vending</option>
-                                <option value="volunteering">Volunteering</option>
-                            </select>
-                        </span>
+                                    *
+                                </span>
+                            </span>
+                            <span class="contact-panel__select grid relative">
+                                <select
+                                    data-error="contact-panel-error-topic"
+                                    name="topic"
+                                    required
+                                >
+                                    <option
+                                        disabled
+                                        selected
+                                        value=""
+                                    >
+                                        Choose a topic&hellip;
+                                    </option>
+                                    {TOPICS.map(topic => (
+                                        <option value={topic.value}>{topic.label}</option>
+                                    ))}
+                                </select>
+                            </span>
+                        </label>
                         <p
                             id="contact-panel-error-topic"
                             class="contact-panel__error"
@@ -134,18 +150,26 @@ const CARDS = [
                         >
                             Please choose a topic.
                         </p>
-                    </label>
-                    <label class="contact-panel__field grid gap-2">
-                        <span>
-                            Message&nbsp;
-                            <span
-                                class="text-pink"
-                                aria-hidden="true"
-                            >
-                                *
+                    </div>
+                    <div class="contact-panel__field grid gap-2">
+                        <label class="grid gap-2">
+                            <span>
+                                Message&nbsp;
+                                <span
+                                    class="text-pink"
+                                    aria-hidden="true"
+                                >
+                                    *
+                                </span>
                             </span>
-                        </span>
-                        <textarea class="min-h-32 resize-y" data-error="contact-panel-error-message" name="message" required />
+                            <textarea
+                                class="min-h-32 resize-y"
+                                data-error="contact-panel-error-message"
+                                maxlength={MESSAGE_MAX}
+                                name="message"
+                                required
+                            />
+                        </label>
                         <p
                             id="contact-panel-error-message"
                             class="contact-panel__error"
@@ -153,17 +177,17 @@ const CARDS = [
                         >
                             Please add a short message.
                         </p>
-                    </label>
+                    </div>
                     <button
                         class="button button--large button--primary"
-                        disabled
                         type="submit"
                     >
                         Send it
                     </button>
+                    <p class="contact-panel__network-error" hidden role="alert" />
                 </form>
                 <p
-                    class="contact-panel__success px-5 py-4 rounded-card-sm border-[0.0625rem] border-cyan-40 font-semibold bg-cyan-15"
+                    class="contact-panel__success px-5 py-4 border-[0.0625rem] border-cyan-40 rounded-card-sm font-semibold bg-cyan-15"
                     hidden
                     role="status"
                     tabindex="-1"
@@ -201,13 +225,14 @@ const CARDS = [
         text-transform: uppercase;
     }
 
-    .contact-panel__error {
+    .contact-panel__error,
+    .contact-panel__network-error {
         color: var(--color-pink);
         font-size: 0.75rem;
         margin-bottom: 0;
     }
 
-    .contact-panel__field > span {
+    .contact-panel__field > label > span:not(.contact-panel__select) {
         color: var(--color-lavender);
         font-family: var(--font-mono);
         font-size: 0.75rem;
@@ -222,11 +247,18 @@ const CARDS = [
         border: 0.0625rem solid var(--color-paper-35);
         border-radius: var(--radius-card-sm);
         color: var(--color-paper);
+        font-size: 1rem;
         padding: 0.75rem 1rem;
         transition:
             border-color var(--duration-fast) ease,
             box-shadow var(--duration-fast) ease;
         width: 100%;
+    }
+
+    .contact-panel__field input:active,
+    .contact-panel__field select:active,
+    .contact-panel__field textarea:active {
+        border-color: var(--color-purple-bright);
     }
 
     .contact-panel__field input:focus-visible,
@@ -285,7 +317,8 @@ const CARDS = [
 </style>
 
 <script>
-    import { registerPageScript } from '@lib/utils';
+    import { ERROR_GENERIC, ERROR_RATE_LIMITED, JSON_HEADERS, STATUS_RATE_LIMITED } from '@lib/constants';
+    import { registerPageScript, showMessage } from '@lib/utils';
 
     type FormControl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
@@ -302,7 +335,7 @@ const CARDS = [
         error.hidden = true;
     }
 
-    function handleSubmit(event: SubmitEvent) {
+    async function handleSubmit(event: SubmitEvent) {
         event.preventDefault();
 
         const form = event.currentTarget;
@@ -310,6 +343,7 @@ const CARDS = [
         if (!(form instanceof HTMLFormElement)) return;
 
         const controls = form.querySelectorAll<FormControl>('[data-error]');
+        const networkError = form.querySelector<HTMLElement>('.contact-panel__network-error');
         const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
 
         controls.forEach(syncControlError);
@@ -320,16 +354,42 @@ const CARDS = [
             return;
         }
 
+        if (networkError) networkError.hidden = true;
         if (submitButton) submitButton.disabled = true;
 
-        const successMessage = document.querySelector<HTMLElement>('.contact-panel__success');
+        try {
+            const data = new FormData(form);
 
-        if (successMessage) {
-            successMessage.hidden = false;
-            successMessage.focus();
+            const response = await fetch('/api/contact', {
+                body: JSON.stringify({
+                    email: data.get('email'),
+                    message: data.get('message'),
+                    name: data.get('name'),
+                    topic: data.get('topic'),
+                }),
+                headers: JSON_HEADERS,
+                method: 'POST',
+            });
+
+            if (!response.ok) {
+                showMessage(networkError, response.status === STATUS_RATE_LIMITED ? ERROR_RATE_LIMITED : ERROR_GENERIC);
+
+                return;
+            }
+
+            const successMessage = document.querySelector<HTMLElement>('.contact-panel__success');
+
+            if (successMessage) {
+                successMessage.hidden = false;
+                successMessage.focus();
+            }
+
+            form.hidden = true;
+        } catch {
+            showMessage(networkError, ERROR_GENERIC);
+        } finally {
+            if (submitButton) submitButton.disabled = false;
         }
-
-        form.hidden = true;
     }
 
     function initContactPanel(signal: AbortSignal) {

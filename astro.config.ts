@@ -21,7 +21,7 @@ export default defineConfig({
             provider: fontProviders.fontsource(),
             styles: ['normal'],
             subsets: ['latin'],
-            weights: ['100 900'],
+            weights: ['400 700'],
         },
         {
             cssVariable: '--font-special-elite',
@@ -40,7 +40,7 @@ export default defineConfig({
             provider: fontProviders.fontsource(),
             styles: ['normal'],
             subsets: ['latin'],
-            weights: ['200 900'],
+            weights: ['500 900'],
         },
     ],
     integrations: [

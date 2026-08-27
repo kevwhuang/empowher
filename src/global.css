@@ -43,11 +43,11 @@
     --font-mono: var(--font-special-elite);
     --font-sans: var(--font-outfit);
     --radius-card: 1.25rem;
-    --radius-card-sm: 0.65rem;
+    --radius-card-sm: 0.625rem;
     --radius-pill: 999rem;
     --shadow-glow-purple: 0 0 2.5rem var(--color-purple-35);
-    --shadow-pop: 0.4rem 0.4rem 0 var(--color-black-85);
-    --shadow-pop-purple: 0.4rem 0.4rem 0 var(--color-purple-dark);
+    --shadow-pop: 0.375rem 0.375rem 0 var(--color-black-85);
+    --shadow-pop-purple: 0.375rem 0.375rem 0 var(--color-purple-dark);
     --spacing-header: 4.75rem;
     --text-body: 1rem;
     --text-body--line-height: 1.6;
@@ -101,6 +101,7 @@ h2 {
 html {
     overflow-wrap: anywhere;
     scroll-behavior: smooth;
+    touch-action: manipulation;
 }
 
 html[data-astro-transition] {
@@ -126,7 +127,6 @@ p {
 }
 
 :focus-visible:not(input, select, textarea) {
-    border-radius: 0.125rem;
     outline: 0.1875rem solid var(--color-cyan);
     outline-offset: 0.1875rem;
 }

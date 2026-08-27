@@ -14,6 +14,7 @@ const overrides = {
     rules: {
         '@stylistic/jsx-one-expression-per-line': 'off',
         '@stylistic/operator-linebreak': 'off',
+        'no-undef': 'off',
     },
 };
 

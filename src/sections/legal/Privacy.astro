@@ -1,0 +1,40 @@
+---
+import { LINKS } from '@lib/constants';
+---
+
+<section
+    class="section"
+    aria-label="Privacy policy"
+>
+    <div class="shell">
+        <div
+            class="prose"
+            data-scroll
+        >
+            <p class="prose__updated">Last updated: <time datetime="2026-08-27">August 27, 2026</time></p>
+            <h2>1. Who we are</h2>
+            <p>EmpowHER Festival is produced by Madewell Productions. This policy describes how we handle personal information in connection with empowheratx.com (the &ldquo;Site&rdquo;) and our events.</p>
+            <h2>2. Information we collect</h2>
+            <ul>
+                <li><strong>You provide it:</strong> the name, email address, topic, and message you send through the contact form on the Site, and anything you send us by email or social media. A form submission reaches us as email through Resend, which also sends a confirmation to the address you entered; it is not saved to a database. To keep the form from being abused, we store a rate-limiting counter keyed to your IP address in Netlify Blobs, our host's storage &mdash; it holds a request count and a timestamp, never the contents of your message.</li>
+                <li><strong>Store orders:</strong> when you place an order, your name, email address, and shipping address go to Stripe, which processes the payment and shares the order details back with us so we can fulfill and support the order. Full card details are entered on checkout pages hosted by Stripe and are never visible to us.</li>
+                <li><strong>Hosting logs:</strong> our hosting provider, Netlify, keeps standard server access logs (such as IP address, request time, and pages requested) as part of operating its service. The Site runs no analytics or tracking scripts of its own.</li>
+                <li><strong>At events:</strong> photos and recordings taken at the festival, which may include attendees. By attending, you consent to appearing in promotional photos and recordings.</li>
+            </ul>
+            <h2>3. How we use it</h2>
+            <p>We use the information you send us to respond to your inquiries, to send event updates if you have asked for them, and to promote the festival, including through event photos and recordings. We keep what you send us only as long as needed to handle your inquiry and run the festival.</p>
+            <h2>4. Sharing</h2>
+            <p>We share information only with service providers that operate our infrastructure (our hosting provider, Netlify, which processes server logs and stores the rate-limiting counter described above; Stripe, which processes store payments and handles your purchase information under its own privacy policy; and Resend, which delivers our transactional email, such as order confirmations), with any third-party ticketing provider we may use once tickets go on sale &mdash; that provider will handle your purchase information under its own terms, presented at the point of sale &mdash; and where required by law. Messages you send us by email or social media are also processed by those platforms under their own policies. We never sell your personal information.</p>
+            <h2>5. Cookies</h2>
+            <p>The Site sets no cookies. It runs no analytics or tracking scripts, embeds no third-party content, and serves all fonts, images, and video from our own hosting. If that ever changes, we will update this policy first. Checkout happens on pages hosted by Stripe on a Stripe domain; anything set there, including cookies, is governed by Stripe's privacy policy rather than this one.</p>
+            <h2>6. Your rights</h2>
+            <p>You may request access to, correction of, or deletion of your personal information at any time by emailing us at the address below. There are no customer accounts on the Site, so there is nothing to sign in to; the record of a store order lives in our email and in Stripe, and we look it up by the email address used at checkout. We do not currently send a newsletter; if we ever send email updates, each one will include an unsubscribe link.</p>
+            <h2>7. Children</h2>
+            <p>The Site is not directed at children under 13, and we do not knowingly collect their information.</p>
+            <h2>8. Changes</h2>
+            <p>We may update this policy from time to time; the &ldquo;Last updated&rdquo; date above reflects the current version. Material changes will be announced on the Site.</p>
+            <h2>9. Contact</h2>
+            <p>Privacy questions: <a href={`mailto:${LINKS.email}`}>{LINKS.email}</a>. See also our <a href="/terms">Terms of Use</a>.</p>
+        </div>
+    </div>
+</section>

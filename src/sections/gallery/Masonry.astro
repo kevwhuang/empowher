@@ -29,14 +29,10 @@ const tiles = Array.from({ length: TILE_RATIOS.length * TILE_TINTS.length }, (_,
         <ul
             class="gallery-masonry columns-4 gap-x-3 list-none"
             data-scroll="scale"
-            data-scroll-stagger="0.03"
+            data-scroll-stagger="0.066"
         >
             {tiles.map(tile => (
-                <li
-                    class:list={['gallery-masonry__tile', 'placeholder', tile.aspect, 'break-inside-avoid', 'mb-3']}
-                    aria-hidden="true"
-                    style={`--gallery-masonry-tint: ${tile.tint};`}
-                />
+                <li class:list={['gallery-masonry__tile', 'placeholder', tile.aspect, 'break-inside-avoid', 'mb-3']} aria-hidden="true" style={`--gallery-masonry-tint: ${tile.tint};`} />
             ))}
         </ul>
     </div>

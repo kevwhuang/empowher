@@ -1,0 +1,134 @@
+---
+import { formatPrice } from '@lib/utils';
+
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+    products: CollectionEntry<'store'>[];
+}
+
+const PLACEHOLDER_TILES = 9;
+
+const TAG_MODIFIERS = {
+    Accessories: 'card__tag--cyan',
+    Apparel: 'card__tag--pink',
+    Prints: 'card__tag--yellow',
+} as const;
+
+const { products } = Astro.props;
+---
+
+<section
+    class="section"
+    aria-labelledby="store-grid-title"
+>
+    <div class="shell">
+        <h2
+            id="store-grid-title"
+            class="sr-only"
+        >
+            Products
+        </h2>
+        {products.length > 0
+            ? (
+                    <ul
+                        class="grid grid-cols-3 gap-5 list-none max-lg:grid-cols-2 max-md:grid-cols-1"
+                        data-scroll
+                        data-scroll-stagger
+                    >
+                        {products.map(product => (
+                            <li class="card card--subgrid store-grid__card">
+                                <div class="placeholder aspect-square mb-4" aria-hidden="true" />
+                                <span class:list={['card__tag', TAG_MODIFIERS[product.data.category]]}>{product.data.category}</span>
+                                <h3>{product.data.name}</h3>
+                                <p>{product.data.description}</p>
+                                <p class="store-grid__price">{formatPrice(product.data.price)}</p>
+                                {product.data.sizes && (
+                                    <label class="store-grid__size grid gap-2 mb-4">
+                                        <span>Size</span>
+                                        <select data-size>
+                                            {product.data.sizes.map(size => (
+                                                <option value={size}>{size}</option>
+                                            ))}
+                                        </select>
+                                    </label>
+                                )}
+                                <button
+                                    class="button button--primary store-grid__button"
+                                    aria-label={`Add ${product.data.name} to cart`}
+                                    data-product-id={product.data.sizes ? product.id : undefined}
+                                    data-sku={product.data.sizes ? undefined : product.id}
+                                    type="button"
+                                >
+                                    Add to cart
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                )
+            : (
+                    <ul
+                        class="grid grid-cols-3 gap-5 list-none max-lg:grid-cols-2 max-md:grid-cols-1"
+                        data-scroll
+                        data-scroll-stagger
+                    >
+                        {Array.from({ length: PLACEHOLDER_TILES }).map(() => (
+                            <li class="placeholder aspect-square" aria-hidden="true" />
+                        ))}
+                    </ul>
+                )}
+    </div>
+</section>
+
+<style>
+    .store-grid__button {
+        grid-row: var(--card-rows);
+    }
+
+    .store-grid__card {
+        --card-rows: 7;
+    }
+
+    .store-grid__card .store-grid__price {
+        color: var(--color-purple);
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-weight: 900;
+    }
+
+    .store-grid__card p {
+        margin-bottom: 1rem;
+    }
+
+    .store-grid__card select {
+        background: var(--color-ink-light);
+        border: 0.0625rem solid var(--color-paper-35);
+        border-radius: var(--radius-card-sm);
+        color: var(--color-paper);
+        padding: 0.5rem 0.75rem;
+        transition:
+            border-color var(--duration-fast) ease,
+            box-shadow var(--duration-fast) ease;
+    }
+
+    .store-grid__card select:active {
+        border-color: var(--color-purple-bright);
+    }
+
+    .store-grid__card select:focus-visible {
+        border-color: var(--color-purple);
+        box-shadow: 0 0 0 0.1875rem var(--color-purple-25);
+    }
+
+    .store-grid__card select:hover {
+        border-color: var(--color-paper-40);
+    }
+
+    .store-grid__size > span {
+        color: var(--color-lavender);
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+    }
+</style>

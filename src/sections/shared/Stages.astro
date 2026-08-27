@@ -1,6 +1,4 @@
 ---
-import type { ImageMetadata } from 'astro';
-
 import { Image } from 'astro:assets';
 
 import SectionHead from '@components/SectionHead.astro';
@@ -10,6 +8,8 @@ import logoStudio from '@images/logos/inn_cahoots_studio.webp';
 import photoAustinGarden from '@images/stages/austin_garden_stage.webp';
 import photoIykyk from '@images/stages/iykyk_rooftop.webp';
 import photoStudio from '@images/stages/the_studio.webp';
+
+import type { ImageMetadata } from 'astro';
 
 interface Props {
     variant?: 'home' | 'info';
@@ -21,11 +21,11 @@ interface Stage {
     logo: ImageMetadata;
     logoAlt: string;
     logoHeight: string;
+    logoWidth: number;
     name: string;
     photo: ImageMetadata;
     photoAlt: string;
     vibe: string;
-    width: number;
 }
 
 const STAGES: Stage[] = [
@@ -35,12 +35,12 @@ const STAGES: Stage[] = [
         },
         logo: logoAustinGarden,
         logoAlt: 'Austin Garden Stage \u2014 Inn Cahoots',
-        logoHeight: '2.6rem',
+        logoHeight: '2.625rem',
+        logoWidth: 42,
         name: 'Austin Garden Stage',
         photo: photoAustinGarden,
         photoAlt: 'Aerial view of the Austin Garden Stage at sunset',
         vibe: 'Vibe: High-energy \u00b7 Open-air \u00b7 Peak visibility',
-        width: 42,
     },
     {
         descriptions: {
@@ -50,12 +50,12 @@ const STAGES: Stage[] = [
         isInverted: true,
         logo: logoIykyk,
         logoAlt: 'IYKYK Rooftop \u2014 Inn Cahoots',
-        logoHeight: '1.37rem',
+        logoHeight: '1.375rem',
+        logoWidth: 45,
         name: 'IYKYK Rooftop',
         photo: photoIykyk,
         photoAlt: 'IYKYK Rooftop lounge overlooking the Austin skyline at sunset',
         vibe: 'Vibe: Mystical \u00b7 Intimate \u00b7 Golden hour',
-        width: 45,
     },
     {
         descriptions: {
@@ -65,12 +65,12 @@ const STAGES: Stage[] = [
         isInverted: true,
         logo: logoStudio,
         logoAlt: 'The Studio \u2014 Inn Cahoots',
-        logoHeight: '1.69rem',
+        logoHeight: '1.75rem',
+        logoWidth: 63,
         name: 'The Studio',
         photo: photoStudio,
         photoAlt: 'The Studio bar and lounge',
         vibe: 'Vibe: Intimate \u00b7 Conversational \u00b7 Content-driven',
-        width: 63,
     },
 ];
 
@@ -102,7 +102,7 @@ const isInfo = variant === 'info';
                             class="object-cover h-full w-full"
                             alt={stage.photoAlt}
                             loading="lazy"
-                            sizes="(min-width: 768px) 33vw, 100vw"
+                            sizes="(max-width: 48rem) 100vw, 33vw"
                             src={stage.photo}
                             widths={[360, 720]}
                         />
@@ -118,7 +118,7 @@ const isInfo = variant === 'info';
                             loading="lazy"
                             src={stage.logo}
                             style={`--stages-logo-height: ${stage.logoHeight};`}
-                            width={stage.width}
+                            width={stage.logoWidth}
                         />
                     )}
                 </li>

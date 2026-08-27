@@ -1,13 +1,13 @@
 ---
+import Hero from '@sections/shared/Hero.astro';
 import Layout from '@/Layout.astro';
-import PageHero from '@sections/PageHero.astro';
-import PrivacyProse from '@sections/PrivacyProse.astro';
+import Privacy from '@sections/legal/Privacy.astro';
 ---
 
 <Layout
     description={'How EmpowHER Festival handles your information \u2014 what we collect, how it\'s used, zero cookies or tracking on empowheratx.com, and your rights.'}
     title={'Privacy Policy \u2014 EmpowHER Festival'}
 >
-    <PageHero eyebrow="Legal">Privacy Policy</PageHero>
-    <PrivacyProse />
+    <Hero eyebrow="Legal">Privacy Policy</Hero>
+    <Privacy />
 </Layout>

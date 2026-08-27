@@ -1,12 +1,12 @@
 ---
-import ErrorNotFound from '@sections/ErrorNotFound.astro';
 import Layout from '@/Layout.astro';
+import NotFound from '@sections/error/NotFound.astro';
 ---
 
 <Layout
-    description={'This page lost the plot \u2014 but EmpowHER Festival hasn\'t. The page may have moved or no longer exists. Head back for April 17 at Austin Garden Stage.'}
+    description="EmpowHER Festival page not found. This address may have moved or no longer exists. Return to the home page for festival details, or report the broken link."
     noindex
     title={'Page Not Found \u2014 EmpowHER Festival'}
 >
-    <ErrorNotFound />
+    <NotFound />
 </Layout>

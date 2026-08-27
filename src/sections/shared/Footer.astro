@@ -24,7 +24,7 @@ const CREDIT_URL = 'https://instagram.com/aephonics';
             </div>
             <div>
                 <h2 class="site-footer__heading">Explore</h2>
-                <ul class="grid gap-2">
+                <ul class="grid gap-6">
                     {ROUTES.map(route => (
                         <li><a href={route.href}>{route.label}</a></li>
                     ))}
@@ -32,7 +32,7 @@ const CREDIT_URL = 'https://instagram.com/aephonics';
             </div>
             <div>
                 <h2 class="site-footer__heading">Connect</h2>
-                <ul class="grid gap-2">
+                <ul class="grid gap-6">
                     <li><a href={`mailto:${LINKS.email}`}>{LINKS.email}</a></li>
                     <li>
                         <a
@@ -47,7 +47,7 @@ const CREDIT_URL = 'https://instagram.com/aephonics';
             </div>
             <div>
                 <h2 class="site-footer__heading">Assets</h2>
-                <ul class="grid gap-2">
+                <ul class="grid gap-6">
                     <li>
                         <a
                             download
@@ -60,14 +60,17 @@ const CREDIT_URL = 'https://instagram.com/aephonics';
             </div>
         </div>
         <div class="site-footer__legal">
-            <p>&copy; 2026 EmpowHER Festival.</p>
-            <nav
-                class="inline-flex gap-4"
-                aria-label="Legal"
-            >
-                <a href="/privacy">Privacy</a>
-                <a href="/terms">Terms</a>
-            </nav>
+            <p>&copy; 2026 EmpowHER Festival</p>
+            <p class="inline-flex items-center gap-2">
+                Directed by Anna Madewell
+                <Image
+                    class="h-[1.875rem] w-auto invert opacity-[0.85] select-none"
+                    alt="Madewell Productions"
+                    densities={[1, 2]}
+                    src={logoMadewell}
+                    width={43}
+                />
+            </p>
             <a
                 href={CREDIT_URL}
                 rel="noopener noreferrer"
@@ -75,16 +78,13 @@ const CREDIT_URL = 'https://instagram.com/aephonics';
             >
                 Made by @aephonics
             </a>
-            <p class="inline-flex items-center gap-2">
-                Directed by Anna Madewell
-                <Image
-                    class="h-[1.9rem] w-auto invert opacity-[0.85] select-none"
-                    alt="Madewell Productions"
-                    densities={[1, 2]}
-                    src={logoMadewell}
-                    width={43}
-                />
-            </p>
+            <nav
+                class="inline-flex gap-4"
+                aria-label="Legal"
+            >
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+            </nav>
         </div>
     </div>
 </footer>
@@ -123,7 +123,7 @@ const CREDIT_URL = 'https://instagram.com/aephonics';
 
     .site-footer li a::after {
         content: '';
-        inset: -0.375rem -0.75rem;
+        inset: -0.875rem -0.75rem;
         position: absolute;
     }
 
@@ -166,7 +166,7 @@ const CREDIT_URL = 'https://instagram.com/aephonics';
 
     .site-footer__legal a::after {
         content: '';
-        inset: -0.8125rem -0.3125rem;
+        inset: -0.8125rem -0.375rem;
         position: absolute;
     }
 

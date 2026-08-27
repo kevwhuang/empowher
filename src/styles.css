@@ -17,6 +17,7 @@
         color var(--duration-fast) ease,
         opacity var(--duration-fast) ease,
         transform var(--duration-fast) ease;
+    user-select: none;
     will-change: transform;
 }
 
@@ -25,14 +26,14 @@
     transform: translate(0.25rem, 0.25rem);
 }
 
-.button:hover {
+.button:hover:not(:active) {
     transform: translate(-0.18rem, -0.18rem);
 }
 
 .button--ghost {
     background: transparent;
     border-color: var(--color-paper-40);
-    box-shadow: 0.4rem 0.4rem 0 var(--color-paper-10);
+    box-shadow: 0.375rem 0.375rem 0 var(--color-paper-10);
     color: var(--color-paper);
 }
 
@@ -69,7 +70,7 @@
 .card:hover {
     border-color: var(--color-purple-55);
     box-shadow: var(--shadow-glow-purple);
-    transform: translateY(-0.35rem);
+    transform: translateY(-0.375rem);
 }
 
 .card :is(h2, h3) {

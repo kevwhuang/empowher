@@ -1,13 +1,13 @@
 ---
-import CtaBanner from '@sections/CtaBanner.astro';
-import HomeCountdown from '@sections/HomeCountdown.astro';
-import HomeHero from '@sections/HomeHero.astro';
-import HomePillars from '@sections/HomePillars.astro';
-import HomeStats from '@sections/HomeStats.astro';
+import Banner from '@sections/shared/Banner.astro';
+import Countdown from '@sections/home/Countdown.astro';
+import Hero from '@sections/home/Hero.astro';
 import Layout from '@/Layout.astro';
-import Marquee from '@sections/Marquee.astro';
-import PressWall from '@sections/PressWall.astro';
-import Stages from '@sections/Stages.astro';
+import Marquee from '@sections/shared/Marquee.astro';
+import Pillars from '@sections/home/Pillars.astro';
+import Press from '@sections/shared/Press.astro';
+import Stages from '@sections/shared/Stages.astro';
+import Stats from '@sections/home/Stats.astro';
 import { LINKS } from '@lib/constants';
 ---
 
@@ -15,7 +15,7 @@ import { LINKS } from '@lib/constants';
     description={'A storytelling immersive music production that reminds you who TF you are. April 17, 2027 \u00b7 12PM\u201310PM \u00b7 Austin Garden Stage, Austin, TX.'}
     title="EmpowHER Festival"
 >
-    <HomeHero />
+    <Hero />
     <Marquee
         isLoud
         items={[
@@ -25,11 +25,11 @@ import { LINKS } from '@lib/constants';
             'April 17 \u2014 Austin Garden Stage',
         ]}
     />
-    <HomeCountdown />
-    <HomePillars />
+    <Countdown />
+    <Pillars />
     <Stages />
-    <HomeStats />
-    <PressWall />
+    <Stats />
+    <Press />
     <Marquee
         items={[
             LINKS.instagramHandle,
@@ -39,25 +39,14 @@ import { LINKS } from '@lib/constants';
             'Pop to EDM',
         ]}
     />
-    <CtaBanner
+    <Banner
+        actions={[
+            { href: '/contact', label: 'Get in touch' },
+            { href: LINKS.pitchDeck, isDownload: true, isGhost: true, label: 'Download pitch deck' },
+        ]}
         eyebrow="Join the movement"
         text={'Sponsor, vend, perform, or volunteer \u2014 if you align with the mission to empower creatives and amplify genuine self-expression, we want you.'}
     >
         Inspire change. Become part of <span class="text-holo">HERstory</span>.
-        <Fragment slot="actions">
-            <a
-                class="button button--large button--primary"
-                href="/contact"
-            >
-                Get in touch
-            </a>
-            <a
-                class="button button--ghost button--large"
-                download
-                href={LINKS.pitchDeck}
-            >
-                Download pitch deck
-            </a>
-        </Fragment>
-    </CtaBanner>
+    </Banner>
 </Layout>

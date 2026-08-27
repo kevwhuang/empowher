@@ -1,11 +1,12 @@
 ---
 interface Props {
+    actions: Action[];
     eyebrow: string;
     isTinted?: boolean;
     text: string;
 }
 
-const { eyebrow, isTinted = false, text } = Astro.props;
+const { actions, eyebrow, isTinted = false, text } = Astro.props;
 ---
 
 <section
@@ -23,7 +24,17 @@ const { eyebrow, isTinted = false, text } = Astro.props;
             </h2>
             <p>{text}</p>
             <div class="cta-banner__actions flex flex-wrap justify-center gap-4">
-                <slot name="actions" />
+                {actions.map(action => (
+                    <a
+                        class:list={['button', 'button--large', action.isGhost ? 'button--ghost' : 'button--primary']}
+                        download={action.isDownload}
+                        href={action.href}
+                        rel={action.isExternal ? 'noopener noreferrer' : undefined}
+                        target={action.isExternal ? '_blank' : undefined}
+                    >
+                        {action.label}
+                    </a>
+                ))}
             </div>
         </div>
     </div>

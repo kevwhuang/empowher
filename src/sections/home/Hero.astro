@@ -94,7 +94,7 @@ import poster from '@images/poster.webp';
     }
 
     .home-hero__logo {
-        filter: drop-shadow(0 0.8rem 2.5rem var(--color-purple-45));
+        filter: drop-shadow(0 0.75rem 2.5rem var(--color-purple-45));
         margin-inline: auto;
         width: var(--home-hero-logo-width);
     }
@@ -145,10 +145,20 @@ import poster from '@images/poster.webp';
         margin-bottom: 1.5rem;
         margin-inline: auto;
         max-width: 40rem;
+        position: relative;
+    }
+
+    .home-hero__tagline::before {
+        background: radial-gradient(50% 50% at 50% 50%, var(--color-ink-80), var(--color-ink-55) 75%, transparent 100%);
+        content: '';
+        inset: -2.5rem -25%;
+        pointer-events: none;
+        position: absolute;
+        z-index: -1;
     }
 
     .home-hero__tagline strong {
-        color: var(--color-purple);
+        color: var(--color-purple-bright);
     }
 </style>
 

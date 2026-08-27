@@ -84,9 +84,8 @@ const UNITS = [
 </style>
 
 <script>
-    import { REDUCED_MOTION_QUERY } from '@lib/constants';
+    import { MS_PER_SECOND, REDUCED_MOTION_QUERY } from '@lib/constants';
 
-    const MS_PER_SECOND = 1_000;
     const PAD_LENGTH = 2;
     const SECONDS_PER_DAY = 86_400;
     const SECONDS_PER_HOUR = 3_600;
@@ -101,7 +100,7 @@ const UNITS = [
     let secondsElement: HTMLElement | null = null;
     let targetTime = 0;
 
-    function initCountdown() {
+    function initHomeCountdown() {
         clearInterval(countdownInterval);
 
         const root = document.querySelector<HTMLElement>('[data-countdown]');
@@ -116,8 +115,8 @@ const UNITS = [
         hoursElement = root.querySelector<HTMLElement>('[data-unit="hours"]');
         minutesElement = root.querySelector<HTMLElement>('[data-unit="minutes"]');
         secondsElement = root.querySelector<HTMLElement>('[data-unit="seconds"]');
-        update();
         countdownInterval = setInterval(update, MS_PER_SECOND);
+        update();
     }
 
     function setValue(element: HTMLElement | null, value: number) {
@@ -145,5 +144,5 @@ const UNITS = [
         setValue(secondsElement, totalSeconds % SECONDS_PER_MINUTE);
     }
 
-    document.addEventListener('astro:page-load', initCountdown);
+    document.addEventListener('astro:page-load', initHomeCountdown);
 </script>

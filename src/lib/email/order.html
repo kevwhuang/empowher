@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <title>New order</title>
+    </head>
+    <body style="background-color: #0e0816; font-family: Outfit, Arial, sans-serif; margin: 0; padding: 0">
+        <table
+            cellpadding="0"
+            cellspacing="0"
+            role="presentation"
+            style="background-color: #0e0816"
+            width="100%"
+        >
+            <tr>
+                <td style="padding: 32px 20px">
+                    <table
+                        cellpadding="0"
+                        cellspacing="0"
+                        role="presentation"
+                        style="margin: 0 auto; max-width: 600px"
+                        width="100%"
+                    >
+                        <tr>
+                            <td style="background-color: #221836; border-bottom: 1px solid #423954; border-radius: 20px 20px 0 0; border-top: 3px solid #ff3dae; padding: 24px 32px">
+                                <h1 style="color: #faf7ff; font-family: Unbounded, Arial, sans-serif; font-size: 20px; font-weight: 700; line-height: 1.12; margin: 0">New order</h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #221836; border-bottom: 1px solid #423954; padding: 24px 32px">
+                                <p style="color: #3dd9ff; font-family: 'Special Elite', 'Courier New', monospace; font-size: 12px; letter-spacing: 0.15em; margin: 0 0 16px; text-transform: uppercase">Details</p>
+                                <table
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    role="presentation"
+                                    width="100%"
+                                >
+                                    <tr>
+                                        <td style="color: #b9aed1; font-size: 16px; line-height: 1.6; padding: 8px 16px 8px 0; vertical-align: top; white-space: nowrap">Order</td>
+                                        <td style="color: #faf7ff; font-size: 16px; line-height: 1.6; padding: 8px 0; word-break: break-word">{{orderId}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #b9aed1; font-size: 16px; line-height: 1.6; padding: 8px 16px 8px 0; vertical-align: top; white-space: nowrap">Name</td>
+                                        <td style="color: #faf7ff; font-size: 16px; line-height: 1.6; padding: 8px 0; word-break: break-word">{{name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #b9aed1; font-size: 16px; line-height: 1.6; padding: 8px 16px 8px 0; vertical-align: top; white-space: nowrap">Email</td>
+                                        <td style="color: #faf7ff; font-size: 16px; line-height: 1.6; padding: 8px 0; word-break: break-word">
+                                            <a
+                                                href="mailto:{{email}}"
+                                                style="color: #b271ff; text-decoration: underline"
+                                            >{{email}}</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #221836; border-bottom: 1px solid #423954; padding: 24px 32px">
+                                <p style="color: #3dd9ff; font-family: 'Special Elite', 'Courier New', monospace; font-size: 12px; letter-spacing: 0.15em; margin: 0 0 16px; text-transform: uppercase">Items</p>
+                                <table
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    style="border-collapse: collapse"
+                                    width="100%"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                scope="col"
+                                                style="border-bottom: 1px solid #423954; color: #b9aed1; font-family: 'Special Elite', 'Courier New', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.15em; padding: 0 0 12px; text-align: left; text-transform: uppercase"
+                                            >Item</th>
+                                            <th
+                                                scope="col"
+                                                style="border-bottom: 1px solid #423954; color: #b9aed1; font-family: 'Special Elite', 'Courier New', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.15em; padding: 0 16px 12px; text-align: center; text-transform: uppercase"
+                                            >Qty</th>
+                                            <th
+                                                scope="col"
+                                                style="border-bottom: 1px solid #423954; color: #b9aed1; font-family: 'Special Elite', 'Courier New', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.15em; padding: 0 0 12px; text-align: right; text-transform: uppercase"
+                                            >Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{rows}}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td
+                                                colspan="2"
+                                                style="border-top: 1px solid #423954; color: #b9aed1; font-family: 'Special Elite', 'Courier New', monospace; font-size: 12px; letter-spacing: 0.15em; padding: 16px 0 0; text-transform: uppercase"
+                                            >Total</td>
+                                            <td style="border-top: 1px solid #423954; color: #faf7ff; font-size: 20px; font-weight: 700; padding: 16px 0 0; text-align: right">{{total}}</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #221836; border-radius: 0 0 20px 20px; padding: 24px 32px 32px">
+                                <p style="color: #3dd9ff; font-family: 'Special Elite', 'Courier New', monospace; font-size: 12px; letter-spacing: 0.15em; margin: 0 0 16px; text-transform: uppercase">Shipping</p>
+                                <p style="color: #faf7ff; font-size: 16px; line-height: 1.6; margin: 0; white-space: pre-wrap; word-break: break-word">{{shipping}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 24px 32px 0; text-align: center">
+                                <a
+                                    href="https://empowheratx.com"
+                                    style="color: #b9aed1; font-family: 'Special Elite', 'Courier New', monospace; font-size: 12px; letter-spacing: 0.15em; text-decoration: underline; text-transform: uppercase"
+                                >EmpowHER Festival</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

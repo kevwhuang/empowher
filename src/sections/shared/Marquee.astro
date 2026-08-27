@@ -4,7 +4,7 @@ interface Props {
     items: string[];
 }
 
-const TRACK_COUNT = 6;
+const TRACKS = 6;
 
 const { isLoud = false, items } = Astro.props;
 ---
@@ -13,7 +13,7 @@ const { isLoud = false, items } = Astro.props;
     class:list={['marquee', { 'marquee--loud': isLoud }]}
     aria-hidden="true"
 >
-    {Array.from({ length: TRACK_COUNT }, () => (
+    {Array.from({ length: TRACKS }, () => (
         <div class="marquee__track">
             {items.map(item => (
                 <>

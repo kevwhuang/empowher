@@ -1,0 +1,688 @@
+---
+import { formatPrice } from '@lib/utils';
+
+import type { CollectionEntry } from 'astro:content';
+
+interface CartLine {
+    label: string;
+    name: string;
+    price: number;
+    size?: string;
+    sku: string;
+}
+
+interface Props {
+    products: CollectionEntry<'store'>[];
+}
+
+const { products } = Astro.props;
+
+const lines: CartLine[] = products
+    .flatMap(product => (product.data.sizes ?? [undefined]).map(size => ({
+        label: size ? `${product.data.name} \u2014 ${size}` : product.data.name,
+        name: product.data.name,
+        price: product.data.price,
+        size,
+        sku: size ? `${product.id}:${size}` : product.id,
+    })));
+---
+
+{lines.length > 0 && (
+    <section
+        class="store-cart"
+        aria-labelledby="store-cart-title"
+    >
+        <button
+            class="button button--primary store-cart__toggle bottom-5 fixed right-5 z-110"
+            aria-controls="store-cart-panel"
+            aria-expanded="false"
+            type="button"
+        >
+            Cart
+            <span
+                class="store-cart__count select-none"
+                aria-hidden="true"
+            >
+                0
+            </span>
+        </button>
+        <div class="store-cart__backdrop fixed inset-0 z-120" />
+        <div
+            id="store-cart-panel"
+            class="store-cart__panel fixed flex flex-col inset-y-0 overflow-y-auto right-0 z-130 max-w-full gap-5"
+            aria-labelledby="store-cart-title"
+        >
+            <div class="flex items-center justify-between gap-4">
+                <h2 id="store-cart-title">Your cart</h2>
+                <button
+                    class="store-cart__close"
+                    aria-label="Close cart"
+                    type="button"
+                >
+                    &times;
+                </button>
+            </div>
+            <ul class="store-cart__lines grid gap-3 list-none">
+                {lines.map(line => (
+                    <li
+                        class="store-cart__line grid items-center gap-x-3 gap-y-2"
+                        data-price={line.price}
+                        data-sku={line.sku}
+                        hidden
+                    >
+                        <p class="store-cart__line-name">
+                            {line.name}
+                            {line.size && (
+                                <span class="store-cart__line-size">{line.size}</span>
+                            )}
+                        </p>
+                        <div class="store-cart__quantity flex items-center gap-2">
+                            <button
+                                class="store-cart__step"
+                                aria-label={`Decrease quantity of ${line.label}`}
+                                data-step="-1"
+                                type="button"
+                            >
+                                &minus;
+                            </button>
+                            <span class="store-cart__readout select-none">1</span>
+                            <button
+                                class="store-cart__step"
+                                aria-label={`Increase quantity of ${line.label}`}
+                                data-step="1"
+                                type="button"
+                            >
+                                +
+                            </button>
+                        </div>
+                        <p class="store-cart__line-total">{formatPrice(line.price)}</p>
+                        <button
+                            class="store-cart__remove"
+                            aria-label={`Remove ${line.label}`}
+                            type="button"
+                        >
+                            Remove
+                        </button>
+                    </li>
+                ))}
+            </ul>
+            <p class="store-cart__empty">Your cart is empty.</p>
+            <dl class="store-cart__subtotal flex items-baseline justify-between gap-4">
+                <dt>Subtotal</dt>
+                <dd>{formatPrice(0)}</dd>
+            </dl>
+            <p class="store-cart__note">Shipping and tax are calculated at checkout.</p>
+            <button
+                class="button button--large button--primary store-cart__checkout w-full"
+                disabled
+                type="button"
+            >
+                Checkout
+            </button>
+            <p class="store-cart__error" hidden role="alert" />
+            <p class="store-cart__status" hidden role="status" />
+        </div>
+    </section>
+)}
+
+<style>
+    .store-cart--open .store-cart__backdrop {
+        opacity: 1;
+        transition: opacity var(--duration-base) ease;
+        visibility: visible;
+    }
+
+    .store-cart--open .store-cart__panel {
+        transform: none;
+        transition: transform var(--duration-base) ease;
+        visibility: visible;
+    }
+
+    .store-cart--open .store-cart__toggle {
+        opacity: 0;
+        transition:
+            opacity var(--duration-base) ease,
+            visibility 0s var(--duration-base);
+        visibility: hidden;
+    }
+
+    .store-cart__backdrop {
+        background: var(--color-ink-80);
+        cursor: pointer;
+        opacity: 0;
+        transition:
+            opacity var(--duration-base) ease,
+            visibility 0s var(--duration-base);
+        visibility: hidden;
+    }
+
+    .store-cart__close {
+        background: transparent;
+        border: var(--border-soft);
+        border-radius: var(--radius-pill);
+        color: var(--color-paper);
+        font-size: 1.25rem;
+        height: 2.25rem;
+        line-height: 1;
+        position: relative;
+        transition:
+            background-color var(--duration-fast) ease,
+            border-color var(--duration-fast) ease,
+            color var(--duration-fast) ease;
+        user-select: none;
+        width: 2.25rem;
+    }
+
+    .store-cart__close:active {
+        background: var(--color-paper-10);
+    }
+
+    .store-cart__close:hover {
+        border-color: var(--color-pink);
+        color: var(--color-pink);
+    }
+
+    .store-cart__close::after {
+        content: '';
+        inset: -0.375rem;
+        position: absolute;
+    }
+
+    .store-cart__count {
+        background: var(--color-ink);
+        border-radius: var(--radius-pill);
+        color: var(--color-paper);
+        font-size: 0.75rem;
+        font-variant-numeric: tabular-nums;
+        min-width: 1.5rem;
+        padding: 0.25rem 0.5rem;
+        text-align: center;
+    }
+
+    .store-cart__empty {
+        color: var(--color-lavender);
+        margin-bottom: 0;
+    }
+
+    .store-cart__error {
+        color: var(--color-pink);
+        margin-bottom: 0;
+    }
+
+    .store-cart__line {
+        background: var(--color-ink-light);
+        border: var(--border-soft);
+        border-radius: var(--radius-card-sm);
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        padding: 0.75rem 1rem;
+    }
+
+    .store-cart__line-name {
+        align-items: baseline;
+        display: flex;
+        font-weight: 600;
+        gap: 0.5rem;
+        grid-column: 1 / -1;
+        margin-bottom: 0;
+    }
+
+    .store-cart__line-size {
+        color: var(--color-lavender);
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+    }
+
+    .store-cart__line-total {
+        font-variant-numeric: tabular-nums;
+        justify-self: end;
+        margin-bottom: 0;
+    }
+
+    .store-cart__note {
+        color: var(--color-lavender);
+        font-size: 0.75rem;
+        margin-bottom: 0;
+    }
+
+    .store-cart__panel {
+        background: var(--color-ink-lighter);
+        border-left: var(--border-soft);
+        padding: clamp(1.5rem, calc(1.33rem + 0.83vw), 2rem);
+        transform: translateX(100%);
+        transition:
+            transform var(--duration-base) ease,
+            visibility 0s var(--duration-base);
+        visibility: hidden;
+        width: var(--measure-narrow);
+    }
+
+    .store-cart__panel h2 {
+        margin-bottom: 0;
+    }
+
+    .store-cart__readout {
+        font-variant-numeric: tabular-nums;
+        min-width: 1.5rem;
+        text-align: center;
+    }
+
+    .store-cart__remove {
+        background: transparent;
+        color: var(--color-lavender);
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        position: relative;
+        text-transform: uppercase;
+        transition:
+            color var(--duration-fast) ease,
+            opacity var(--duration-fast) ease;
+    }
+
+    .store-cart__remove:active {
+        opacity: 0.7;
+    }
+
+    .store-cart__remove:hover {
+        color: var(--color-pink);
+    }
+
+    .store-cart__remove::after {
+        content: '';
+        inset: -0.875rem -0.5rem;
+        position: absolute;
+    }
+
+    .store-cart__status {
+        color: var(--color-cyan);
+        margin-bottom: 0;
+    }
+
+    .store-cart__step {
+        background: var(--color-ink-lighter);
+        border: var(--border-soft);
+        border-radius: var(--radius-pill);
+        color: var(--color-paper);
+        font-size: 1rem;
+        height: 1.75rem;
+        line-height: 1;
+        position: relative;
+        transition:
+            background-color var(--duration-fast) ease,
+            border-color var(--duration-fast) ease,
+            color var(--duration-fast) ease,
+            opacity var(--duration-fast) ease;
+        user-select: none;
+        width: 1.75rem;
+    }
+
+    .store-cart__step:active {
+        background: var(--color-paper-10);
+    }
+
+    .store-cart__step:hover {
+        border-color: var(--color-purple);
+        color: var(--color-purple-bright);
+    }
+
+    .store-cart__step::after {
+        content: '';
+        inset: -0.625rem;
+        position: absolute;
+    }
+
+    .store-cart__subtotal dd {
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-variant-numeric: tabular-nums;
+        font-weight: 700;
+    }
+
+    .store-cart__subtotal dt {
+        color: var(--color-lavender);
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+    }
+
+    .store-cart__toggle {
+        opacity: 1;
+        transition:
+            background-color var(--duration-fast) ease,
+            border-color var(--duration-fast) ease,
+            box-shadow var(--duration-fast) ease,
+            color var(--duration-fast) ease,
+            opacity var(--duration-base) ease,
+            transform var(--duration-fast) ease;
+        visibility: visible;
+    }
+
+    @media (max-width: 48rem) {
+        .store-cart__panel {
+            border-left: none;
+            border-top: var(--border-soft);
+            border-top-left-radius: var(--radius-card);
+            border-top-right-radius: var(--radius-card);
+            inset: auto 0 0;
+            max-height: 85dvh;
+            transform: translateY(100%);
+            width: auto;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .store-cart,
+        .store-cart * {
+            transition: none !important;
+        }
+    }
+</style>
+
+<script>
+    import { ERROR_GENERIC, ERROR_RATE_LIMITED, ITEMS_MAX, JSON_HEADERS, QUANTITY_MAX, STATUS_RATE_LIMITED } from '@lib/constants';
+    import { formatPrice, registerPageScript, showMessage, trapFocus } from '@lib/utils';
+
+    interface Cart {
+        items: CartItem[];
+    }
+
+    interface CartItem {
+        quantity: number;
+        sku: string;
+    }
+
+    const CART_FULL = `Your cart can hold up to ${ITEMS_MAX} items. Remove one before adding another.`;
+    const CART_KEY = 'empowher_cart';
+    const CHECKOUT_CANCELED = 'Checkout canceled. Your cart is still here.';
+    const CHECKOUT_ENDPOINT = '/api/checkout';
+    const CHECKOUT_PARAMETER = 'checkout';
+    const CHECKOUT_SUCCESS = 'Thank you! Your order is confirmed and a receipt is on its way.';
+    const FOCUSABLE_SELECTOR = 'button:not([disabled])';
+    const OPEN_CLASS = 'store-cart--open';
+
+    let cart: Cart = { items: [] };
+    let error: HTMLElement | null = null;
+    let panel: HTMLElement | null = null;
+    let root: HTMLElement | null = null;
+    let status: HTMLElement | null = null;
+    let toggle: HTMLElement | null = null;
+
+    function getQuantity(sku: string) {
+        return cart.items.find(item => item.sku === sku)?.quantity ?? 0;
+    }
+
+    function handleAddClick(event: MouseEvent) {
+        const target = event.target;
+
+        if (!(target instanceof Element)) return;
+
+        const button = target.closest<HTMLElement>('button[data-product-id], button[data-sku]');
+
+        if (!button) return;
+
+        const { productId, sku } = button.dataset;
+        const size = button.closest('li')?.querySelector<HTMLSelectElement>('[data-size]')?.value;
+
+        const lineSku = sku ?? (productId && size ? `${productId}:${size}` : '');
+
+        if (!lineSku) return;
+
+        setQuantity(lineSku, getQuantity(lineSku) + 1);
+    }
+
+    function handleCartKeydown(event: KeyboardEvent) {
+        if (!panel || !root?.classList.contains(OPEN_CLASS)) return;
+
+        if (event.key === 'Escape') {
+            setCartOpen(false);
+            toggle?.focus();
+
+            return;
+        }
+
+        if (event.key === 'Tab') trapFocus(event, panel);
+    }
+
+    async function handleCheckoutClick(event: MouseEvent) {
+        const button = event.currentTarget;
+
+        if (!(button instanceof HTMLButtonElement)) return;
+
+        button.disabled = true;
+
+        if (error) error.hidden = true;
+
+        try {
+            const response = await fetch(CHECKOUT_ENDPOINT, {
+                body: JSON.stringify({ items: cart.items }),
+                headers: JSON_HEADERS,
+                method: 'POST',
+            });
+
+            if (!response.ok) {
+                button.disabled = false;
+                showMessage(error, response.status === STATUS_RATE_LIMITED ? ERROR_RATE_LIMITED : ERROR_GENERIC);
+
+                return;
+            }
+
+            const data: unknown = await response.json();
+
+            if (!data || typeof data !== 'object' || !('url' in data) || typeof data.url !== 'string') {
+                button.disabled = false;
+                showMessage(error, ERROR_GENERIC);
+
+                return;
+            }
+
+            window.location.href = data.url;
+        } catch {
+            button.disabled = false;
+            showMessage(error, ERROR_GENERIC);
+        }
+    }
+
+    function handleCloseClick() {
+        setCartOpen(false);
+        toggle?.focus();
+    }
+
+    function handleLineClick(event: MouseEvent) {
+        const target = event.target;
+
+        if (!(target instanceof Element)) return;
+
+        const sku = target.closest<HTMLElement>('.store-cart__line')?.dataset.sku;
+        const step = target.closest<HTMLElement>('.store-cart__step')?.dataset.step;
+
+        if (!sku) return;
+
+        if (target.closest('.store-cart__remove')) {
+            setQuantity(sku, 0);
+
+            return;
+        }
+
+        if (step === undefined) return;
+
+        setQuantity(sku, getQuantity(sku) + Number.parseInt(step, 10));
+    }
+
+    function handleStorage(event: StorageEvent) {
+        if (!panel || (event.key !== null && event.key !== CART_KEY)) return;
+
+        cart = readCart();
+        render();
+    }
+
+    function handleToggleClick() {
+        setCartOpen(!root?.classList.contains(OPEN_CLASS));
+    }
+
+    function initStoreCart(signal: AbortSignal) {
+        panel = document.getElementById('store-cart-panel');
+        root = document.querySelector<HTMLElement>('.store-cart');
+
+        if (!panel || !root) return;
+
+        const backdrop = root.querySelector<HTMLElement>('.store-cart__backdrop');
+        const checkout = panel.querySelector<HTMLElement>('.store-cart__checkout');
+        const close = panel.querySelector<HTMLElement>('.store-cart__close');
+
+        error = panel.querySelector<HTMLElement>('.store-cart__error');
+        status = panel.querySelector<HTMLElement>('.store-cart__status');
+        toggle = root.querySelector<HTMLElement>('.store-cart__toggle');
+
+        if (!backdrop || !checkout || !close || !toggle) return;
+
+        cart = readCart();
+        backdrop.addEventListener('click', handleCloseClick, { signal });
+        checkout.addEventListener('click', handleCheckoutClick, { signal });
+        close.addEventListener('click', handleCloseClick, { signal });
+        document.addEventListener('click', handleAddClick, { signal });
+        panel.addEventListener('click', handleLineClick, { signal });
+        toggle.addEventListener('click', handleToggleClick, { signal });
+        writeCart(cart);
+        syncCheckoutParameter();
+        render();
+    }
+
+    function readCart(): Cart {
+        const items: CartItem[] = [];
+        const skus = new Set(Array.from(panel?.querySelectorAll<HTMLElement>('.store-cart__line') ?? [], line => line.dataset.sku));
+
+        for (const entry of readStored()) {
+            if (items.length === ITEMS_MAX) break;
+            if (!entry || typeof entry !== 'object') continue;
+            if (!('quantity' in entry) || !('sku' in entry)) continue;
+
+            const { quantity, sku } = entry;
+
+            if (typeof quantity !== 'number' || !Number.isInteger(quantity)) continue;
+            if (quantity < 1) continue;
+            if (typeof sku !== 'string' || !skus.has(sku)) continue;
+
+            items.push({ quantity: Math.min(quantity, QUANTITY_MAX), sku });
+            skus.delete(sku);
+        }
+
+        return { items };
+    }
+
+    function readStored(): unknown[] {
+        try {
+            const raw = localStorage.getItem(CART_KEY);
+
+            const parsed: unknown = raw === null ? null : JSON.parse(raw);
+
+            if (!parsed || typeof parsed !== 'object' || !('items' in parsed) || !Array.isArray(parsed.items)) return [];
+
+            return parsed.items;
+        } catch {
+            return [];
+        }
+    }
+
+    function render() {
+        if (!panel || !toggle) return;
+
+        const checkout = panel.querySelector<HTMLButtonElement>('.store-cart__checkout');
+        const count = toggle.querySelector<HTMLElement>('.store-cart__count');
+        const empty = panel.querySelector<HTMLElement>('.store-cart__empty');
+        const subtotal = panel.querySelector<HTMLElement>('.store-cart__subtotal dd');
+
+        let total = 0;
+        let units = 0;
+
+        panel.querySelectorAll<HTMLElement>('.store-cart__line').forEach((line) => {
+            const increase = line.querySelector<HTMLButtonElement>('[data-step="1"]');
+            const lineTotal = line.querySelector<HTMLElement>('.store-cart__line-total');
+            const price = Number.parseInt(line.dataset.price ?? '0', 10);
+            const quantity = getQuantity(line.dataset.sku ?? '');
+            const readout = line.querySelector<HTMLElement>('.store-cart__readout');
+
+            line.hidden = quantity === 0;
+            total += price * quantity;
+            units += quantity;
+
+            if (increase) increase.disabled = quantity >= QUANTITY_MAX;
+            if (lineTotal) lineTotal.textContent = formatPrice(price * quantity);
+            if (readout) readout.textContent = String(quantity);
+        });
+
+        if (checkout) checkout.disabled = units === 0;
+        if (count) count.textContent = String(units);
+        if (empty) empty.hidden = units > 0;
+        if (subtotal) subtotal.textContent = formatPrice(total);
+    }
+
+    function setCartOpen(isOpen: boolean) {
+        if (!panel || !root || !toggle) return;
+
+        root.classList.toggle(OPEN_CLASS, isOpen);
+        toggle.setAttribute('aria-expanded', String(isOpen));
+
+        if (!isOpen) {
+            panel.removeAttribute('aria-modal');
+            panel.removeAttribute('role');
+
+            return;
+        }
+
+        panel.setAttribute('aria-modal', 'true');
+        panel.setAttribute('role', 'dialog');
+        panel.querySelector<HTMLElement>(FOCUSABLE_SELECTOR)?.focus();
+    }
+
+    function setQuantity(sku: string, quantity: number) {
+        if (quantity > 0 && getQuantity(sku) === 0 && cart.items.length >= ITEMS_MAX) {
+            setCartOpen(true);
+            showMessage(error, CART_FULL);
+
+            return;
+        }
+
+        const items = cart.items.filter(item => item.sku !== sku);
+
+        if (error) error.hidden = true;
+        if (quantity > 0) items.push({ quantity: Math.min(quantity, QUANTITY_MAX), sku });
+
+        cart = { items };
+        writeCart(cart);
+        render();
+    }
+
+    function syncCheckoutParameter() {
+        const url = new URL(window.location.href);
+
+        const state = url.searchParams.get(CHECKOUT_PARAMETER);
+
+        if (state === null) return;
+
+        url.searchParams.delete(CHECKOUT_PARAMETER);
+        history.replaceState(history.state, '', url);
+
+        if (state !== 'canceled' && state !== 'success') return;
+
+        if (state === 'success') {
+            cart = { items: [] };
+            writeCart(cart);
+        }
+
+        showMessage(status, state === 'success' ? CHECKOUT_SUCCESS : CHECKOUT_CANCELED);
+    }
+
+    function writeCart(value: Cart) {
+        try {
+            localStorage.setItem(CART_KEY, JSON.stringify(value));
+        } catch {
+            return;
+        }
+    }
+
+    document.addEventListener('keydown', handleCartKeydown);
+    registerPageScript(initStoreCart);
+    window.addEventListener('storage', handleStorage);
+</script>

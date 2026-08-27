@@ -1,5 +1,5 @@
 ---
-import PersonCard from '@components/PersonCard.astro';
+import CardPerson from '@components/CardPerson.astro';
 import SectionHead from '@components/SectionHead.astro';
 import photoAmiiri from '@images/team/amiiri.webp';
 import photoAnna from '@images/team/anna.webp';
@@ -45,7 +45,7 @@ const TEAM = [
             data-scroll
             data-scroll-stagger
         >
-            {TEAM.map(member => <PersonCard image={member.image} name={member.name} role={member.role} />)}
+            {TEAM.map(member => <CardPerson image={member.image} name={member.name} role={member.role} />)}
         </ul>
     </div>
 </section>

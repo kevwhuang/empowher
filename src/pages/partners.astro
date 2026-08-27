@@ -1,13 +1,13 @@
 ---
-import CtaBanner from '@sections/CtaBanner.astro';
+import Banner from '@sections/shared/Banner.astro';
+import Collectives from '@sections/partners/Collectives.astro';
+import Hero from '@sections/shared/Hero.astro';
 import Layout from '@/Layout.astro';
-import PageHero from '@sections/PageHero.astro';
-import PartnersCollectives from '@sections/PartnersCollectives.astro';
-import PartnersSponsors from '@sections/PartnersSponsors.astro';
-import PartnersTiers from '@sections/PartnersTiers.astro';
-import PartnersWall from '@sections/PartnersWall.astro';
-import PartnersWhy from '@sections/PartnersWhy.astro';
-import PressWall from '@sections/PressWall.astro';
+import Press from '@sections/shared/Press.astro';
+import Sponsors from '@sections/partners/Sponsors.astro';
+import Tiers from '@sections/partners/Tiers.astro';
+import Wall from '@sections/partners/Wall.astro';
+import Why from '@sections/partners/Why.astro';
 import { LINKS } from '@lib/constants';
 ---
 
@@ -15,45 +15,28 @@ import { LINKS } from '@lib/constants';
     description={'Put your brand at the heart of EmpowHER Festival \u2014 sponsorship tiers, brand activations, and a proven 2025 track record of $10,000+ raised by a 20-person crew.'}
     title={'Partners & Sponsors \u2014 EmpowHER Festival'}
 >
-    <PageHero
+    <Hero
+        actions={[
+            { href: '/contact', label: 'Start a partnership' },
+            { href: LINKS.pitchDeck, isDownload: true, isGhost: true, label: 'Download pitch deck' },
+        ]}
         eyebrow="Brand partnerships"
         text={'EmpowHER is a sponsorship opportunity to reach Austin\'s most engaged creative community \u2014 and to stand for something while doing it.'}
     >
         Empower. Elevate. <span class="text-holo">Expand impact.</span>
-        <Fragment slot="actions">
-            <a
-                class="button button--primary"
-                href="/contact"
-            >
-                Start a partnership
-            </a>
-            <a
-                class="button button--ghost"
-                download
-                href={LINKS.pitchDeck}
-            >
-                Download pitch deck
-            </a>
-        </Fragment>
-    </PageHero>
-    <PartnersWhy />
-    <PartnersTiers />
-    <PartnersWall />
-    <PartnersSponsors />
-    <PartnersCollectives />
-    <PressWall />
-    <CtaBanner
+    </Hero>
+    <Why />
+    <Tiers />
+    <Wall />
+    <Sponsors />
+    <Collectives />
+    <Press />
+    <Banner
+        actions={[{ href: '/contact', label: 'Become a sponsor' }]}
         eyebrow="Ready when you are"
+        isTinted
         text={'Tell us about your brand and we\'ll shape a package that fits \u2014 booths, stage moments, podcast integrations, and more.'}
     >
         Let's build something <span class="text-holo">unforgettable</span>
-        <Fragment slot="actions">
-            <a
-                class="button button--large button--primary"
-                href="/contact"
-            >
-                Become a sponsor
-            </a>
-        </Fragment>
-    </CtaBanner>
+    </Banner>
 </Layout>

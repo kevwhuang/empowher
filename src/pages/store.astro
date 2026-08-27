@@ -1,43 +1,37 @@
 ---
-import CtaBanner from '@sections/CtaBanner.astro';
+import { getCollection } from 'astro:content';
+
+import Banner from '@sections/shared/Banner.astro';
+import Cart from '@sections/store/Cart.astro';
+import Grid from '@sections/store/Grid.astro';
+import Hero from '@sections/shared/Hero.astro';
 import Layout from '@/Layout.astro';
-import PageHero from '@sections/PageHero.astro';
-import StoreGrid from '@sections/StoreGrid.astro';
 import { LINKS } from '@lib/constants';
+
+const products = (await getCollection('store')).sort((first, second) => first.data.name.localeCompare(second.data.name));
 ---
 
 <Layout
     description={'The official EmpowHER Festival store \u2014 wear the movement and rep empowering voices ahead of April 17 at Austin Garden Stage.'}
     title={'Store \u2014 EmpowHER Festival'}
 >
-    <PageHero
+    <Hero
         eyebrow="Merch"
-        text="Official EmpowHER Festival merch."
+        text={'Official EmpowHER Festival merch \u2014 apparel, prints, and accessories that carry the mission long after the last set. Ships across the US.'}
     >
         Wear the <span class="text-holo">movement</span>
-    </PageHero>
-    <StoreGrid />
-    <CtaBanner
+    </Hero>
+    <Grid products={products} />
+    <Cart products={products} />
+    <Banner
+        actions={[
+            { href: '/contact', label: 'Contact us' },
+            { href: LINKS.instagram, isExternal: true, isGhost: true, label: 'DM on Instagram' },
+        ]}
         eyebrow="Questions?"
         isTinted
         text={'Questions about merch, sizing, or orders \u2014 reach out anytime.'}
     >
         We're happy to help
-        <Fragment slot="actions">
-            <a
-                class="button button--large button--primary"
-                href="/contact"
-            >
-                Contact us
-            </a>
-            <a
-                class="button button--ghost button--large"
-                href={LINKS.instagram}
-                rel="noopener noreferrer"
-                target="_blank"
-            >
-                DM on Instagram
-            </a>
-        </Fragment>
-    </CtaBanner>
+    </Banner>
 </Layout>
